@@ -6,5 +6,6 @@ function [sigma] = sigmoid(x)
 
 sigma = 1./(1+exp(-x));
 
-end
+disp('test')
 
+end
