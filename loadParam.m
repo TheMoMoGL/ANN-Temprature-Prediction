@@ -15,4 +15,16 @@ load TempReal2014
 load Time2014
 load WindProg2014
 
+load Sunprog2015
+load TempProg2015
+load TempReal2015
+load Time2015
+load WindProg2015
+
+load Sunprog2016
+load TempProg2016
+load TempReal2016
+load Time2016
+load WindProg2016
+
 end
