@@ -1,7 +1,8 @@
 %%% Function to load parameters from .mat file %%%
+%%% Places each year separately into matrices %%%
 
 
-function [] = loadParam()
+function [param2013, param2014, param2015, param2016] = loadParam()
 
 load Sunprog2013
 load TempProg2013
@@ -26,5 +27,10 @@ load TempProg2016
 load TempReal2016
 load Time2016
 load WindProg2016
+
+param2013 = [TempReal2013 TempProg2013 SunProg2013 WindProg2013];
+param2014 = [TempReal2014 TempProg2014 SunProg2014 WindProg2014];
+param2015 = [TempReal2015 TempProg2015 SunProg2015 WindProg2015];
+param2016 = [TempReal2016 TempProg2016 SunProg2016 WindProg2016];
 
 end
