@@ -1,5 +1,4 @@
 %%% Function to load parameters from .mat file %%%
-%%% 
 
 
 function [] = loadParam()
