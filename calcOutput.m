@@ -1,4 +1,4 @@
-function [ newInput, hiddenInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights )
+function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights )
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: input -> vector with input values

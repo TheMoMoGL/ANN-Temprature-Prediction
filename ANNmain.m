@@ -11,21 +11,10 @@ Psun = importdata('SunProg2015.mat');
 
 trainingData = [Pwind, Rtemp, Ptemp, Psun];
 
-% Normilise
-trainingData = Normalisation(trainingData);
-
 % Outlier detection
 
-% Generate weights
-[inputWeights, hiddenWeights] = WeightsGenerator(numInput, numHidden);
+%Training return the weights for validation ANN
+[ inputWeights, hiddenWeights ] = TrainingANN( trainingData, numInput, numHidden, n );
 
-% Training
-for i=1:length(trainingData)-3
-    % create function that selects the right inputs among the training data
-    [input, target] = HourlyInputTarget(trainingData,i);
-    [ newInput, hiddenInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights ); % prediction
-    %Back propagation
-    [ inputWeights, hiddenWeights ] = BackP( output, target, hiddenWeights, inputWeights, hiddenOutput, newInput,n );
-end
-
- % Validation
+ % Validation with the trained weights
+ [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights ); % prediction
