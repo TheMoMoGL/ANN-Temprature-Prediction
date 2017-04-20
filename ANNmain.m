@@ -25,7 +25,7 @@ for i=1:length(trainingData)-3
     [input, target] = HourlyInputTarget(trainingData,i);
     [ newInput, hiddenInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights ); % prediction
     %Back propagation
-    [ inputWeights, hiddenWeights ] = BackP( output, target, hiddenWeights, inputWeights, hiddenOutput, newInput );
+    [ inputWeights, hiddenWeights ] = BackP( output, target, hiddenWeights, inputWeights, hiddenOutput, newInput,n );
 end
 
  % Validation
