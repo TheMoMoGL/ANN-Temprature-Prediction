@@ -1,9 +1,14 @@
-%%% Detection and removal of outliers %%%
+function [sortedParam] = Pre_process(Param)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Detection and replacement of outliers
+%
+% Inputs: Param -> Parameter vector
+%
+% Outputs: sortedParam -> Parameter vector with outliers replaced
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [output] = Pre_process()
-
-Param = [1 2 6 10 9 3 100 101];
+%Param = [1 2 6 10 9 3 100 101];
 
 sortedParam = sort(Param);
 
@@ -13,19 +18,23 @@ MADValue = constant*median(abs(sortedParam - median(sortedParam)));
 
 % Find elements outside of two standard deviations
 id = 2 < (abs(sortedParam - median(sortedParam)) / MADValue);
-%id = 2 < (abs(sortedParam - median(sortedParam)) / mad(sortedParam));
-ind1 = find(id == 1); % Index of outliers
 
-% Remove outliers
-sortedParam(ind1) = NaN;
+% Replace outliers with NaN
+sortedParam(id) = NaN;
 
-[ind2] = find(~isnan(sortedParam));
+%&& Interpolation (Average between previous and next values) for removed data %%%
+notNANvalues = sortedParam(~isnan(sortedParam) == 1);
+NANindex = find(isnan(sortedParam));
 
-% Interpolation (Average between previous and next values) for removed data
-notNAN = sortedParam(~isnan(sortedParam) == 1);
+% Check average derivative
+averageDerivative = diff(notNANvalues);
+nrDer = length(averageDerivative);
+gradient = sum(averageDerivative)/nrDer;
 
-sample = randsample(notNAN, 2);
-
+% Replace NaN values with values fitting to curve
+lastNonNaN = notNANvalues(end);
+t = 1:1:length(NANindex);
+sortedParam(NANindex) = lastNonNaN + gradient*t;
 
 end
 
