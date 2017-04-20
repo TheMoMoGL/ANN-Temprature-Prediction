@@ -1,40 +1,44 @@
-function [sortedParam] = Pre_process(Param)
+function [Param] = Pre_process(Param)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Detection and replacement of outliers
 %
 % Inputs: Param -> Parameter vector
 %
-% Outputs: sortedParam -> Parameter vector with outliers replaced
+% Outputs: Param -> Parameter vector with outliers replaced
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Param = [1 2 6 10 9 3 100 101];
-
-sortedParam = sort(Param);
+%Param = [1 2 3 6 9 10 100 101];
+stepVector = 1:numel(Param);
 
 constant = 1.4826;
 
-MADValue = constant*median(abs(sortedParam - median(sortedParam)));
+% Median average deviation
+MADValue = constant*median(abs(Param - median(Param)));
 
 % Find elements outside of two standard deviations
-id = 2 < (abs(sortedParam - median(sortedParam)) / MADValue);
+id = 2 < (abs(Param - median(Param)) / MADValue);
 
 % Replace outliers with NaN
-sortedParam(id) = NaN;
+Param(id) = NaN;
 
-%&& Interpolation (Average between previous and next values) for removed data %%%
-notNANvalues = sortedParam(~isnan(sortedParam) == 1);
-NANindex = find(isnan(sortedParam));
+[Param,TF] = fillmissing(Param,'linear','SamplePoints',stepVector);
 
-% Check average derivative
-averageDerivative = diff(notNANvalues);
-nrDer = length(averageDerivative);
-gradient = sum(averageDerivative)/nrDer;
-
-% Replace NaN values with values fitting to curve
-lastNonNaN = notNANvalues(end);
-t = 1:1:length(NANindex);
-sortedParam(NANindex) = lastNonNaN + gradient*t;
+%%% Interpolation (Average between previous and next values) for removed data %%%
+% notNANvalues = Param(~isnan(Param));
+% newStepVector = stepVector(~isnan(Param));
+% NANindex = stepVector(isnan(Param));
+% 
+% % Check average derivative
+% averageDerivative = diff(notNANvalues);
+% nrDer = length(averageDerivative);
+% gradient = sum(averageDerivative)/nrDer;
+% 
+% % Replace NaN values with values fitting to curve
+% %if(any(Param == ))
+% lastNonNaN = notNANvalues(end);
+% t = 1:1:length(NANindex);
+% Param(NANindex) = lastNonNaN + gradient*t;
 
 end
 
