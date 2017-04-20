@@ -1,6 +1,6 @@
 % Scaleing parameters
 numInput = 4; % number of input nodes
-numHidden = 3; % number of hidden nodes
+numHidden = 6; % number of hidden nodes
 n = 0.1; % learning rate
 
 % Concatenate data
@@ -27,4 +27,5 @@ for i=1:length(trainingData)-3
     %Back propagation
     [ inputWeights, hiddenWeights ] = BackP( output, target, hiddenWeights, inputWeights, hiddenOutput, newInput );
 end
+
  % Validation

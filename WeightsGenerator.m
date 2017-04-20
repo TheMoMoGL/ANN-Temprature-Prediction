@@ -9,7 +9,7 @@ function [ inputWeights, hiddenWeights ] = WeightsGenerator( numInput, numHidden
 
 for i=1:numInput+1 % +1 because of weight for bias
     for j=1:numHidden
-        inputWeights(j, i) = rand;
+        inputWeights(i, j) = rand;
     end
 end
 for i=1:numHidden+1 % +1 because of weight for bias
