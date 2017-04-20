@@ -1,9 +1,9 @@
-function [ Updated_Weights_Input_Hidden,Updated_Weights_Hidden_Output ] = BackP(Output_of_the_System,Target,Weights_Hidden_Output,Weigthts_Hidden_inputs,Hidden_Nodes,Input_Nodes)
+function [ Updated_Weights_Input_Hidden,Updated_Weights_Hidden_Output ] = BackP(Output_of_the_System,Target,Weights_Hidden_Output,Weigthts_Hidden_inputs,Hidden_Nodes,Input_Nodes,Learning_Rate)
 
 
 
 
-Learning_Rate=0.42;
+
 %%%%%%%%%%%%%Calculation of the Delta Error for Output
 Delta_Error_Output=Output_of_the_System*(1-Output_of_the_System)*(Target-Output_of_the_System);
 
@@ -20,7 +20,7 @@ Delta_Error_Hidden_Nodes(i-1)=Hidden_Nodes(i)*(1 - Hidden_Nodes(i))*Updated_Weig
 end
 %%%%Wieghts updating between Hidden and Input layer
 for j=1:length(Hidden_Nodes)-1
- for i=1:length(Input_Nodes)-1
+ for i=1:length(Input_Nodes)
     
     Delta_Weights_Input(i,j)=Learning_Rate*Delta_Error_Hidden_Nodes(j)*Input_Nodes(i);
  end 
