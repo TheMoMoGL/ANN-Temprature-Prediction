@@ -25,5 +25,6 @@ for i=1:length(trainingData)-3
     input = [trainingData(i+3, 1) trainingData(i, 2) trainingData(i+3, 3) trainingData(i+3, 4)];
     [ newInput, hiddenInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights ); % prediction
     %Back propagation
+    [ inputWeights, hiddenWeights ] = BackP( output, target, hiddenWeights, inputWeights, hiddenOutput, newInput );
 end
  % Validation
