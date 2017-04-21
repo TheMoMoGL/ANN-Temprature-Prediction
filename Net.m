@@ -1,12 +1,12 @@
-function [ summation1 ] = Net( x, y )
+function [ summation ] = Net( x, y )
 
-summation1 = 0;
+% summation = 0;
+% 
+% for i = 1:length(x)
+%     summation = summation + (x(i) * y(i));
+% end
 
-for i = 1:length(x)
-    summation1 = summation1 + (x(i) * y(i));
-end
-
-% prod = x.*y;
-% summation2 = sum(prod);
+prod = y.*x;
+summation = sum(prod);
 
 end
