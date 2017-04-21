@@ -27,4 +27,4 @@ for j=1:length(Hidden_Nodes)-1
  end 
 end 
 Updated_Weights_Input_Hidden = Weigthts_Hidden_inputs + Delta_Weights_Input;
-Updated_Weights_Input_Hidden=Updated_Weights_Input_Hidden';
+Updated_Weights_Input_Hidden=Updated_Weights_Input_Hidden';%Tranponat
