@@ -34,4 +34,6 @@ for i = 1:length(tmpTarget)
     end
 end
 
+graphs(output, tmpTarget, dateAndTime);
+
 end
