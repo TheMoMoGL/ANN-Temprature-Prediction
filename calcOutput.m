@@ -14,8 +14,8 @@ function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, h
 newInput = [1, input]; % Add bias for input layer
 
 % Calculates and creates the vector with values for the hidden layer
-for i=1:length(hiddenWeights)-1 % -1 because its 1 less node than number of weights
-     hiddenInput(i) = sigmoid(Net(inputWeights(:,i), newInput));
+for i = 1:length(hiddenWeights)-1 % -1 because its 1 less node than number of weights
+     hiddenInput(i) = sigmoid(Net(inputWeights(i,:), newInput));
 end
 
 hiddenOutput = [1, hiddenInput]; % Add bias for the hidden layer
