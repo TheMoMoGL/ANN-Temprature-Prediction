@@ -23,4 +23,3 @@ hiddenOutput = [1, hiddenInput]; % Add bias for the hidden layer
 output = sigmoid(Net(hiddenWeights, hiddenOutput)); % Predicted output
 
 end
-
