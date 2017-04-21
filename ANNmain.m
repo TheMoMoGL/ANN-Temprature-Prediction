@@ -13,6 +13,10 @@ Psun = importdata('Psun_training.mat');
 trainingData = [Pwind, Rtemp, Ptemp, Psun];
 
 % Outlier detection
+for t = 1:4
+    processedTrainingData(:,t) = Pre_process(trainingData(:,t));
+end
+
 
 %Training return the weights for validation ANN
 [ inputWeights, hiddenWeights ] = TrainingANN( trainingData, numInput, numHidden, n );
