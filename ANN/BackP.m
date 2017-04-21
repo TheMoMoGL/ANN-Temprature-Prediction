@@ -10,7 +10,7 @@ Delta_Error_Output=Output_of_the_System*(1-Output_of_the_System)*(Target-Output_
 Weigthts_Hidden_inputs=Weigthts_Hidden_inputs';
 %%%%%%%%%%%%%%%Weights updating for Weights between hidden and output
 i=1:length(Weights_Hidden_Output);
-[Updated_Weights_Hidden_Output(i)]=Updator_Weights(Learning_Rate,Delta_Error_Output,Hidden_Nodes(i),Weights_Hidden_Output(i));
+[Updated_Weights_Hidden_Output(i)]=Weight_Updator(Learning_Rate,Delta_Error_Output,Hidden_Nodes(i),Weights_Hidden_Output(i));
 
 %%%%%%%%%%%%%%% Calculation of the Delta Error for Hidden nodes
 
@@ -20,7 +20,7 @@ Delta_Error_Hidden_Nodes(i)=Hidden_Nodes(i+1)*(1 - Hidden_Nodes(i+1)')*Updated_W
 for j=1:length(Hidden_Nodes)-1
  for i=1:length(Input_Nodes)
     
-    [Updated_Weights_Input_Hidden(i,j)]=Updator_Weights(Learning_Rate,Input_Nodes(i),Delta_Error_Hidden_Nodes(j),Weigthts_Hidden_inputs(i,j));
+    [Updated_Weights_Input_Hidden(i,j)]=Weight_Updator(Learning_Rate,Input_Nodes(i),Delta_Error_Hidden_Nodes(j),Weigthts_Hidden_inputs(i,j));
  end 
 end 
 Updated_Weights_Input_Hidden=Updated_Weights_Input_Hidden';%Tranponat
