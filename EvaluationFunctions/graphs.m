@@ -1,5 +1,15 @@
 function [] = graphs(outputVal, actualVal, dateAndTime)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plotting function
+%
+% Inputs: outputVal -> Output values of network
+%         actualVal -> Actual target values
+%         dateAndTime -> Dates and times for forecasts and measured temperatures
+%
+% Outputs: Noone
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 error = outputVal - actualVal;
 
 dt = datetime(dateAndTime,'inputFormat','uuuu-MM-dd HH:mm','TimeZone','local');
