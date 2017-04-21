@@ -1,7 +1,12 @@
 function [ inputWeights, hiddenWeights ] = TrainingANN( trainingData, numInput, numHidden, n )
-%TRAININGANN Summary of this function goes here
-%   Detailed explanation goes here
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inputs: trainingData -> Training data for the ANN
+%         numInput -> Number of nodes in the input layer
+%         numHidden -> Number if nodes in the hidden layer
+%         n -> Learning rate
+% Outputs: inputWeights -> Weights between the input and hidden layer
+%          hiddenWeights -> Weights between the hidden and output layer.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Normilise
 trainingData = Normalisation(trainingData);
 
