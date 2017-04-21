@@ -1,14 +1,14 @@
-function [x] = ReLu_activation_function(x)
+function [value] = ReLu_activation_function(value)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Detection and replacement of outliers
+% Leaky Rectified Linear Unit (Leaky ReLu) activation function
 %
-% Inputs: x -> Parameter value
+% Inputs: value -> Value to be transformed
 %
-% Outputs: x -> Parameter value, modified
+% Outputs: value -> Transformed value
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-x(x > 0) = x;
-x(x < 0) = 0.01*x;
+value(value > 0) = value;
+value(value < 0) = 0.01*value;
 
 end
