@@ -1,14 +1,13 @@
 close all
 clear
 clc
-
+close all
 % Scaleing parameters
 daysBefore = 0;
-hoursbefore = 0;
+hoursbefore = 3;
 numInput = 4 + (daysBefore + hoursbefore); % number of input nodes
-numHidden = 10; % number of hidden nodes
 runHidden=1; %How many hidden nerouns to start with
-endHidden=numHidden; %How many hidden neurons to end with
+endHidden = 20; % number of hidden nodes ti ebd wutg
 % Starting inedx for training and validation
 start = 1;
 if daysBefore ~= 0
@@ -16,7 +15,7 @@ if daysBefore ~= 0
 else
     start = start + hoursbefore*4;
 end
-n = 0.1; % learning rate
+learningRate = 0.1; % learning rate
 
 % Concatenate data
 Pwind = importdata('Pwind_training.mat');
@@ -43,7 +42,7 @@ end
 
 % Training returns the weights for validation ANN
 
-[ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, runHidden, n );
+[ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, runHidden, learningRate );
 
 % Validation with the trained weights
 Pwind = importdata('Pwind_validation.mat');
@@ -65,7 +64,10 @@ for i=start:length(Rtemp)-(start-1)
     a = a+1;
 end
 
-[good, bad] = ValidationANN( ValidationInput, inputWeights, hiddenWeights);
-endreport=[numInput, runHidden, good, bad];
+[good, bad, RMSE, MAPE, Corr] = ValidationANN( ValidationInput, inputWeights, hiddenWeights);
+endreport(runHidden,:)=[numInput, runHidden, learningRate, good, bad, RMSE, MAPE, Corr]; %final report
 end
+
+EndReportAnalysis(endreport);
+
 
