@@ -5,6 +5,6 @@ Parameter = zeros(rowS, colS);
 
 c = 1:colS;
 r = 1:rowS;
-Parameter(r,c) = minVal + normParameter(r, c).*(maxVal - minVal);
+Parameter(r,c) = minVal(c) + normParameter(r, c).*(maxVal(c) - minVal(c));
 
 end

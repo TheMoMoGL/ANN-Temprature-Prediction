@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWeights, hiddenWeights ) 
+function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWeights, hiddenWeights, maxValues, minValues) 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -9,10 +9,10 @@ function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWei
 %          bad -> Non-accurate temperature forecasts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-validationData = Normalisation(validationData);
+%validationData = Normalisation(validationData);
 row = 1;
 % Validation counter
-ValidationCount=0;
+ValidationCount = 0;
 
 dateAndTime = loadVariable('Date_Time_validation.mat');
 
@@ -25,13 +25,13 @@ for i = 1:4:length(validationData)-96
         [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights ); 
 
     end
-    ValidationCount=ValidationCount+1;
+    ValidationCount = ValidationCount+1;
     row = row + 1;
 end
 % validation of last 24-hours
-for i=length(validationData)-95 : 4 : length(validationData)
+for i = length(validationData)-95 : 4 : length(validationData)
     column = 1;
-    for j=i : 4 : length(validationData)-4
+    for j = i : 4 : length(validationData)-4
         [input, target(row, column)] = HourlyInputTarget( validationData, j+4, i );
         column = column + 1;
         [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights );
@@ -45,8 +45,13 @@ target(row-1, :) = target(row-2, :);
 good = 0;
 bad = 0;
 
+for iteration = 1:length(target)
+target = Reverse_normalisation(target(:,iteration), maxValues, minValues);
+output = Reverse_normalisation(output(:,iteration), maxValues, minValues);
+
 for i = 1:length(target)
-    if abs(output(i,24) - target(i,24)) < 0.2517
+    if abs(output(i,24) - target(i,24)) < 2
+%     if abs(output(i,24) - target(i,24)) < 0.2517
         good = good+1;
     else
         bad = bad+1;
@@ -61,6 +66,6 @@ disp(confirmationMessage)
 Statistics=sprintf('Temprature difference < 2 degrees Celsius:%d (Good predictions) \nTemprature difference > 2 degrees Celsius:%d (Bad predictions)',good,bad);
 disp(Statistics)
 
-graphs(output(:,1), Target(:,1), dateAndTime);
+%graphs(output(:,1), Target(:,1), dateAndTime);
 
 end
