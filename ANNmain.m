@@ -7,7 +7,7 @@ daysBefore = 0;
 hoursbefore = 3;
 numInput = 4 + (daysBefore + hoursbefore); % number of input nodes
 runHidden=1; %How many hidden nerouns to start with
-endHidden = 20; % number of hidden nodes ti ebd wutg
+endHidden = 5; % number of hidden nodes ti ebd wutg
 % Starting inedx for training and validation
 start = 1;
 if daysBefore ~= 0
