@@ -2,10 +2,19 @@ close all
 clear
 clc
 
-% Scaling parameters
-numInput = 4; % Number of input nodes
-numHidden = 6; % Number of hidden nodes
-n = 0.1; % Learning rate
+% Scaleing parameters
+daysBefore = 0;
+hoursbefore = 0;
+numInput = 4 + (daysBefore + hoursbefore); % number of input nodes
+numHidden = 6; % number of hidden nodes
+% Starting inedx for training and validation
+start = 1;
+if daysBefore ~= 0
+    start = start + daysBefore*96; 
+else
+    start = start + hoursbefore*4;
+end
+n = 0.1; % learning rate
 
 % Concatenate data
 Pwind = importdata('Pwind_training.mat');
@@ -22,11 +31,15 @@ for t = 1:3
     processedTrainingData(:,t) = Pre_process(trainingData(:,t));
 end
 
-processedTrainingData(:,4) = trainingData(:,4);
+a=1;
+for i=start:length(Rtemp)-start
+    TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( Rtemp, daysBefore, hoursbefore, i )];
+    a = a+1;
+end
 
 
 % Training returns the weights for validation ANN
-[ inputWeights, hiddenWeights ] = TrainingANN( processedTrainingData, numInput, numHidden, n );
+[ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, numHidden, n );
 
 % Validation with the trained weights
 Pwind = importdata('Pwind_validation.mat');
@@ -42,6 +55,10 @@ for t = 1:3
     processedValidationData(:,t) = Pre_process(validationData(:,t));
 end
 
-processedValidationData(:,4) = validationData(:,4);
+a=1;
+for i=start:length(Rtemp)-start
+    ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( Rtemp, daysBefore, hoursbefore, i )];
+    a = a+1;
+end
 
-[good, bad] = ValidationANN( processedValidationData, inputWeights, hiddenWeights )
+[good, bad] = ValidationANN( ValidationInput, inputWeights, hiddenWeights )
