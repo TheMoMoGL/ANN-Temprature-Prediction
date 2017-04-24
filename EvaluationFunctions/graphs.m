@@ -10,11 +10,11 @@ function [] = graphs(outputVal, actualVal, dateAndTime)
 % Outputs: Noone
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-dateAndTimeAlt = dateAndTime(1 : 4 : end);
+dateAndTimeHourly = dateAndTime(1 : 4 : end);
 
 error = outputVal - actualVal;
 
-dt = datetime(dateAndTimeAlt,'inputFormat','uuuu-MM-dd HH:mm','TimeZone','local');
+dt = datetime(dateAndTimeHourly,'inputFormat','uuuu-MM-dd HH:mm','TimeZone','local');
 
 figure('units','normalized','outerposition',[0 0 1 1])
 plot(dt,outputVal)
