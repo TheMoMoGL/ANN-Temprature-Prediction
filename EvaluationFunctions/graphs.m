@@ -7,7 +7,7 @@ function [] = graphs(outputVal, actualVal, dateAndTime)
 %         actualVal -> Actual target values
 %         dateAndTime -> Dates and times for forecasts and measured temperatures
 %
-% Outputs: Noone
+% Outputs: None
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 dateAndTimeHourly = dateAndTime(1 : 4 : end);
