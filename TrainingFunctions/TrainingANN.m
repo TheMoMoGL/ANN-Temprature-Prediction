@@ -28,7 +28,7 @@ end
 ANNinfo = sprintf('ANN created. \nNumber of input nodes:%d \nNumber of Hidden nodes:%d \nLearning rate:%.4f\n',numInput,numHidden,n); 
 disp(ANNinfo)
 message = sprintf('ANN Succesfully trained with');
-confirmationMessage = sprintf('%s %d examples.\n',message,trainCount);
+confirmationMessage = sprintf('%s %d training examples.\n',message,trainCount);
 disp(confirmationMessage)
 
 end
