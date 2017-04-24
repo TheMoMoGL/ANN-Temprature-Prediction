@@ -1,4 +1,4 @@
-function [good, bad,] = ValidationANN( validationData, inputWeights, hiddenWeights ) 
+function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWeights, hiddenWeights ) 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -53,7 +53,7 @@ for i = 1:length(Target)
         
     end
 end
-
+[RMSE, MAPE, Corr] = Error( output, Target );
 
 Message = 'ANN Succesfully validated with';   
 confirmationMessage = sprintf('%s %d examples.',Message,ValidationCount);
