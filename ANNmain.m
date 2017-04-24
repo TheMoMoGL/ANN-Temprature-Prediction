@@ -1,12 +1,13 @@
 close all
 clear
 clc
-
+close all
 % Scaleing parameters
 daysBefore = 0;
-hoursbefore = 0;
+hoursbefore = 3;
 numInput = 4 + (daysBefore + hoursbefore); % number of input nodes
-numHidden = 6; % number of hidden nodes
+runHidden=1; %How many hidden nerouns to start with
+endHidden = 20; % number of hidden nodes ti ebd wutg
 % Starting inedx for training and validation
 start = 1;
 if daysBefore ~= 0
@@ -14,7 +15,7 @@ if daysBefore ~= 0
 else
     start = start + hoursbefore*4;
 end
-n = 0.1; % learning rate
+learningRate = 0.1; % learning rate
 
 %%
 
@@ -26,8 +27,9 @@ Rtemp = importdata('Rtemp_training.mat');
 trainingData = [Pwind, Psun, Ptemp, Rtemp];
 
 processedTrainingData = zeros(size(trainingData));
-
-
+for runHidden=1:endHidden %Loop that itterats thorugh the layers
+ startline = sprintf('--------------------------Nr.input nodes:%d-----Nr.Hidden nodes:%d------------------------------',numInput,runHidden); %for clarity in the information
+disp(startline) %start the run
 % Outlier detection
 for t = 1:3
     processedTrainingData(:,t) = Pre_process(trainingData(:,t));
@@ -42,7 +44,7 @@ end
 
 % Training returns the weights for validation ANN
 
-[ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, numHidden, n );
+[ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, runHidden, learningRate );
 
 %%
 
@@ -66,5 +68,10 @@ for i=start:length(Rtemp)-(start-1)
     a = a+1;
 end
 
-[good, bad] = ValidationANN( ValidationInput, inputWeights, hiddenWeights);
+[good, bad, RMSE, MAPE, Corr] = ValidationANN( ValidationInput, inputWeights, hiddenWeights);
+endreport(runHidden,:)=[numInput, runHidden, learningRate, good, bad, RMSE, MAPE, Corr]; %final report
+end
+
+EndReportAnalysis(endreport);
+
 
