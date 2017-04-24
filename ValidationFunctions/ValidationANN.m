@@ -16,11 +16,11 @@ dateAndTime = loadVariable('Date_Time_validation.mat');
 
 
 for i = 1:4:length(validationData)-96
-    colonn = 1;
+    column = 1;
     for j = i:4:i+92
-        [input tmpTarget(row, colonn)] = HourlyInputTarget( validationData,j+4, i );
-        colonn = colonn + 1;
-        [~, ~, output(row,colonn-1)] = calcOutput( input, inputWeights, hiddenWeights ); 
+        [input tmpTarget(row, column)] = HourlyInputTarget( validationData,j+4, i );
+        column = column + 1;
+        [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights ); 
     end
     row = row + 1;
 end
