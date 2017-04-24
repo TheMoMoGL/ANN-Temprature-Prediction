@@ -12,6 +12,9 @@ function [good, bad] = ValidationANN( validationData, inputWeights, hiddenWeight
 validationData = Normalisation(validationData);
 row = 1;
 
+dateAndTime = loadVariable('Date_Time_validation.mat');
+
+
 for i = 1:4:length(validationData)-96
     colonn = 1;
     for j = i:4:i+92
