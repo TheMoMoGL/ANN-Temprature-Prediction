@@ -27,7 +27,6 @@ processedTrainingData(:,4) = trainingData(:,4);
 
 % Training returns the weights for validation ANN
 [ inputWeights, hiddenWeights ] = TrainingANN( processedTrainingData, numInput, numHidden, n );
-
 % Validation with the trained weights
 Pwind = importdata('Pwind_validation.mat');
 Psun = importdata('Psun_validation.mat');
@@ -44,4 +43,4 @@ end
 
 processedValidationData(:,4) = validationData(:,4);
 
-[good, bad] = ValidationANN( processedValidationData, inputWeights, hiddenWeights )
+[good, bad] = ValidationANN( processedValidationData, inputWeights, hiddenWeights );
