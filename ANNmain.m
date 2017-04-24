@@ -16,6 +16,8 @@ else
 end
 n = 0.1; % learning rate
 
+%%
+
 % Concatenate data
 Pwind = importdata('Pwind_training.mat');
 Psun = importdata('Psun_training.mat');
@@ -41,6 +43,8 @@ end
 % Training returns the weights for validation ANN
 
 [ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, numHidden, n );
+
+%%
 
 % Validation with the trained weights
 Pwind = importdata('Pwind_validation.mat');
