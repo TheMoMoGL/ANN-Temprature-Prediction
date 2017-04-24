@@ -1,4 +1,4 @@
-function [good, bad] = ValidationANN( validationData, inputWeights, hiddenWeights ) 
+function [good, bad,] = ValidationANN( validationData, inputWeights, hiddenWeights ) 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector

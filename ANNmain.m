@@ -6,7 +6,9 @@ clc
 daysBefore = 0;
 hoursbefore = 0;
 numInput = 4 + (daysBefore + hoursbefore); % number of input nodes
-numHidden = 6; % number of hidden nodes
+numHidden = 10; % number of hidden nodes
+runHidden=1; %How many hidden nerouns to start with
+endHidden=numHidden; %How many hidden neurons to end with
 % Starting inedx for training and validation
 start = 1;
 if daysBefore ~= 0
@@ -24,8 +26,9 @@ Rtemp = importdata('Rtemp_training.mat');
 trainingData = [Pwind, Psun, Ptemp, Rtemp];
 
 processedTrainingData = zeros(size(trainingData));
-
-
+for runHidden=1:endHidden %Loop that itterats thorugh the layers
+ startline = sprintf('--------------------------Nr.input nodes:%d-----Nr.Hidden nodes:%d------------------------------',numInput,runHidden); %for clarity in the information
+disp(startline) %start the run
 % Outlier detection
 for t = 1:3
     processedTrainingData(:,t) = Pre_process(trainingData(:,t));
@@ -40,7 +43,7 @@ end
 
 % Training returns the weights for validation ANN
 
-[ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, numHidden, n );
+[ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, runHidden, n );
 
 % Validation with the trained weights
 Pwind = importdata('Pwind_validation.mat');
@@ -63,4 +66,6 @@ for i=start:length(Rtemp)-start
 end
 
 [good, bad] = ValidationANN( ValidationInput, inputWeights, hiddenWeights);
+endreport=[numInput, runHidden, good, bad];
+end
 

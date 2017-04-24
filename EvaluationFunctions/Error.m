@@ -1,4 +1,4 @@
-function [] = Error( output, target )
+function [RMSE, MAPE, Corr] = Error( output, target )
 
 
     RMSE = sqrt( sum( ( target(:) - output(:) ).^2 ) ./ numel(output) );
