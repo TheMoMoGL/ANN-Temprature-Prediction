@@ -1,7 +1,7 @@
 close all
 clear
 clc
-close all
+
 % Scaleing parameters
 daysBefore = 0;
 hoursbefore = 3;
@@ -17,7 +17,6 @@ else
 end
 learningRate = 0.1; % learning rate
 
-%%
 
 % Concatenate data
 Pwind = importdata('Pwind_training.mat');
@@ -35,10 +34,10 @@ for t = 1:3
     processedTrainingData(:,t) = Pre_process(trainingData(:,t));
 end
 
-a=1;
-for i=start:length(Rtemp)-(start-1)
+a = 1;
+for i = start:length(Rtemp)-(start-1)
     TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( Rtemp, daysBefore, hoursbefore, i )];
-    a = a+1;
+    a = a + 1;
 end
 
 
@@ -46,7 +45,6 @@ end
 
 [ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, runHidden, learningRate );
 
-%%
 
 % Validation with the trained weights
 Pwind = importdata('Pwind_validation.mat');
@@ -62,10 +60,10 @@ for t = 1:3
     processedValidationData(:,t) = Pre_process(validationData(:,t));
 end
 
-a=1;
-for i=start:length(Rtemp)-(start-1)
+a = 1;
+for i = start:length(Rtemp)-(start-1)
     ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( Rtemp, daysBefore, hoursbefore, i )];
-    a = a+1;
+    a = a + 1;
 end
 
 [good, bad, RMSE, MAPE, Corr] = ValidationANN( ValidationInput, inputWeights, hiddenWeights);
@@ -73,5 +71,3 @@ endreport(runHidden,:)=[numInput, runHidden, learningRate, good, bad, RMSE, MAPE
 end
 
 EndReportAnalysis(endreport);
-
-
