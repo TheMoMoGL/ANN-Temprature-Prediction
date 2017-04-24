@@ -11,14 +11,16 @@ function [good, bad] = ValidationANN( validationData, inputWeights, hiddenWeight
 
 validationData = Normalisation(validationData);
 row = 1;
-
+% Validation counter
+ValidationCount=0;
 for i = 1:4:length(validationData)-96
     colonn = 1;
     for j = i:4:i+92
         [input tmpTarget(row, colonn)] = HourlyInputTarget( validationData,j+4, i );
         colonn = colonn + 1;
-        [~, ~, output(row,colonn-1)] = calcOutput( input, inputWeights, hiddenWeights ); 
+        [~, ~, output(row,colonn-1)] = calcOutput( input, inputWeights, hiddenWeights );
     end
+    ValidationCount=ValidationCount+1;
     row = row + 1;
 end
 
@@ -34,6 +36,12 @@ for i = 1:length(tmpTarget)
     end
 end
 
-graphs(output, tmpTarget, dateAndTime);
+Message = 'ANN Succesfully validated with';   
+confirmationMessage = sprintf('%s %d examples.',Message,ValidationCount);
+disp(confirmationMessage)
+Statistics=sprintf('Temprature difference < 2 degrees Celsius:%d (Good predictions) \nTemprature difference > 2 degrees Celsius:%d (Bad predictions)',good,bad);
+disp(Statistics)
+
+% graphs(output, tmpTarget, dateAndTime);
 
 end
