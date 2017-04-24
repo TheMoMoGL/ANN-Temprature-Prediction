@@ -53,7 +53,7 @@ for i = 1:length(target)
         
     end
 end
-[RMSE, MAPE, Corr] = Error( output, Target );
+[RMSE, MAPE, Corr] = Error( output, target );
 
 Message = 'ANN Succesfully validated with';   
 confirmationMessage = sprintf('%s %d examples.',Message,ValidationCount);
