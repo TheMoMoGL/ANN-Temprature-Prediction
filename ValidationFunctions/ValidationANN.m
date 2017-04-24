@@ -18,7 +18,7 @@ dateAndTime = loadVariable('Date_Time_validation.mat');
 for i = 1:4:length(validationData)-96
     column = 1;
     for j = i:4:i+92
-        [input tmpTarget(row, column)] = HourlyInputTarget( validationData,j+4, i );
+        [input, Target(row, column)] = HourlyInputTarget( validationData,j+4, i );
         column = column + 1;
         [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights ); 
     end
@@ -28,8 +28,8 @@ end
 good = 0;
 bad = 0;
 
-for i = 1:length(tmpTarget)
-    if abs(output(i,5) - tmpTarget(i,5)) < 0.2517
+for i = 1:length(Target)
+    if abs(output(i,5) - Target(i,5)) < 0.2517
         good = good+1;
     else
         bad = bad+1;
@@ -37,6 +37,6 @@ for i = 1:length(tmpTarget)
     end
 end
 
-graphs(output, tmpTarget, dateAndTime);
+graphs(output, Target, dateAndTime);
 
 end
