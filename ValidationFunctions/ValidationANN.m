@@ -24,7 +24,19 @@ for i = 1:4:length(validationData)-96
     end
     row = row + 1;
 end
-
+% validation of last 24-hours
+for i=length(validationData)-95 : 4 : length(validationData)
+    column = 1;
+    for j=i : 4 : length(validationData)-4
+        [input, Target(row, column)] = HourlyInputTarget( validationData, j+4, i );
+        column = column + 1;
+        [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights );
+    end
+    row = row + 1;
+end
+% last value only for time stamp in graph
+output(row-1, :) = output(row-2, :);
+Target(row-1, :) = Target(row-2, :);
 good = 0;
 bad = 0;
 

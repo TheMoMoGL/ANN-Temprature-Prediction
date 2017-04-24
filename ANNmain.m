@@ -32,7 +32,7 @@ for t = 1:3
 end
 
 a=1;
-for i=start:length(Rtemp)-start
+for i=start:length(Rtemp)-(start-1)
     TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( Rtemp, daysBefore, hoursbefore, i )];
     a = a+1;
 end
@@ -56,7 +56,7 @@ for t = 1:3
 end
 
 a=1;
-for i=start:length(Rtemp)-start
+for i=start:length(Rtemp)-(start-1)
     ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( Rtemp, daysBefore, hoursbefore, i )];
     a = a+1;
 end
