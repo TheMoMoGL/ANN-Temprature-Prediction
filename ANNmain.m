@@ -39,6 +39,7 @@ end
 
 
 % Training returns the weights for validation ANN
+
 [ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, numHidden, n );
 
 % Validation with the trained weights
@@ -61,4 +62,5 @@ for i=start:length(Rtemp)-(start-1)
     a = a+1;
 end
 
-[good, bad] = ValidationANN( ValidationInput, inputWeights, hiddenWeights )
+[good, bad] = ValidationANN( ValidationInput, inputWeights, hiddenWeights);
+
