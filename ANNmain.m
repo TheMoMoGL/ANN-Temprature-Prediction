@@ -4,8 +4,8 @@ clc
 
 
 % Scaling parameters
-daysBefore = 1;
-hoursbefore = 1;
+daysBefore = 2;
+hoursbefore = 2;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 runHidden = 1; % How many hidden nerouns to start with
 endHidden = 20; % Number of hidden nodes to end with
@@ -36,6 +36,8 @@ Psun = importdata('Psun_validation.mat');
 Ptemp = importdata('Ptemp_validation.mat');
 Rtemp = importdata('Rtemp_validation.mat');
 validationData = [Pwind, Psun, Ptemp, Rtemp];
+
+
 
 
 %%
@@ -79,5 +81,7 @@ for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     endReport(runHidden,:)=[numInput, runHidden, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end
 
-EndReportAnalysis(endReport);
+samples = (good+bad);
+
+EndReportAnalysis(endReport, samples, endHidden);
 
