@@ -6,13 +6,13 @@ clc
 
 
 % Scaling parameters
-daysBefore = 3;
+daysBefore = 0;
 hoursbefore = 0;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 runHidden = 1; % How many hidden nerouns to start with
 endHidden = 5; % Number of hidden nodes to end with
 learningRate = 0.1; % Learning rate
-NumbHidLay=0; %Number of hidden layers
+NumbHiddLay=1; %Number of hidden layers
 
 
 % Starting index for training and validation
@@ -77,11 +77,11 @@ for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     
     
     % Training returns the weights for validation ANN
-    [inputWeights, hiddenWeights] = TrainingANN(TrainingInput, numInput, runHidden, learningRate);
+    [inputWeights, hiddenWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
     
     % Validation and classification of results
     [good, bad, RMSE, MAPE, Corr] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, maxValuesTrain, minValuesTrain);
-    endReport(runHidden,:) = [numInput, runHidden, NumbHidLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
+    endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end
 
 samples = (good+bad);
