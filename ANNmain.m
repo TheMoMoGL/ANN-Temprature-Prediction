@@ -2,33 +2,44 @@ close all
 clear
 clc
 
-% Scaleing parameters
-daysBefore = 0;
-hoursbefore = 3;
-numInput = 4 + (daysBefore + hoursbefore); % number of input nodes
-runHidden=1; %How many hidden nerouns to start with
-endHidden = 3; % number of hidden nodes ti ebd wutg
-% Starting inedx for training and validation
+
+% Scaling parameters
+daysBefore = 1;
+hoursbefore = 1;
+numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
+runHidden = 1; % How many hidden nerouns to start with
+endHidden = 20; % Number of hidden nodes to end with
+learningRate = 0.1; % Learning rate
+
+
+% Starting index for training and validation
 start = 1;
 if daysBefore ~= 0
-    start = start + daysBefore*96; 
+    start = start + daysBefore*96;
 else
     start = start + hoursbefore*4;
 end
-learningRate = 0.1; % learning rate
 
+%%
 
-% Concatenate data
+% Load training data and concatenate
 Pwind = importdata('Pwind_training.mat');
 Psun = importdata('Psun_training.mat');
 Ptemp = importdata('Ptem_training.mat');
 Rtemp = importdata('Rtemp_training.mat');
 trainingData = [Pwind, Psun, Ptemp, Rtemp];
 
-processedTrainingData = zeros(size(trainingData));
-for runHidden=1:endHidden %Loop that itterats thorugh the layers
- startline = sprintf('--------------------------Nr.input nodes:%d-----Nr.Hidden nodes:%d------------------------------',numInput,runHidden); %for clarity in the information
-disp(startline) %start the run
+
+% Load validation data and concatenate
+Pwind = importdata('Pwind_validation.mat');
+Psun = importdata('Psun_validation.mat');
+Ptemp = importdata('Ptemp_validation.mat');
+Rtemp = importdata('Rtemp_validation.mat');
+validationData = [Pwind, Psun, Ptemp, Rtemp];
+
+
+%%
+
 % Outlier detection
 for t = 1:3
     processedTrainingData(:,t) = Pre_process(trainingData(:,t));
@@ -40,22 +51,6 @@ for i = start:length(Rtemp)-(start-1)
     a = a + 1;
 end
 
-
-% Training returns the weights for validation ANN
-
-[ inputWeights, hiddenWeights ] = TrainingANN( TrainingInput, numInput, runHidden, learningRate );
-
-
-% Validation with the trained weights
-Pwind = importdata('Pwind_validation.mat');
-Psun = importdata('Psun_validation.mat');
-Ptemp = importdata('Ptemp_validation.mat');
-Rtemp = importdata('Rtemp_validation.mat');
-validationData = [Pwind, Psun, Ptemp, Rtemp];
-
-processedValidationData = zeros(size(validationData));
-
-% Outlier detection
 for t = 1:3
     processedValidationData(:,t) = Pre_process(validationData(:,t));
 end
@@ -66,8 +61,23 @@ for i = start:length(Rtemp)-(start-1)
     a = a + 1;
 end
 
-[good, bad, RMSE, MAPE, Corr] = ValidationANN( ValidationInput, inputWeights, hiddenWeights);
-endreport(runHidden,:)=[numInput, runHidden, learningRate, good, bad, RMSE, MAPE, Corr]; %final report
+[TrainingInput, maxValuesTrain, minValuesTrain] = MaxAndMin(TrainingInput);
+[ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
+
+%%
+
+for runHidden = 1:endHidden % Loop that iterates thorugh the layers
+    startline = sprintf('--------------------------Nr.input nodes:%d-----Nr.Hidden nodes:%d------------------------------',numInput,runHidden); %for clarity in the information
+    disp(startline) % Start the run
+    
+    
+    % Training returns the weights for validation ANN
+    [inputWeights, hiddenWeights] = TrainingANN(TrainingInput, numInput, runHidden, learningRate);
+    
+    % Validation and classification of results
+    [good, bad, RMSE, MAPE, Corr] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, maxValuesTrain, minValuesTrain);
+    endReport(runHidden,:)=[numInput, runHidden, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end
 
-EndReportAnalysis(endreport);
+EndReportAnalysis(endReport);
+
