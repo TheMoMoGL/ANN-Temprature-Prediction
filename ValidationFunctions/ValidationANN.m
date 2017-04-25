@@ -46,17 +46,17 @@ target(row-1, :) = target(row-2, :);
 good = 0;
 bad = 0;
 
-[~, column] = size(target);
+% [~, column] = size(target);
 
-for iteration = 1:column
-    target(:,iteration) = Reverse_normalisation(target(:,iteration), maxValues, minValues);
-    output(:,iteration) = Reverse_normalisation(output(:,iteration), maxValues, minValues);
-end
+% for iteration = 1:column
+%     target(:,iteration) = Reverse_normalisation(target(:,iteration), maxValues(4), minValues(4));
+%     output(:,iteration) = Reverse_normalisation(output(:,iteration), maxValues(4), minValues(4));
+% end
 
 
 for i = 1:length(target)
-    if abs(output(i,24) - target(i,24)) < 2
-        %     if abs(output(i,24) - target(i,24)) < 0.2517
+%    if abs(output(i,24) - target(i,24)) < 2
+    if abs(output(i,24) - target(i,24)) < 0.2517
         good = good+1;
     else
         bad = bad+1;
@@ -66,13 +66,17 @@ end
 
 [RMSE, MAPE, Corr] = Error(output, target);
 
-Message = 'ANN Succesfully validated with';
-confirmationMessage = sprintf('%s %d examples.',Message,ValidationCount);
-disp(confirmationMessage)
-Statistics=sprintf('Temprature difference < 2 degrees Celsius:%d (Good predictions) \nTemprature difference > 2 degrees Celsius:%d (Bad predictions)',good,bad);
-disp(Statistics)
+% Message = 'ANN Succesfully validated with';
+% confirmationMessage = sprintf('%s %d examples.',Message,ValidationCount);
+% disp(confirmationMessage)
+% Statistics=sprintf('Temprature difference < 2 degrees Celsius:%d (Good predictions) \nTemprature difference > 2 degrees Celsius:%d (Bad predictions)',good,bad);
+% disp(Statistics)
 
+<<<<<<< HEAD
  graphs(output(:,1), target(:,1), dateAndTime);
 
+=======
+%graphs(output(:,1), target(:,1), dateAndTime);
+>>>>>>> refs/remotes/origin/master
 
 end
