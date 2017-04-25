@@ -1,4 +1,4 @@
-function [normalisedValidation, normalisedTraining, maxValues, minValues] = MaxAndMin(validationData, trainingData)
+function [normalisedData, maxValues, minValues] = MaxAndMin(data)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -9,11 +9,9 @@ function [normalisedValidation, normalisedTraining, maxValues, minValues] = MaxA
 %          bad -> Non-accurate temperature forecasts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-totalData = [validationData; trainingData];
-maxValues = max(totalData);
-minValues = min(totalData);
+maxValues = max(data);
+minValues = min(data);
 
-normalisedValidation = Normalisation(validationData, maxValues, minValues);
-normalisedTraining = Normalisation(trainingData, maxValues, minValues);
+normalisedData = Normalisation(data, maxValues, minValues);
 
 end
