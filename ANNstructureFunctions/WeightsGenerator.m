@@ -12,8 +12,8 @@ for i = 1:numInput+1 % +1 because of weight for bias
         inputWeights(j, i) = rand;
     end
 end
-for i = 1:numHidden+1
-    for j = 1:numHiddenLayers % +1 because of weight for bias
+for i = 1:numHidden+1 % +1 because of weight for bias
+    for j = 1:numHiddenLayers
         hiddenWeights(j, i) = rand;
     end
 end
