@@ -1,4 +1,4 @@
-function [ inputWeights, hiddenWeights ] = WeightsGenerator( numInput, numHidden )
+function [ inputWeights, hiddenWeights ] = WeightsGenerator( numInput, numHidden, numHiddenLayers )
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %input: numInput -> number of input nodes
@@ -7,15 +7,14 @@ function [ inputWeights, hiddenWeights ] = WeightsGenerator( numInput, numHidden
 %        hiddenWeights -> a numHidden large vector with random weights
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-for i = 1:numInput+1 % +1 because of weight for bias
-    
+for i = 1:numInput+1 % +1 because of weight for bias   
     for j = 1:numHidden
         inputWeights(j, i) = rand;
     end
 end
-
-for i = 1:numHidden+1 % +1 because of weight for bias
-    hiddenWeights(i) = rand;
+for i = 1:numHidden+1
+    for j = 1:numHiddenLayers % +1 because of weight for bias
+        hiddenWeights(j, i) = rand;
+    end
 end
-
 end
