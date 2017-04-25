@@ -6,11 +6,11 @@ clc
 
 
 % Scaling parameters
-daysBefore = 3;
+daysBefore = 0;
 hoursbefore = 0;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 runHidden = 1; % How many hidden nerouns to start with
-endHidden = 10; % Number of hidden nodes to end with
+endHidden = 20; % Number of hidden nodes to end with
 learningRate = 0.1; % Learning rate
 
 
