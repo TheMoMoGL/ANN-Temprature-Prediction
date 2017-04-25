@@ -24,11 +24,11 @@ for i=1:4:length(trainingData)-4
     [ inputWeights, hiddenWeights ] = BackP( output, target, hiddenWeights, inputWeights, hiddenOutput, newInput,n );
     trainCount=trainCount+1;
 end
-ANNinfo = sprintf('ANN created. \nNumber of input nodes:%d \nNumber of Hidden nodes:%d \nLearning rate:%.4f\n',numInput,numHidden,n); 
-disp(ANNinfo)
-message = sprintf('ANN Succesfully trained with');
-confirmationMessage = sprintf('%s %d training examples.\n',message,trainCount);
-disp(confirmationMessage)
+% ANNinfo = sprintf('ANN created. \nNumber of input nodes:%d \nNumber of Hidden nodes:%d \nLearning rate:%.4f\n',numInput,numHidden,n); 
+% disp(ANNinfo)
+% message = sprintf('ANN Succesfully trained with');
+% confirmationMessage = sprintf('%s %d training examples.\n',message,trainCount);
+% disp(confirmationMessage)
 
 end
 
