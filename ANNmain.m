@@ -8,7 +8,7 @@ daysBefore = 2;
 hoursbefore = 2;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 runHidden = 1; % How many hidden nerouns to start with
-endHidden = 20; % Number of hidden nodes to end with
+endHidden = 5; % Number of hidden nodes to end with
 learningRate = 0.1; % Learning rate
 
 
@@ -82,6 +82,5 @@ for runHidden = 1:endHidden % Loop that iterates thorugh the layers
 end
 
 samples = (good+bad);
-
 EndReportAnalysis(endReport, samples, endHidden);
 
