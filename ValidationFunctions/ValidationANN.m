@@ -72,11 +72,7 @@ end
 % Statistics=sprintf('Temprature difference < 2 degrees Celsius:%d (Good predictions) \nTemprature difference > 2 degrees Celsius:%d (Bad predictions)',good,bad);
 % disp(Statistics)
 
-<<<<<<< HEAD
- graphs(output(:,1), target(:,1), dateAndTime);
-
-=======
 %graphs(output(:,1), target(:,1), dateAndTime);
->>>>>>> refs/remotes/origin/master
+
 
 end
