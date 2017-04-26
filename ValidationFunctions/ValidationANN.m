@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWeights, hiddenWeights)
+function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWeights, hiddenWeights, iteration)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -9,7 +9,6 @@ function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWei
 %          bad -> Non-accurate temperature forecasts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%validationData = Normalisation(validationData);
 row = 1;
 % Validation counter
 ValidationCount = 0;
@@ -29,7 +28,7 @@ for i = 1:4:length(validationData)-96
     row = row + 1;
 end
 
-% validation of last 24-hours
+% Validation of last 24 hours
 for i = length(validationData)-95 : 4 : length(validationData)
     column = 1;
     for j = i : 4 : length(validationData)-4
@@ -40,18 +39,11 @@ for i = length(validationData)-95 : 4 : length(validationData)
     row = row + 1;
 end
 
-% last value only for time stamp in graph
+% Last value only for time stamp in graph
 output(row-1, :) = output(row-2, :);
 target(row-1, :) = target(row-2, :);
 good = 0;
 bad = 0;
-
-% [~, column] = size(target);
-
-% for iteration = 1:column
-%     target(:,iteration) = Reverse_normalisation(target(:,iteration), maxValues(4), minValues(4));
-%     output(:,iteration) = Reverse_normalisation(output(:,iteration), maxValues(4), minValues(4));
-% end
 
 
 for i = 1:length(target)
@@ -66,13 +58,7 @@ end
 
 [RMSE, MAPE, Corr] = Error(output, target);
 
-% Message = 'ANN Succesfully validated with';
-% confirmationMessage = sprintf('%s %d examples.',Message,ValidationCount);
-% disp(confirmationMessage)
-% Statistics=sprintf('Temprature difference < 2 degrees Celsius:%d (Good predictions) \nTemprature difference > 2 degrees Celsius:%d (Bad predictions)',good,bad);
-% disp(Statistics)
-
-graphs(output(:,1), target(:,1), dateAndTime);
+graphs(output(:,1), target(:,1), dateAndTime, iteration);
 
 
 end
