@@ -1,4 +1,5 @@
 function [inputWeights, hiddenWeights] = TrainingANN( trainingData, numInput, numHidden, numHiddLay, n )
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: trainingData -> Training data for the ANN
 %         numInput -> Number of nodes in the input layer
