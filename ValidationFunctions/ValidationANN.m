@@ -58,7 +58,7 @@ end
 
 [RMSE, MAPE, Corr] = Error(output, target);
 
-graphs(output(:,1), target(:,1), dateAndTime, iteration);
+% graphs(output(:,1), target(:,1), dateAndTime, iteration);
 
 
 end
