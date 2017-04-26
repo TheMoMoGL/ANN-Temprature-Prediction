@@ -11,6 +11,8 @@ function [] = graphs(outputVal, actualVal, dateAndTime)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 dateAndTimeHourly = dateAndTime(1 : 4 : end);
+start = length(dateAndTimeHourly) - length(outputVal) + 1;
+dateAndTimeHourly = dateAndTimeHourly(start:end);
 
 error = outputVal - actualVal;
 

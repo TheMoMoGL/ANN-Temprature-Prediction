@@ -11,7 +11,7 @@ function [inputWeights, hiddenWeights] = TrainingANN( trainingData, numInput, nu
 %[trainingData] = Normalisation(trainingData, maxValues, minValues);
 
 % Generate weights
-[inputWeights, hiddenWeights] = WeightsGenerator(numInput, numHidden);
+[inputWeights, hiddenWeights] = WeightsGenerator(numInput, numHidden, 1);
 
 %Training counter
 trainCount=0;
