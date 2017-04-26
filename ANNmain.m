@@ -9,9 +9,9 @@ daysBefore = 2;
 hoursbefore = 2;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 runHidden = 1; % How many hidden nerouns to start with
-endHidden = 5; % Number of hidden nodes to end with
+endHidden = 20; % Number of hidden nodes to end with
 learningRate = 0.1; % Learning rate
-NumbHiddLay=1; %Number of hidden layers
+NumbHiddLay=1; % Number of hidden layers
 
 
 % Starting index for training and validation
@@ -69,16 +69,13 @@ end
 %%
 
 for runHidden = 1:endHidden % Loop that iterates thorugh the layers
-%      startline = sprintf('--------------------------Nr.input nodes:%d-----Nr.Hidden nodes:%d------------------------------',numInput,runHidden); %for clarity in the information
-%      disp(startline) % Start the run
-    
     
     % Training returns the weights for validation ANN
     [inputWeights, hiddenWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
     
     % Validation and classification of results
 
-    [good, bad, RMSE, MAPE, Corr] = ValidationANN(ValidationInput, inputWeights, hiddenWeights);
+    [good, bad, RMSE, MAPE, Corr] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, runHidden);
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end
 

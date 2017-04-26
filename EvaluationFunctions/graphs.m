@@ -1,4 +1,4 @@
-function [] = graphs(outputVal, actualVal, dateAndTime)
+function [] = graphs(outputVal, actualVal, dateAndTime, iteration)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plotting function
@@ -23,9 +23,11 @@ plot(dt,outputVal)
 hold on
 plot (dt, actualVal)
 legend('Temperature prognosis', 'Measured temperature')
+title(['Hidden neurons: ', num2str(iteration)])
 
 figure('units','normalized','outerposition',[0 0 1 1])
 plot(dt, error)
 legend('Error between forecasted temperature and measured temperature')
+title(['Hidden neurons: ', num2str(iteration)])
 
 end
