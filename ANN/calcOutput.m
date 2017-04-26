@@ -10,17 +10,26 @@ function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, h
 %          hiddenOutput -> hidden output vector with bias
 %          output -> predicted output
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+weightSize = size(hiddenWeights);
 
 newInput = [1, input]; % Add bias for input layer
 hiddenInput = zeros(1, length(hiddenWeights)-1);
 
 % Calculates and creates the vector with values for the hidden layer
 for i = 1:length(hiddenWeights)-1 % -1 because its 1 less node than number of weights
-     hiddenInput(i) = tanh(Net(inputWeights(i,:), newInput));
+     hiddenInput(i) = ReLu_activation_function(Net(inputWeights(i,:), newInput));
 end
 
-hiddenOutput = [1, hiddenInput]; % Add bias for the hidden layer
-
-output = sigmoid(Net(hiddenWeights, hiddenOutput)); % Predicted output
-
+if weightSize(1) > 1 % if there's more than 1 hidden layer it can access the nested loop
+    for i = 1:weightSize(1) % iterates number of layers
+        hiddenOutput = [1, hiddenInput]; % add bias for hidden input
+        for j = 1:weightSize(2)-1 % -1 because its 1 less node than number of weights
+            hiddenOutput = ReLu_activation_function(Net(hiddenWeights(i,:), newInput));
+        end
+    end
+    output = linear_activation(Net(hiddenWeights, hiddenOutput)); % Predicted output
+else
+    hiddenOutput = [1, hiddenInput]; % Add bias for the hidden layer
+    output = linear_activation(Net(hiddenWeights, hiddenOutput)); % Predicted output
+end
 end
