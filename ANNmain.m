@@ -4,7 +4,6 @@ clc
 
 %%
 
-
 % Scaling parameters
 daysBefore = 2;
 hoursbefore = 2;
@@ -41,8 +40,6 @@ Psun = importdata('Psun_validation.mat');
 Ptemp = importdata('Ptemp_validation.mat');
 Rtemp = importdata('Rtemp_validation.mat');
 validationData = [Pwind, Psun, Ptemp, Rtemp];
-
-
 
 
 %%
@@ -84,10 +81,11 @@ for runHidden = 1:endHidden % Loop that iterates thorugh the layers
 
     
     % Validation and classification of results
-    [good, bad, RMSE, MAPE, Corr] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, maxValuesTrain, minValuesTrain);
+
+    [good, bad, RMSE, MAPE, Corr] = ValidationANN(ValidationInput, inputWeights, hiddenWeights);
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end
 
 samples = (good+bad);
- EndReportAnalysis(endReport, samples, endHidden);
 
+EndReportAnalysis(endReport, samples, endHidden);
