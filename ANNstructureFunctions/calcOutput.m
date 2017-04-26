@@ -18,7 +18,7 @@ for i = 1:hiddenSize(2)-1 % -1 because its 1 less node than number of weights
     hiddenInput(i) = ReLu_activation_function(Net(inputWeights(i,:), newInput));
 end
 
-if hiddenSize(2) > 2
+if hiddenSize(1) > 2
     for i = 2:hiddenSize(1) % iterates number of layers
         hiddenOutput(i-1,:) = [1, hiddenInput]; % Add bias for the hidden layer
         for j = 1:hiddenSize(2)
@@ -27,7 +27,7 @@ if hiddenSize(2) > 2
     end
     output = linear_activation(Net(hiddenWeights(hiddenSize(1),:), hiddenOutput(hiddenSize(1),:))); % Predicted output
 else
-    hiddenOutput(1,:) = [1, hiddenInput];
-    output = linear_activation(Net(hiddenWeights(1,:), hiddenOutput(1,:))); % Predicted output
+    hiddenOutput = [1, hiddenInput];
+    output = linear_activation(Net(hiddenWeights, hiddenOutput)); % Predicted output
 end    
 end

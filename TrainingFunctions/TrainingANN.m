@@ -1,4 +1,5 @@
-function [inputWeights, hiddenWeights] = TrainingANN( trainingData, numInput, numHidden, numHiddenLayers, n )
+function [inputWeights, hiddenWeights] = TrainingANN( trainingData, numInput, numHidden, numHiddLay, n )
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: trainingData -> Training data for the ANN
 %         numInput -> Number of nodes in the input layer
@@ -11,7 +12,8 @@ function [inputWeights, hiddenWeights] = TrainingANN( trainingData, numInput, nu
 %[trainingData] = Normalisation(trainingData, maxValues, minValues);
 
 % Generate weights
-[inputWeights, hiddenWeights] = WeightsGenerator(numInput, numHidden, numHiddenLayers);
+
+[inputWeights, hiddenWeights] = WeightsGenerator(numInput, numHidden, numHiddLay);
 
 %Training counter
 trainCount=0;

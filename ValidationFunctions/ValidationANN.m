@@ -35,7 +35,7 @@ for i = length(validationData)-95 : 4 : length(validationData)
     for j = i : 4 : length(validationData)-4
         [input, target(row, column)] = HourlyInputTarget(validationData, j+4, i);
         column = column + 1;
-        [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights);
+        [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights );
     end
     row = row + 1;
 end
