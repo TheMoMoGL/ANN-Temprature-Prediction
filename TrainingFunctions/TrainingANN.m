@@ -1,4 +1,4 @@
-function [inputWeights, hiddenWeights] = TrainingANN( trainingData, numInput, numHidden, numHiddLay, n )
+function [inputWeights, hiddenWeights, outputWeights] = TrainingANN( trainingData, numInput, numHidden, numHiddLay, n )
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: trainingData -> Training data for the ANN
@@ -13,7 +13,7 @@ function [inputWeights, hiddenWeights] = TrainingANN( trainingData, numInput, nu
 
 % Generate weights
 
-[inputWeights, hiddenWeights] = WeightsGenerator(numInput, numHidden, numHiddLay);
+[inputWeights, hiddenWeights, outputWeights] = WeightsGenerator(numInput, numHidden, numHiddLay);
 
 %Training counter
 trainCount=0;
@@ -21,9 +21,9 @@ trainCount=0;
 for i=1:4:length(trainingData)-4
     % create function that selects the right inputs among the training data
     [input, target] = HourlyInputTarget(trainingData, i+4, i);
-    [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights ); % prediction
+    [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights ); % prediction
     %Back propagation
-    [ inputWeights, hiddenWeights ] = BackP( output, target, hiddenWeights, inputWeights, hiddenOutput, newInput,n );
+    [ inputWeights, hiddenWeights ] = BackP( output, target, outputWeights, inputWeights, hiddenOutput, newInput,n );
     trainCount=trainCount+1;
 end
 % ANNinfo = sprintf('ANN created. \nNumber of input nodes:%d \nNumber of Hidden nodes:%d \nLearning rate:%.4f\n',numInput,numHidden,n); 
