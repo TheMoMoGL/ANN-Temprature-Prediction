@@ -12,7 +12,7 @@ numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 runHidden = 1; % How many hidden nerouns to start with
 endHidden = 20; % Number of hidden nodes to end with
 
-learningRate = 0.16; % Learning rate
+learningRate = 0.005; % Learning rate
 NumbHiddLay=1; % Number of hidden layers
 
 
