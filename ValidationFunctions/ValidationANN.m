@@ -47,7 +47,7 @@ bad = 0;
 
 for i = 1:length(target)
 %    if abs(output(i,24) - target(i,24)) < 2
-    if abs(output(i,24) - target(i,24)) < 0.0616
+    if abs(output(i,24) - target(i,24)) < 0.0670
         good = good+1;
     else
         bad = bad+1;
