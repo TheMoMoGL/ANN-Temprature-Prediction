@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWeights, hiddenWeights, iteration)
+function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -21,8 +21,7 @@ for i = 1:4:length(validationData)-96
     for j = i:4:i+92
         [input, target(row, column)] = HourlyInputTarget( validationData,j+4, i );
         column = column + 1;
-        [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights );
-        
+        [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, outputWeights, hiddenWeights ); 
     end
     ValidationCount = ValidationCount+1;
     row = row + 1;
@@ -34,7 +33,7 @@ for i = length(validationData)-95 : 4 : length(validationData)
     for j = i : 4 : length(validationData)-4
         [input, target(row, column)] = HourlyInputTarget(validationData, j+4, i);
         column = column + 1;
-        [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights );
+        [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, outputWeights, hiddenWeights );
     end
     row = row + 1;
 end

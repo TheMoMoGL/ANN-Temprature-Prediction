@@ -1,4 +1,4 @@
-function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights )
+function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights )
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: input -> vector with input values
@@ -6,28 +6,32 @@ function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, h
 %         hiddenWeights -> weights between hidden and output layer
 %
 % Outputs: newInput -> input vector with bias
-%          hiddenInput -> hidden input vector after sigmoid calculation
 %          hiddenOutput -> hidden output vector with bias
 %          output -> predicted output
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 hiddenSize = size(hiddenWeights);
+inputSize = size(inputWeights);
 newInput = [1, input]; % Add bias for input layer
-
+if hiddenSize(1) > 1
+    hiddenOutput = ones((hiddenSize(1)/(hiddenSize(2)-1))+1, hiddenSize(2)); % add bias for all operations
+else
+    hiddenOutput = ones(1,1);
+end
 % Calculates and creates the vector with values for the hidden layer
-for i = 1:hiddenSize(2)-1 % -1 because its 1 less node than number of weights
-    hiddenInput(i) = ReLu_activation_function(Net(inputWeights(i,:), newInput));
+for i = 1:inputSize(1) % -1 because its 1 less node than number of weights
+    hiddenOutput(1,i+1) = ReLu_activation_function(Net(inputWeights(i,:), newInput));
 end
 
-if hiddenSize(1) > 2
-    for i = 2:hiddenSize(1) % Iterates number of layers
-        hiddenOutput(i-1,:) = [1, hiddenInput]; % Add bias for the hidden layer
-        for j = 1:hiddenSize(2)
-            hiddenOutput(i,:) = ReLu_activation_function(Net(hiddenWeights(i,:), hiddenOutput(i-1,:)));
+if hiddenSize(1) > 1
+    hiddenWeightRow = 1;
+    for i = 2:(hiddenSize(1)/(hiddenSize(2)-1))+1 % Iterates number of layers
+        for j = 2:hiddenSize(2)
+            hiddenOutput(i,j) = ReLu_activation_function(Net(hiddenWeights(hiddenWeightRow,:), hiddenOutput(i-1,:)));
+            hiddenWeightRow = hiddenWeightRow + 1;
         end
     end
-    output = linear_activation(Net(hiddenWeights(hiddenSize(1),:), hiddenOutput(hiddenSize(1),:))); % Predicted output
+    output = linear_activation(Net(outputWeights, hiddenOutput((hiddenSize(1)/(hiddenSize(2)-1))+1,:))); % Predicted output
 else
-    hiddenOutput = [1, hiddenInput];
-    output = linear_activation(Net(hiddenWeights, hiddenOutput)); % Predicted output
+    output = linear_activation(Net(outputWeights, hiddenOutput)); % Predicted output
 end    
 end
