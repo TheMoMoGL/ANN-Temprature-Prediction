@@ -1,4 +1,4 @@
-function [test, train] = k_fold(Observations, K_factor)
+function [train, test] = k_fold(Observations, K_factor, iterate)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % K-fold cross validation
@@ -8,12 +8,10 @@ function [test, train] = k_fold(Observations, K_factor)
 % Outputs:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% indices = crossvalind('Kfold', Observations, K_factor);
-C = cvpartition(Observations,'KFold',K_factor);
+%nrObservations = length(Observations);
 
-
-% for i = 1:K_factor
-%     test = (indices == i); train = ~test;
-% end
+%for iterate = 1:K_factor
+    test = Observations(iterate:iterate + K_factor - 1);
+    train = setdiff(Observations, test);
 
 end
