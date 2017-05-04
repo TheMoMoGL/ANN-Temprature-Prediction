@@ -10,13 +10,14 @@ function [] = graphs(outputVal, actualVal, dateAndTime, iteration)
 % Outputs: None
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-dateAndTimeHourly = dateAndTime(1 : 4 : end);
-start = length(dateAndTimeHourly) - length(outputVal) + 1;
-dateAndTimeHourly = dateAndTimeHourly(start:end);
+% dateAndTimeHourly = dateAndTime(1 : 4 : end);
+% start = length(dateAndTimeHourly) - length(outputVal) + 1;
+% dateAndTimeHourly = dateAndTimeHourly(start:end);
 
 error = outputVal - actualVal;
-
-dt = datetime(dateAndTimeHourly,'inputFormat','uuuu-MM-dd HH:mm','TimeZone','local');
+[m,n] = size(outputVal);
+dt= 1:1:m;
+% dt = datetime(dateAndTimeHourly,'inputFormat','uuuu-MM-dd HH:mm','TimeZone','local');
 
 figure('units','normalized','outerposition',[0 0 1 1])
 plot(dt,outputVal)
