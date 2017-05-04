@@ -6,8 +6,8 @@ clc
 goodComp=0;
 dateAndTime = loadVariable('Date_Time_validation.mat'); %Loading validations date and time
 % Scaling parameters
-daysBefore = 0;
-hoursbefore = 0;
+daysBefore = 2;
+hoursbefore = 4;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 runHidden = 1; % How many hidden nerouns to start with
@@ -64,6 +64,7 @@ iterate = 1;
 end
 
 a = 1;
+
 for i = start:length(training)-(start-1)
     TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( training(:,4), daysBefore, hoursbefore, i )];
     a = a + 1;
@@ -86,8 +87,9 @@ end
 
 for runHidden=1:endHidden % Loop that iterates thorugh the layers
     
-     % Training returns the weights for validation ANN
-        
+
+    % Training returns the weights for validation ANN
+
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
 
     % Validation and classification of results
