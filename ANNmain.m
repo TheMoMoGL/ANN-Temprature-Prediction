@@ -12,12 +12,12 @@ hoursbefore = 2;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
-runHidden = 1; % How many hidden nerouns to start with
+runHidden = 4; % How many hidden nerouns to start with
 endHidden = 5; % Number of hidden nodes to end with
 
 
 learningRate = 0.01; % Learning rate
-NumbHiddLay = 1; % Number of hidden layers
+NumbHiddLay = 2; % Number of hidden layers
 
 K_factor = 3;
 
@@ -91,7 +91,7 @@ end
 good = 0;
 total = length(training);
 
-for runHidden = 1:endHidden % Loop that iterates thorugh the layers
+for runHidden = runHidden:1:endHidden % Loop that iterates thorugh the layers
     
 
 

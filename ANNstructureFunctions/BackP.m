@@ -25,11 +25,9 @@ if numberOfhidden > 1
     cnt=r-length(Delta_Error_LastHidden_Nodes)+1;
     for j=1:length(Delta_Error_LastHidden_Nodes)
       for u=1:n
-        for i=1:w
+        
            
-            [Hidden_weights(cnt,i)]=Weight_Updator(Learning_Rate,Hidden_Nodes(m-1,u),Delta_Error_LastHidden_Nodes(j),Hidden_weights(cnt,i));
-           
-        end
+            [Hidden_weights(cnt,i)]=Weight_Updator(Learning_Rate,Hidden_Nodes(m-1,u), Delta_Error_LastHidden_Nodes(j),Hidden_weights(cnt,u));
       end
       cnt=cnt+1;
     end
