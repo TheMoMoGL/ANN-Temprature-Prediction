@@ -91,7 +91,7 @@ total = length(training);
 
 for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     
-<<<<<<< HEAD
+
     while(good/total) < 0.7
 
         % Training returns the weights for validation ANN
