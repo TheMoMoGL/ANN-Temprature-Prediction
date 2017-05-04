@@ -6,14 +6,16 @@ clc
 
 % Scaling parameters
 daysBefore = 2;
-hoursbefore = 4;
+hoursbefore = 2;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 runHidden = 1; % How many hidden nerouns to start with
-endHidden = 15; % Number of hidden nodes to end with
+endHidden = 20; % Number of hidden nodes to end with
 
 learningRate = 0.01; % Learning rate
 NumbHiddLay = 1; % Number of hidden layers
+
+K_factor = 3;
 
 
 % Starting index for training and validation
@@ -41,27 +43,39 @@ Ptemp = importdata('Ptemp_6month_validation.mat');
 Rtemp = importdata('Rtemp_6month_validation.mat');
 validationData = [Pwind, Psun, Ptemp, Rtemp];
 
+totalData = [trainingData; validationData];
+
+iterate = 1;
+%for iterate = 1:100:length(totalData)
+    
+    for parameter = 1:4
+        [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate);
+    end
+    
+%end
+
 
 %%
 
 % Outlier detection
-for t = 1:3
-    processedTrainingData(:,t) = Pre_process(trainingData(:,t));
+ for t = 1:3
+    processedTrainingData(:,t) = Pre_process(training(:,t));
 end
 
 a = 1;
-for i = start:length(Rtemp)-(start-1)
-    TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( trainingData(:,4), daysBefore, hoursbefore, i )];
+
+for i = start:length(training)-(start-1)
+    TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( training(:,4), daysBefore, hoursbefore, i )];
     a = a + 1;
 end
 
 for t = 1:3
-    processedValidationData(:,t) = Pre_process(validationData(:,t));
+    processedValidationData(:,t) = Pre_process(validation(:,t));
 end
 
 a = 1;
-for i = start:length(Rtemp)-(start-1)
-    ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( validationData(:,4), daysBefore, hoursbefore, i )];
+for i = start:length(validation)-(start-1)
+    ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( validation(:,4), daysBefore, hoursbefore, i )];
     a = a + 1;
 end
 
