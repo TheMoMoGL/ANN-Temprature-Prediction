@@ -11,7 +11,7 @@ hoursbefore = 4;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 runHidden = 1; % How many hidden nerouns to start with
-endHidden = 2; % Number of hidden nodes to end with
+endHidden = 3; % Number of hidden nodes to end with
 
 learningRate = 0.01; % Learning rate
 NumbHiddLay = 1; % Number of hidden layers
@@ -86,17 +86,17 @@ end
 
 %%
 good = 0;
-bad = 0;
-total = length(totalData);
+total = length(training);
 
-for runHidden=1:endHidden % Loop that iterates thorugh the layers
+for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     
 
 
-%     while(good/total) < 0.80
+    while(good/total) < 0.1
+
         % Training returns the weights for validation ANN
         [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
-%     end
+    end
 
     [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
     if goodComp < good
@@ -110,6 +110,6 @@ for runHidden=1:endHidden % Loop that iterates thorugh the layers
       
 end
 
+
 samples = (good+bad);
 EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, dateAndTime); %endReport compilation in progess
-% EndReportAnalysis(endReport, samples, endHidden);
