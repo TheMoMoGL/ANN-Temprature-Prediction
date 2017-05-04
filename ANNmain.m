@@ -71,8 +71,8 @@ end
 
 for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     
-    % Training returns the weights for validation ANN
-
+     % Training returns the weights for validation ANN
+        
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
 
     % Validation and classification of results
