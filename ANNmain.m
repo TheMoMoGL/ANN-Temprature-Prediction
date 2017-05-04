@@ -11,6 +11,7 @@ hoursbefore = 4;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 runHidden = 1; % How many hidden nerouns to start with
+
 endHidden = 3; % Number of hidden nodes to end with
 
 learningRate = 0.01; % Learning rate
@@ -30,18 +31,18 @@ end
 %%
 
 % Load training data and concatenate
-Pwind = importdata('Pwind_6month_training.mat');
-Psun = importdata('Psun_6month_training.mat');
-Ptemp = importdata('Ptemp_6month_training.mat');
-Rtemp = importdata('Rtemp_6month_training.mat');
+Pwind = importdata('Pwind_training.mat');
+Psun = importdata('Psun_training.mat');
+Ptemp = importdata('Ptem_training.mat');
+Rtemp = importdata('Rtemp_training.mat');
 trainingData = [Pwind, Psun, Ptemp, Rtemp];
 
 
 % Load validation data and concatenate
-Pwind = importdata('Pwind_6month_validation.mat');
-Psun = importdata('Psun_6month_validation.mat');
-Ptemp = importdata('Ptemp_6month_validation.mat');
-Rtemp = importdata('Rtemp_6month_validation.mat');
+Pwind = importdata('Pwind_validation.mat');
+Psun = importdata('Psun_validation.mat');
+Ptemp = importdata('Ptemp_validation.mat');
+Rtemp = importdata('Rtemp_validation.mat');
 validationData = [Pwind, Psun, Ptemp, Rtemp];
 
 totalData = [trainingData; validationData];
@@ -90,7 +91,6 @@ total = length(training);
 
 for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     
-
 
     while(good/total) < 0.1
 
