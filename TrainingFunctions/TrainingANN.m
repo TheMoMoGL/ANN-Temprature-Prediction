@@ -23,7 +23,8 @@ for i=1:4:length(trainingData)-4
     [input, target] = HourlyInputTarget(trainingData, i+4, i);
     [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights ); % prediction
     %Back propagation
-    [ inputWeights, hiddenWeights ] = BackP( output, target, outputWeights, inputWeights, hiddenOutput, newInput,n );
+                                             %Output_of_the_System,Target,Weights_Hidden_Output,Weigthts_Hidden_inputs,Hidden_Nodes,Input_Nodes,Learning_Rate,Hidden_weights,numberOfhidden
+    [ inputWeights,outputWeights, hiddenWeights ] = BackP( output, target, outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,1);
     trainCount=trainCount+1;
 end
 % ANNinfo = sprintf('ANN created. \nNumber of input nodes:%d \nNumber of Hidden nodes:%d \nLearning rate:%.4f\n',numInput,numHidden,n); 

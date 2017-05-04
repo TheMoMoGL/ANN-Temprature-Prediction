@@ -5,8 +5,8 @@ clc
 %%
 
 % Scaling parameters
-daysBefore = 2;
-hoursbefore = 4;
+daysBefore = 0;
+hoursbefore = 0;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 runHidden = 1; % How many hidden nerouns to start with
