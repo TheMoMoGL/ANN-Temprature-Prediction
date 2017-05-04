@@ -61,7 +61,7 @@ partition = round(length(totalData)/K_factor);
 % Outlier detection
  for t = 1:3
     processedTrainingData(:,t) = Pre_process(training(:,t));
-end
+ end
 
 a = 1;
 for i = start:length(training)-(start-1)
@@ -83,15 +83,18 @@ end
 [ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
 
 %%
+good = 0;
+bad = 0;
+total = length(totalData);
 
 for runHidden=1:endHidden % Loop that iterates thorugh the layers
     
-    % Training returns the weights for validation ANN
-
-    [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
-
+    while(good/total) < 0.80
+        % Training returns the weights for validation ANN
+        [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
+    end
+    
     % Validation and classification of results
-
     [good, bad, RMSE, MAPE, Corr] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end
