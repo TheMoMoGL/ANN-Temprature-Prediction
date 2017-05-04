@@ -5,15 +5,19 @@ clc
 %%
 
 % Scaling parameters
-daysBefore = 0;
-hoursbefore = 0;
+
+daysBefore = 1;
+hoursbefore = 1;
+
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 runHidden = 1; % How many hidden nerouns to start with
-endHidden = 15; % Number of hidden nodes to end with
+endHidden = 20; % Number of hidden nodes to end with
 
 learningRate = 0.01; % Learning rate
-NumbHiddLay=1; % Number of hidden layers
+NumbHiddLay = 1; % Number of hidden layers
+
+K_factor = 3;
 
 
 % Starting index for training and validation
@@ -41,27 +45,40 @@ Ptemp = importdata('Ptemp_6month_validation.mat');
 Rtemp = importdata('Rtemp_6month_validation.mat');
 validationData = [Pwind, Psun, Ptemp, Rtemp];
 
+totalData = [trainingData; validationData];
+
+iterate = 1;
+partition = round(length(totalData)/K_factor);
+%for iterate = 1:partition:length(totalData)
+    
+    for parameter = 1:4
+        [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
+    end
+    
+%end
+
 
 %%
 
 % Outlier detection
-for t = 1:3
-    processedTrainingData(:,t) = Pre_process(trainingData(:,t));
-end
+ for t = 1:3
+    processedTrainingData(:,t) = Pre_process(training(:,t));
+ end
 
 a = 1;
-for i = start:length(Rtemp)-(start-1)
-    TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( Rtemp, daysBefore, hoursbefore, i )];
+
+for i = start:length(training)-(start-1)
+    TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( training(:,4), daysBefore, hoursbefore, i )];
     a = a + 1;
 end
 
 for t = 1:3
-    processedValidationData(:,t) = Pre_process(validationData(:,t));
+    processedValidationData(:,t) = Pre_process(validation(:,t));
 end
 
 a = 1;
-for i = start:length(Rtemp)-(start-1)
-    ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( Rtemp, daysBefore, hoursbefore, i )];
+for i = start:length(validation)-(start-1)
+    ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( validation(:,4), daysBefore, hoursbefore, i )];
     a = a + 1;
 end
 
@@ -69,15 +86,19 @@ end
 [ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
 
 %%
+good = 0;
+bad = 0;
+total = length(totalData);
 
 for runHidden=1:endHidden % Loop that iterates thorugh the layers
     
-    % Training returns the weights for validation ANN
 
-    [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
+    while(good/total) < 0.80
+        % Training returns the weights for validation ANN
+        [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
+    end
 
     % Validation and classification of results
-
     [good, bad, RMSE, MAPE, Corr] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end

@@ -6,7 +6,7 @@ function [Bestrun] = EndReportAnalysis(endreport, samples, endHidden)
 % Outputs: 
 %          
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure
+figure('units','normalized','outerposition',[0 0 1 1])
 subplot(2,2,1)       % add first plot in 2 x 2 grid
 stem(endreport(:,2),endreport(:,5))           % stem plot
 title('Good predictions')
