@@ -12,7 +12,7 @@ function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWei
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
-time = 1;
+time = 6;
 
 time = time * 4;
 row = 1;
@@ -52,7 +52,7 @@ bad = 0;
 
 
 for i = 1:length(target)
-    if abs(output(i,1) - target(i,1)) < 0.0670
+    if abs(output(i,(time/4)) - target(i,(time/4))) < 0.0670
         good = good+1;
     else
         bad = bad+1;
