@@ -25,7 +25,7 @@ trainCount = 0;
 
 % Training
 
-for i = 1:4:length(trainingData) - 4
+for i = 1:4:length(trainingData) - time
     
     % Create function that selects the right inputs among the training data
     [input, target(i)] = HourlyInputTarget(trainingData, i+time, i);
