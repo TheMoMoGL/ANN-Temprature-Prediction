@@ -9,6 +9,14 @@ function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(traini
 %          hiddenWeights -> Weights between the hidden and output layer.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+% Change variable 'time' in the functions TrainingANN & ValidationANN to
+% Vary how many hours head the output forecast will predict. 
+% !NOTE! They have to match !NOTE!
+time = 1;
+
+time = time * 4;
+
 % Generate weights
 [inputWeights, hiddenWeights, outputWeights] = WeightsGenerator(numInput, numHidden, numHiddLay);
 
