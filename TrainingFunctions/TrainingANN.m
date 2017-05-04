@@ -13,7 +13,7 @@ function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(traini
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict. 
 % !NOTE! They have to match !NOTE!
-time = 6;
+time = 1;
 
 time = time * 4;
 
