@@ -87,19 +87,19 @@ end
 good = 0;
 total = length(training);
 
-for runHidden=1:endHidden % Loop that iterates thorugh the layers
+for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     
 
     while(good/total) < 0.1
         % Training returns the weights for validation ANN
         [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
     end
-    flag = false;
+
     % Validation and classification of results
     [good, bad, RMSE, MAPE, Corr] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end
 
-samples = (good+bad);
+samples = (good + bad);
 
 EndReportAnalysis(endReport, samples, endHidden);
