@@ -11,20 +11,28 @@ function [inputWeights, hiddenWeights, outputWeights] = TrainingANN( trainingDat
 % Normilise
 %[trainingData] = Normalisation(trainingData, maxValues, minValues);
 
-% Generate weights
+% Change variable 'time' in the functions TrainingANN & ValidationANN to
+% Vary how many hours head the output forecast will predict. 
+% !NOTE! They have to match !NOTE!
+time = 6;
 
+time = time * 4;
+
+% Generate weights
 [inputWeights, hiddenWeights, outputWeights] = WeightsGenerator(numInput, numHidden, numHiddLay);
 
 %Training counter
 trainCount=0;
 % Training
-for i=1:4:length(trainingData)-4
-    % create function that selects the right inputs among the training data
-    [input, target] = HourlyInputTarget(trainingData, i+4, i);
-    [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights ); % prediction
-    %Back propagation
-    [ inputWeights, hiddenWeights ] = BackP( output, target, outputWeights, inputWeights, hiddenOutput, newInput,n );
-    trainCount=trainCount+1;
+for p = 1 : 5 
+    for i=1:4:length(trainingData)-time % trains to forecast 'time' hour ahead
+        % create function that selects the right inputs among the training data
+        [input, target(i)] = HourlyInputTarget(trainingData, i+time, i);
+        [ newInput, hiddenOutput, output(i) ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights ); % prediction
+        %Back propagation
+        [ inputWeights, hiddenWeights ] = BackP( output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n );
+        trainCount=trainCount+1;
+    end
 end
 % ANNinfo = sprintf('ANN created. \nNumber of input nodes:%d \nNumber of Hidden nodes:%d \nLearning rate:%.4f\n',numInput,numHidden,n); 
 % disp(ANNinfo)
