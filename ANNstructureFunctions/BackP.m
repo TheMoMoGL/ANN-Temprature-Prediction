@@ -59,12 +59,15 @@ if numberOfhidden > 1
                 end
                 cnt=cnt+1;
             end
-        else 
+        else
             [m,n] = size(Weigthts_Hidden_inputs);
-            for j=1:length(Delta_Error_LastHidden_Nodes)
-                for i=1:n
-                    
-                    [Updated_Weights_Input_Hidden(j,i)]=Weight_Updator(Learning_Rate,Input_Nodes(i),Delta_Error_LastHidden_Nodes(j),Weigthts_Hidden_inputs(j,i));
+            q=length(Input_Nodes);
+            for k=1:length(Delta_Error_LastHidden_Nodes)
+                for j=1:m
+                    for i=1:n
+                        
+                        [Updated_Weights_Input_Hidden(j,i)]=Weight_Updator(Learning_Rate,Input_Nodes(i),Delta_Error_LastHidden_Nodes(k),Weigthts_Hidden_inputs(j,i));
+                    end
                 end
             end
             
@@ -74,13 +77,15 @@ if numberOfhidden > 1
 else 
     
     [m,n] = size(Weigthts_Hidden_inputs);
-    for j=1:length(Delta_Error_LastHidden_Nodes)
-        for i=1:n
-            
-            [Updated_Weights_Input_Hidden(j,i)]=Weight_Updator(Learning_Rate,Input_Nodes(i),Delta_Error_LastHidden_Nodes(j),Weigthts_Hidden_inputs(j,i));
+    q=length(Input_Nodes);
+    for k=1:length(Delta_Error_LastHidden_Nodes)
+        for j=1:m
+            for i=1:n
+                
+                [Updated_Weights_Input_Hidden(j,i)]=Weight_Updator(Learning_Rate,Input_Nodes(i),Delta_Error_LastHidden_Nodes(k),Weigthts_Hidden_inputs(j,i));
+            end
         end
     end
-    
 end 
 
 
