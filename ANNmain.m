@@ -46,10 +46,11 @@ validationData = [Pwind, Psun, Ptemp, Rtemp];
 totalData = [trainingData; validationData];
 
 iterate = 1;
-%for iterate = 1:100:length(totalData)
+partition = round(length(totalData)/K_factor);
+%for iterate = 1:partition:length(totalData)
     
     for parameter = 1:4
-        [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate);
+        [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
     end
     
 %end
