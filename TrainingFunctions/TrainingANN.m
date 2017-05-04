@@ -14,7 +14,7 @@ function [inputWeights, hiddenWeights, outputWeights] = TrainingANN( trainingDat
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict. 
 % !NOTE! They have to match !NOTE!
-time = 6;
+time = 1;
 
 time = time * 4;
 
@@ -27,10 +27,10 @@ trainCount=0;
 for p = 1 : 5 
     for i=1:4:length(trainingData)-time % trains to forecast 'time' hour ahead
         % create function that selects the right inputs among the training data
-        [input, target(i)] = HourlyInputTarget(trainingData, i+time, i);
-        [ newInput, hiddenOutput, output(i) ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights ); % prediction
+        [input, target] = HourlyInputTarget(trainingData, i+time, i);
+        [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights ); % prediction
         %Back propagation
-        [ inputWeights, hiddenWeights ] = BackP( output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n );
+        [ inputWeights, hiddenWeights ] = BackP( output, target, outputWeights, inputWeights, hiddenOutput, newInput,n );
         trainCount=trainCount+1;
     end
 end
