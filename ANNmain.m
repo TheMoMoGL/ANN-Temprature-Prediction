@@ -93,10 +93,10 @@ total = length(totalData);
 for runHidden=1:endHidden % Loop that iterates thorugh the layers
     
 
-    while(good/total) < 0.80
+%     while(good/total) < 0.80
         % Training returns the weights for validation ANN
         [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
-    end
+%     end
 
     % Validation and classification of results
     [good, bad, RMSE, MAPE, Corr] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
