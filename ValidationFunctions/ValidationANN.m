@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights)
+function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -13,7 +13,6 @@ row = 1;
 % Validation counter
 ValidationCount = 0;
 
-dateAndTime = loadVariable('Date_Time_validation.mat');
 
 
 for i = 1:4:length(validationData)-96
@@ -23,7 +22,6 @@ for i = 1:4:length(validationData)-96
         column = column + 1;
         [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, outputWeights, hiddenWeights ); 
     end
-    ValidationCount = ValidationCount+1;
     row = row + 1;
 end
 
@@ -47,7 +45,7 @@ bad = 0;
 
 for i = 1:length(target)
 %    if abs(output(i,24) - target(i,24)) < 2
-    if abs(output(i,24) - target(i,24)) < 0.0616
+    if abs(output(i,24) - target(i,24)) < 0.0670
         good = good+1;
     else
         bad = bad+1;
@@ -57,7 +55,7 @@ end
 
 [RMSE, MAPE, Corr] = Error(output, target);
 
-%graphs(output(:,1), target(:,1), dateAndTime, iteration);
+% graphs(output(:,1), target(:,1), dateAndTime, iteration);
 
 
 end
