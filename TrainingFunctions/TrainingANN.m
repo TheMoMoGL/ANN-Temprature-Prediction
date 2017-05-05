@@ -13,8 +13,10 @@ function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(traini
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
-time = 12;
+time = 1;
+
 total = length(trainingData);
+
 
 time = time * 4;
 
@@ -26,8 +28,24 @@ trainCount = 0;
 good = 0;
 
 % Training
+
+
+% for i = 1:4:length(trainingData) - time
+%     
+%     % Create function that selects the right inputs among the training data
+%     [input, target(i)] = HourlyInputTarget(trainingData, i+time, i);
+%     [newInput, hiddenOutput, output(i)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights); % Prediction
+%     
+%     % Back propagation
+%      [ inputWeights,outputWeights, hiddenWeights ] = BackP( output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
+%     trainCount = trainCount + 1;
+% end
+
+good = 0;
+% for i = 1:length(target)
+
 while(good/total) < 0.6
-    good = 0;
+     good = 0;
     for i = 1:4:length(trainingData) - time
         
         % Create function that selects the right inputs among the training data
@@ -35,9 +53,10 @@ while(good/total) < 0.6
         [newInput, hiddenOutput, output(i)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights); % Prediction
         
         % Back propagation
-        [inputWeights, hiddenWeights] = BackP(output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput, n);
+         [ inputWeights,outputWeights, hiddenWeights ] = BackP( output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
         trainCount = trainCount + 1;
     end
+
     
     for i = 1:length(target)
         
@@ -48,5 +67,18 @@ while(good/total) < 0.6
     end
     
 end
+
+
+%     
+%     for i = 1:length(target)
+%         
+%         if abs(output(i) - target(i)) < 0.0670
+%             good = good + 1;
+%             
+%         end
+%     end
+% 
+% end
+
 
 end
