@@ -13,7 +13,7 @@ function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validati
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
-time = 1;
+time = 24;
 
 time = time * 4;
 row = 1;

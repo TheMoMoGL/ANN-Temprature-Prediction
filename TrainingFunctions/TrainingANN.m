@@ -39,7 +39,7 @@ while(good/total) < 0.5
         [newInput, hiddenOutput, output(i)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights); % Prediction
         
         % Back propagation
-        [ inputWeights,outputWeights, hiddenWeights ] = BackP( output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
+        [inputWeights,outputWeights, hiddenWeights] = BackP(output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
         trainCount = trainCount + 1;
     end
     
@@ -55,6 +55,4 @@ while(good/total) < 0.5
     
 end
 
-
 end
-

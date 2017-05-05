@@ -11,9 +11,9 @@ daysBefore = 1;
 hoursbefore = 4;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
+
 starthidden = 2;
 endHidden = 10; % Number of hidden nodes to end with
-
 learningRate = 0.00001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 K_factor = 3;
@@ -116,7 +116,7 @@ for i = 1:4:length(validation)
     end
 end
 
-sprintf('Good: %d \nBad: %d', good2, bad2)
+sprintf('Good SMHI: %d \nBad SMHI: %d', good2, bad2)
 
 progTemp = validation(:,3);
 samples = (good+bad);
