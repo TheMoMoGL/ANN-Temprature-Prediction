@@ -7,7 +7,7 @@ goodComp=0;
 dateAndTime = loadVariable('Date_Time_validation.mat'); %Loading validations date and time
 % Scaling parameters
 daysBefore = 2;
-hoursbefore = 0;
+hoursbefore = 2;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 runHidden = 1; % How many hidden nerouns to start with
@@ -15,7 +15,7 @@ endHidden = 5; % Number of hidden nodes to end with
 
 
 learningRate = 0.01; % Learning rate
-NumbHiddLay = 1; % Number of hidden layers
+NumbHiddLay = 2; % Number of hidden layers
 
 K_factor = 3;
 
