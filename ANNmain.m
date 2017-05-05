@@ -11,10 +11,10 @@ daysBefore = 1;
 hoursbefore = 5;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
-starthidden=2;
+starthidden=1;
 % runHidden = 1; % How many hidden nerouns to start with
 
-endHidden = 15; % Number of hidden nodes to end with
+endHidden = 5; % Number of hidden nodes to end with
 learningRate = 0.00001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 
@@ -94,7 +94,6 @@ for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     % Training returns the weights for validation ANN
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4));
     
-
     % Validation
 
     [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4));

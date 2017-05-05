@@ -13,12 +13,8 @@ function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(traini
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
-<<<<<<< HEAD
-time = 24;
-=======
 
 time = 1;
->>>>>>> refs/remotes/origin/master
 total = length(trainingData);
 
 
