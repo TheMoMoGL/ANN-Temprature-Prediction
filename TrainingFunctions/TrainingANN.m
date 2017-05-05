@@ -44,7 +44,7 @@ good = 0;
 good = 0;
 % for i = 1:length(target)
 
-while(good/total) < 0.6
+while(good/total) < 0.7
     good = 0;
     for i = 1:4:length(trainingData) - time
         
