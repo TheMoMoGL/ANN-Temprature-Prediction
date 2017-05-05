@@ -13,7 +13,7 @@ function [good, bad, RMSE, MAPE, Corr, output, target, progTemp] = ValidationANN
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
 
-time = 12;
+time = 1;
 
 time = time * 4;
 row = 1;

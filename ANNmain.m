@@ -8,15 +8,15 @@ dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations da
 % Scaling parameters
 
 daysBefore = 2;
-hoursbefore = 2;
+hoursbefore = 5;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
-runHidden = 1; % How many hidden nerouns to start with
+runHidden = 1; % How many hidden neurons to start with
 endHidden = 10; % Number of hidden nodes to end with
 
-learningRate = 0.01; % Learning rate
-NumbHiddLay = 1; % Number of hidden layers
+learningRate = 0.001; % Learning rate
+NumbHiddLay = 2; % Number of hidden layers
 
 K_factor = 3;
 
@@ -88,7 +88,7 @@ end
 
 
 
-for runHidden = 1:endHidden % Loop that iterates thorugh the layers
+for runHidden = 2:endHidden % Loop that iterates thorugh the layers
     % Training returns the weights for validation ANN
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
     

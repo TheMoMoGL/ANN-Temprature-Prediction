@@ -17,6 +17,7 @@ if hiddenSize(1) > 1
 else
     hiddenOutput = ones(1,1);
 end
+
 % Calculates and creates the vector with values for the hidden layer
 for i = 1:inputSize(1) % -1 because its 1 less node than number of weights
     hiddenOutput(1,i+1) = ReLu_activation_function(Net(inputWeights(i,:), newInput));

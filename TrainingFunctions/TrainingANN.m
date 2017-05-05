@@ -54,7 +54,7 @@ while(good/total) < 0.6
         
         % Back propagation
          [ inputWeights,outputWeights, hiddenWeights ] = BackP( output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
-        trainCount = trainCount + 1;
+         trainCount = trainCount + 1;
     end
 
     
@@ -69,16 +69,14 @@ while(good/total) < 0.6
 end
 
 
-%     
-%     for i = 1:length(target)
-%         
-%         if abs(output(i) - target(i)) < 0.0670
-%             good = good + 1;
-%             
-%         end
-%     end
-% 
-% end
-
+    
+    for i = 1:length(target)
+        
+        if abs(output(i) - target(i)) < 0.0670
+            good = good + 1;
+            
+        end
+    end
 
 end
+

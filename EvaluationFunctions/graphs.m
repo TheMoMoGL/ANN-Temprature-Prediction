@@ -13,9 +13,10 @@ function [] = graphs(outputVal, actualVal, dateAndTime, iteration, progTemp)
 % dateAndTimeHourly = dateAndTime(1 : 4 : end);
 % start = length(dateAndTimeHourly) - length(outputVal) + 1;
 % dateAndTimeHourly = dateAndTimeHourly(start:end);
+progEnd = length(outputVal);
 
 progtemp = progTemp(1:4:end);
-progtemp = progtemp(1:end-13);
+progtemp = progtemp(1:progEnd);
 error = outputVal - actualVal;
 [m,~] = size(outputVal);
 dt = 1:1:m;
@@ -23,11 +24,11 @@ dt = 1:1:m;
 % realTemp = loadVariable(Ptemp_validation);
 
 figure('units','normalized','outerposition',[0 0 1 1])
-plot(dt,outputVal)
+plot(dt, outputVal, '--')
 hold on
-plot (dt, actualVal)
+plot (dt, actualVal, '--')
 hold on
-plot (dt, progtemp)
+plot (dt, progtemp, '--')
 legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
 title(['Hidden neurons: ', num2str(iteration)])
 
