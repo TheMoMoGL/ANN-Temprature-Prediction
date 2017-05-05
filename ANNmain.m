@@ -1,7 +1,7 @@
 close all
 clear
 clc
- 
+
 %%
 goodComp=0;
 dateAndTime = loadVariable('Date_Time_validation.mat'); %Loading validations date and time
@@ -12,12 +12,12 @@ hoursbefore = 2;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
-runHidden = 4; % How many hidden nerouns to start with
-endHidden = 5; % Number of hidden nodes to end with
+runHidden = 1; % How many hidden nerouns to start with
+endHidden = 10; % Number of hidden nodes to end with
 
 
 learningRate = 0.01; % Learning rate
-NumbHiddLay = 2; % Number of hidden layers
+NumbHiddLay = 1; % Number of hidden layers
 
 K_factor = 3;
 
@@ -52,20 +52,20 @@ totalData = [trainingData; validationData];
 iterate = 1;
 partition = round(length(totalData)/K_factor);
 %for iterate = 1:partition:length(totalData)
-    
-    for parameter = 1:4
-        [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
-    end
-    
+
+for parameter = 1:4
+    [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
+end
+
 %end
 
 
 %%
 
 % Outlier detection
- for t = 1:3
+for t = 1:3
     processedTrainingData(:,t) = Pre_process(training(:,t));
- end
+end
 
 a = 1;
 
@@ -88,30 +88,26 @@ end
 [ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
 
 %%
-good = 0;
-total = length(training);
 
-for runHidden = runHidden:1:endHidden % Loop that iterates thorugh the layers
+
+
+for runHidden = 1:endHidden % Loop that iterates thorugh the layers
+    % Training returns the weights for validation ANN
+    [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
     
-
-
-    while(good/total) < 0.7
-
-
-        % Training returns the weights for validation ANN
-        [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
-    end
+    % Validation
 
     [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
+    
     if goodComp < good
         goodComp = good;
         bestHiddNeurons = runHidden;   %Saves the best output and target matrix
         bestOutputValid = outputValid;
         bestTargetValid = targetValid;
     end
-
+    
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
-      
+    
 end
 
 

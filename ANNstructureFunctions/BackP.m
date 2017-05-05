@@ -1,7 +1,7 @@
  function [ Updated_Weights_Input_Hidden,Updated_Weights_Hidden_Output,Hidden_weights ] = BackP(Output_of_the_System,Target,Weights_Hidden_Output,Weigthts_Hidden_inputs,Hidden_Nodes,Input_Nodes,Learning_Rate,Hidden_weights,numberOfhidden)
 
    [m,n]=size(Hidden_Nodes);                                                                         
-
+% [ inputWeights,outputWeights, hiddenWeights ] = BackP( output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
 %%%%Calculating output error
 Delta_Error_Output=(Target-Output_of_the_System);
 %%%%%%%%%%%%%%%Weights updating for Weights between hidden and output

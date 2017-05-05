@@ -51,7 +51,7 @@ bad = 0;
 
 for i = 1:length(target)
 
-    if abs(output(i,1) - target(i,1)) < 0.2335
+    if abs(output(i,1) - target(i,1)) < 0.0618
         good = good+1;
     else
         bad = bad+1;
