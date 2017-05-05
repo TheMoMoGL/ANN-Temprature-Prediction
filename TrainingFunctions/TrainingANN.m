@@ -44,8 +44,8 @@ good = 0;
 good = 0;
 % for i = 1:length(target)
 
-% while(good/total) < 0.6
-%     good = 0;
+while(good/total) < 0.6
+    good = 0;
     for i = 1:4:length(trainingData) - time
         
         % Create function that selects the right inputs among the training data
@@ -57,15 +57,15 @@ good = 0;
         trainCount = trainCount + 1;
     end
 
-%     
-%     for i = 1:length(target)
-%         
-%         if abs(output(i) - target(i)) < 0.0670
-%             good = good + 1;
-%             
-%         end
-%     end
-% 
-% end
+    
+    for i = 1:length(target)
+        
+        if abs(output(i) - target(i)) < 0.0670
+            good = good + 1;
+            
+        end
+    end
+
+end
 
 end
