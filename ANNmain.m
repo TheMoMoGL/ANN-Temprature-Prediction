@@ -6,15 +6,16 @@ clc
 goodComp=0;
 dateAndTime = loadVariable('Date_Time_validation.mat'); %Loading validations date and time
 % Scaling parameters
-daysBefore = 2;
-hoursbefore = 2;
+
+daysBefore = 1;
+hoursbefore = 5;
+
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
+starthidden=2;
+% runHidden = 1; % How many hidden nerouns to start with
 
-runHidden = 1; % How many hidden nerouns to start with
-endHidden = 5; % Number of hidden nodes to end with
-
-
-learningRate = 0.01; % Learning rate
+endHidden = 15; % Number of hidden nodes to end with
+learningRate = 0.00001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 
 K_factor = 3;
@@ -88,12 +89,15 @@ end
 %%
 
 
-for runHidden = 1:endHidden % Loop that iterates thorugh the layers
+
+for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     % Training returns the weights for validation ANN
-    [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
+    [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4));
     
+
     % Validation
-    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
+
+    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4));
     
     if goodComp < good
         goodComp = good;

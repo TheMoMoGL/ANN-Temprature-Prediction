@@ -6,6 +6,8 @@ function [Bestrun] = EndReportAnalysis(endreport, samples, endHidden)
 % Outputs: 
 %          
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 figure('units','normalized','outerposition',[0 0 1 1])
 subplot(2,2,1)       % add first plot in 2 x 2 grid
 stem(endreport(:,2),endreport(:,5))           % stem plot
@@ -24,7 +26,7 @@ subplot(2,2,4)       % add fourth plot in 2 x 2 grid
 stem(endreport(:,2),endreport(:,9))           % stem plot
 title('Correlation')
 
-[~,I] = max(endreport(:,9));
+[~,I] = max(endreport(:,5));
 Bestrun=endreport(I,:);
 
 
