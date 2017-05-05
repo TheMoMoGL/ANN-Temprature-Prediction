@@ -1,4 +1,4 @@
-function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(trainingData, numInput, numHidden, numHiddLay, n)
+function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(trainingData, numInput, numHidden, numHiddLay, n, trainingTarget)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: trainingData -> Training data for the ANN
@@ -44,12 +44,12 @@ good = 0;
 good = 0;
 % for i = 1:length(target)
 
-% while(good/total) < 0.6
-%     good = 0;
+while(good/total) < 0.6
+    good = 0;
     for i = 1:4:length(trainingData) - time
         
         % Create function that selects the right inputs among the training data
-        [input, target(i)] = HourlyInputTarget(trainingData, i+time, i);
+        [input, target(i)] = HourlyInputTarget(trainingData, i+time, i, trainingTarget);
         [newInput, hiddenOutput, output(i)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights); % Prediction
         
         % Back propagation
@@ -57,15 +57,15 @@ good = 0;
         trainCount = trainCount + 1;
     end
 
-%     
-%     for i = 1:length(target)
-%         
-%         if abs(output(i) - target(i)) < 0.0670
-%             good = good + 1;
-%             
-%         end
-%     end
-% 
-% end
+    
+    for i = 1:length(target)
+        
+        if abs(output(i) - target(i)) < 2
+            good = good + 1;
+            
+        end
+    end
+
+end
 
 end
