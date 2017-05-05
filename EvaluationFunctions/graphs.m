@@ -24,18 +24,18 @@ dt = 1:1:m;
 % realTemp = loadVariable(Ptemp_validation);
 
 figure('units','normalized','outerposition',[0 0 1 1])
-plot(dt, outputVal, '--')
+plot(dt, outputVal)
 hold on
-plot (dt, actualVal, '--')
+plot (dt, actualVal)
 hold on
-plot (dt, progtemp, '--')
+plot (dt, progtemp, 'g')
 legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
 title(['Hidden neurons: ', num2str(iteration)])
 
 
-figure('units','normalized','outerposition',[0 0 1 1])
-plot(dt, error)
-legend('Error between forecasted temperature and measured temperature')
-title(['Hidden neurons: ', num2str(iteration)])
+% figure('units','normalized','outerposition',[0 0 1 1])
+% plot(dt, error)
+% legend('Error between forecasted temperature and measured temperature')
+% title(['Hidden neurons: ', num2str(iteration)])
 
 end
