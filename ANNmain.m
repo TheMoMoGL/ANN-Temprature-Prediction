@@ -3,15 +3,15 @@ clear
 clc
 
 %%
-goodComp=0;
-dateAndTime = loadVariable('Date_Time_validation.mat'); %Loading validations date and time
+goodComp = 0;
+dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations date and time
 % Scaling parameters
 daysBefore = 2;
 hoursbefore = 2;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 runHidden = 1; % How many hidden nerouns to start with
-endHidden = 5; % Number of hidden nodes to end with
+endHidden = 10; % Number of hidden nodes to end with
 
 
 learningRate = 0.01; % Learning rate
@@ -55,8 +55,6 @@ for parameter = 1:4
     [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
 end
 
-%end
-
 
 %%
 
@@ -93,7 +91,7 @@ for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate);
     
     % Validation
-    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
+    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid, progTemp] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights );
     
     if goodComp < good
         goodComp = good;
@@ -106,6 +104,7 @@ for runHidden = 1:endHidden % Loop that iterates thorugh the layers
     
 end
 
+%end
 
 samples = (good+bad);
-EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, dateAndTime); %endReport compilation in progess
+EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, dateAndTime, progTemp); %endReport compilation in progess

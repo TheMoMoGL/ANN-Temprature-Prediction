@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights)
+function [good, bad, RMSE, MAPE, Corr, output, target, progTemp] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -12,7 +12,7 @@ function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validati
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
-time = 1;
+time = 12;
 
 time = time * 4;
 row = 1;
@@ -51,7 +51,7 @@ bad = 0;
 
 for i = 1:length(target)
 
-    if abs(output(i,24) - target(i,24)) < 0.0670
+    if abs(output(i,1) - target(i,1)) < 0.0618
         good = good+1;
     else
         bad = bad+1;
@@ -59,6 +59,8 @@ for i = 1:length(target)
     end
 end
 [RMSE, MAPE, Corr] = Error(output, target);
+
+progTemp = validationData(:,3);
 
 % graphs(output(:,1), target(:,1), dateAndTime, iteration);
 

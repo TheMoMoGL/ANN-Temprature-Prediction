@@ -13,7 +13,7 @@ function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(traini
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
-time = 1;
+time = 12;
 total = length(trainingData);
 
 time = time * 4;
@@ -41,7 +41,7 @@ while(good/total) < 0.6
     
     for i = 1:length(target)
         
-        if abs(output(i) - target(i)) < 0.0670
+        if abs(output(i) - target(i)) < 0.0618
             good = good + 1;
             
         end
