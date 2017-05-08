@@ -46,6 +46,7 @@ while(good/total) < 0.6
     
     for i = 1:length(target)
         
+
         if abs(output(i) - target(i)) < 2
             good = good + 1;
             

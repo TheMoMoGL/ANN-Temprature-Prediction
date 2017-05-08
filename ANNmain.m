@@ -11,11 +11,11 @@ daysBefore = 2;
 hoursbefore = 4;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
-
-starthidden = 1;
-endHidden = 15; % Number of hidden nodes to end with
-learningRate = 0.000001; % Learning rate
+starthidden = 2;
+endHidden = 10; % Number of hidden nodes to end with
+learningRate = 0.00001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
+
 K_factor = 3;
 
 
@@ -83,6 +83,8 @@ end
 [ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
 
 %%
+
+
 
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
 
