@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay)
+function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9,11 +9,6 @@ function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validati
 % Outputs: good -> Accurate temperature forecasts
 %          bad -> Non-accurate temperature forecasts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Change variable 'time' in the functions TrainingANN & ValidationANN to
-% Vary how many hours head the output forecast will predict.
-% !NOTE! They have to match !NOTE!
-time = 24;
 
 time = time * 4;
 row = 1;

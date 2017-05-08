@@ -14,7 +14,6 @@ inputSize = size(inputWeights);
 newInput = [1, input]; % Add bias for input layer
 if numHiddLay > 1
     hiddenOutput = ones(numHiddLay, hiddenSize(2)); % add bias for all operations
-    %hiddenOutput = ones((hiddenSize(1)/(hiddenSize(2)-1))+1, hiddenSize(2)); % add bias for all operations
 else
     hiddenOutput = ones(1,1);
 end
@@ -27,7 +26,6 @@ end
 if numHiddLay > 1
     hiddenWeightRow = 1;
     for i = 2:numHiddLay % Iterates number of layers
-    %for i = 2:(hiddenSize(1)/(hiddenSize(2)-1))+1 % Iterates number of layers
         for j = 2:hiddenSize(2)
             hiddenOutput(i,j) = ReLu_activation_function(Net(hiddenWeights(hiddenWeightRow,:), hiddenOutput(i-1,:)));
             hiddenWeightRow = hiddenWeightRow + 1;

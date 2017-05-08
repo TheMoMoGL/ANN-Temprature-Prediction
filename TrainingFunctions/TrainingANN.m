@@ -1,4 +1,4 @@
-function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(trainingData, numInput, numHidden, numHiddLay, n, trainingTarget)
+function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(trainingData, numInput, numHidden, numHiddLay, n, trainingTarget, time)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: trainingData -> Training data for the ANN
@@ -9,14 +9,7 @@ function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(traini
 %          hiddenWeights -> Weights between the hidden and output layer.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-% Change variable 'time' in the functions TrainingANN & ValidationANN to
-% Vary how many hours head the output forecast will predict.
-% !NOTE! They have to match !NOTE!
-time = 1;
-
 total = length(trainingData);
-
 
 time = time * 4;
 
@@ -29,7 +22,7 @@ trainCount = 0;
 % Training
 good = 0;
 
-while(good/total) < 0.6
+while(good/total) < 0.65
 
     good = 0;
     for i = 1:4:length(trainingData) - time

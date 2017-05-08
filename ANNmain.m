@@ -9,7 +9,7 @@ dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations da
 
 daysBefore = 2;
 hoursbefore = 4;
-
+time = 24; % how many hours to forecast between 1-24.
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 starthidden = 2;
 endHidden = 10; % Number of hidden nodes to end with
@@ -89,10 +89,10 @@ end
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
 
     % Training returns the weights for validation ANN
-    [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4));
+    [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
     
     % Validation
-    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay);
+    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
     
     if goodComp < good
         goodComp = good;
