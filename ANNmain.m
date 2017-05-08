@@ -8,14 +8,14 @@ dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations da
 % Scaling parameters
 
 
-daysBefore = 2;
-time = 1; % How many hours to forecast between 1-24
+daysBefore = 1;
+hoursbefore = 4;
+time = 24; % How many hours to forecast between 1-24
 endHidden = 20; % Number of hidden nodes to end with
-hoursbefore = 10;
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
-starthidden = 1;
-learningRate = 0.001; % Learning rate
-NumbHiddLay = 2; % Number of hidden layers
+starthidden = 1; % How many hidden nodes in each layer to start out with
+learningRate = 0.00001; % Learning rate
+NumbHiddLay = 1; % Number of hidden layers
 K_factor = 3; % Constant used for k-fold cross validaton
 start = 1; % Starting index for training and validation
 counter = 0; % Counter for report matrix
@@ -24,7 +24,6 @@ Start_Season = 3;
 End_Season = 3;
 
 % Starting index for training and validation
-start = 1;
 if daysBefore ~= 0
     start = start + daysBefore*96;
 else
@@ -49,7 +48,7 @@ end
 % validationData = [Pwind, Psun, Ptemp, Rtemp];
 % totalData = [trainingData; validationData];
 
-[Data14, Data15,Data16] = Data_deviding(Start_Season, End_Season);
+[Data14, Data15, Data16] = Data_deviding(Start_Season, End_Season);
 
 totalData = [Data14; Data15; Data16];
 
@@ -81,16 +80,23 @@ for t = 1:2:3
     processedValidationData(:,t) = Pre_process(validation(:,t));
 end
 processedValidationData(:,2) = validation(:,2);
+
 a = 1;
 for i = start:length(validation)-(start-1)
     ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( validation(:,4), daysBefore, hoursbefore, i )];
     a = a + 1;
 end
 
-[TrainingInput, maxValuesTrain, minValuesTrain] = MaxAndMin(TrainingInput);
-[ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
+% [TrainingInput, maxValuesTrain, minValuesTrain] = MaxAndMin(TrainingInput);
+% [ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
 
-%%
+lengthTrain = length(TrainingInput);
+totalInput = [TrainingInput; ValidationInput];
+[totalNormal, ~, ~] = MaxAndMin(totalInput);
+TrainingInput = totalNormal(1:lengthTrain, :);
+ValidationInput = totalNormal(lengthTrain + 1:end, :);
+
+
 
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     
