@@ -30,7 +30,7 @@ title('Correlation')
 Bestrun=endreport(I,:);
 
 
-confirmationMessage = sprintf('Optimal ANN with highest correlation \nInput nodes:%d \nHidden nodes:%d \nHidden layers:%d \nLearning rate:%.4f \nGood predictions:%d \nBad predictions:%d \nRMSE:%.6f \nMAPE: %.6f \nCorr:%.6f' ...
+confirmationMessage = sprintf('Optimal ANN with highest correlation \nInput nodes:%d \nHidden nodes:%d \nHidden layers:%d \nLearning rate:%.6f \nGood predictions:%d \nBad predictions:%d \nRMSE:%.6f \nMAPE: %.6f \nCorr:%.6f' ...
 ,endreport(I,1),endreport(I,2),endreport(I,3),endreport(I,4),endreport(I,5),endreport(I,6),endreport(I,7),endreport(I,8),endreport(I,9));
 disp(confirmationMessage)
 

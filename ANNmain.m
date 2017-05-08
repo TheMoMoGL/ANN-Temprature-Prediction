@@ -3,21 +3,20 @@ clear
 clc
 
 %%
-goodComp=0;
-dateAndTime = loadVariable('Date_Time_validation.mat'); %Loading validations date and time
+goodComp = 0;
+dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations date and time
 % Scaling parameters
 
 daysBefore = 1;
-hoursbefore = 5;
+hoursbefore = 4;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
-starthidden=2;
-% runHidden = 1; % How many hidden nerouns to start with
 
+
+starthidden = 2;
 endHidden = 10; % Number of hidden nodes to end with
-learningRate = 0.01; % Learning rate
-NumbHiddLay = 1; % Number of hidden layers
-
+learningRate = 0.00001; % Learning rate
+NumbHiddLay = 2; % Number of hidden layers
 
 K_factor = 3;
 
@@ -57,8 +56,6 @@ for parameter = 1:4
     [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
 end
 
-%end
-
 
 %%
 
@@ -91,16 +88,13 @@ end
 
 
 
-
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
 
     % Training returns the weights for validation ANN
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4));
     
-
     % Validation
-
-    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN( ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4));
+    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4));
     
     if goodComp < good
         goodComp = good;
@@ -113,6 +107,21 @@ for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     
 end
 
+%end
+good2 = 0;
+bad2 = 0;
+for i = 1:4:length(validation)
 
+    if abs(validation(i,3) - validation(i,4)) < 2
+        good2 = good2 + 1;
+    else
+        bad2 = bad2 + 1;
+        
+    end
+end
+
+sprintf('Good SMHI: %d \nBad SMHI: %d', good2, bad2)
+
+progTemp = validation(:,3);
 samples = (good+bad);
-EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, dateAndTime); %endReport compilation in progess
+EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, dateAndTime, progTemp); %endReport compilation in progess

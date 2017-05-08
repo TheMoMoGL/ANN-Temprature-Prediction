@@ -1,5 +1,6 @@
 function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget)
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
 %         inputWeights -> weights between input and hidden layer
@@ -12,14 +13,10 @@ function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validati
 % Change variable 'time' in the functions TrainingANN & ValidationANN to
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
-time = 1;
+time = 24;
 
 time = time * 4;
 row = 1;
-% Validation counter
-ValidationCount = 0;
-
-
 
 for i = 1:4:length(validationData)-(96+time)
     column = 1;

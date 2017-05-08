@@ -17,7 +17,7 @@ for i=2:n
     end
     Delta_Error_LastHidden_Nodes(i-1)=Hidden_Nodes(m,i)*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
 end
-%%%%error calculating for all hidden layer and weights updating
+%%%% Error calculating for all hidden layer and weights updating
 
 if numberOfhidden > 1 %% if we have more than 1 hidden layer 
     [r,w]=size(Hidden_weights);
