@@ -29,14 +29,14 @@ trainCount = 0;
 % Training
 good = 0;
 
-while(good/total) < 0.5
+while(good/total) < 0.6
 
     good = 0;
     for i = 1:4:length(trainingData) - time
         
         % Create function that selects the right inputs among the training data
         [input, target(i)] = HourlyInputTarget(trainingData, i+time, i, trainingTarget);
-        [newInput, hiddenOutput, output(i)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights); % Prediction
+        [newInput, hiddenOutput, output(i)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay); % Prediction
         
         % Back propagation
         [inputWeights,outputWeights, hiddenWeights] = BackP(output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);

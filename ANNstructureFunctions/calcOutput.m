@@ -1,4 +1,4 @@
-function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights )
+function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, hiddenWeights, outputWeights, numHiddLay )
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: input -> vector with input values
@@ -12,26 +12,28 @@ function [ newInput, hiddenOutput, output ] = calcOutput( input, inputWeights, h
 hiddenSize = size(hiddenWeights);
 inputSize = size(inputWeights);
 newInput = [1, input]; % Add bias for input layer
-if hiddenSize(1) > 0
-    hiddenOutput = ones((hiddenSize(1)/(hiddenSize(2)-1))+1, hiddenSize(2)); % add bias for all operations
+if numHiddLay > 1
+    hiddenOutput = ones(numHiddLay, hiddenSize(2)); % add bias for all operations
+    %hiddenOutput = ones((hiddenSize(1)/(hiddenSize(2)-1))+1, hiddenSize(2)); % add bias for all operations
 else
     hiddenOutput = ones(1,1);
 end
 
 % Calculates and creates the vector with values for the hidden layer
-for i = 1:inputSize(1) % -1 because its 1 less node than number of weights
+for i = 1:inputSize(1) % 
     hiddenOutput(1,i+1) = ReLu_activation_function(Net(inputWeights(i,:), newInput));
 end
 
-if hiddenSize(1) > 0
+if numHiddLay > 1
     hiddenWeightRow = 1;
-    for i = 2:(hiddenSize(1)/(hiddenSize(2)-1))+1 % Iterates number of layers
+    for i = 2:numHiddLay % Iterates number of layers
+    %for i = 2:(hiddenSize(1)/(hiddenSize(2)-1))+1 % Iterates number of layers
         for j = 2:hiddenSize(2)
             hiddenOutput(i,j) = ReLu_activation_function(Net(hiddenWeights(hiddenWeightRow,:), hiddenOutput(i-1,:)));
             hiddenWeightRow = hiddenWeightRow + 1;
         end
     end
-    output = linear_activation(Net(outputWeights, hiddenOutput((hiddenSize(1)/(hiddenSize(2)-1))+1,:))); % Predicted output
+    output = linear_activation(Net(outputWeights, hiddenOutput(numHiddLay,:))); % Predicted output
 else
     output = linear_activation(Net(outputWeights, hiddenOutput)); % Predicted output
 end    
