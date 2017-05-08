@@ -7,11 +7,11 @@ goodComp = 0;
 dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations date and time
 % Scaling parameters
 
-daysBefore = 2;
-hoursbefore = 4;
+daysBefore = 3;
+hoursbefore = 6;
 time = 24; % how many hours to forecast between 1-24.
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
-starthidden = 2;
+starthidden = 1;
 endHidden = 10; % Number of hidden nodes to end with
 learningRate = 0.00001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
@@ -84,40 +84,38 @@ end
 
 %%
 
-
-
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
 
     % Training returns the weights for validation ANN
-    [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
+    [inputWeights, hiddenWeights, outputWeights, trainError] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
     
     % Validation
-    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
+    [good, bad, RMSE, MAPE, Corr, ValidationError, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
     
     if goodComp < good
         goodComp = good;
         bestHiddNeurons = runHidden;   %Saves the best output and target matrix
         bestOutputValid = outputValid;
         bestTargetValid = targetValid;
+        Terror = trainError;
+        Verror = ValidationError;
     end
-    
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
-    
 end
-
+plot(Terror)
+hold on
+plot(Verror)
 %end
 good2 = 0;
 bad2 = 0;
 for i = 1:4:length(validation)
-
     if abs(validation(i,3) - validation(i,4)) < 2
         good2 = good2 + 1;
     else
-        bad2 = bad2 + 1;
-        
+        bad2 = bad2 + 1; 
     end
 end
-
+  
 sprintf('Good SMHI: %d \nBad SMHI: %d', good2, bad2)
 
 progTemp = validation(:,3);

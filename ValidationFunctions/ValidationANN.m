@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
+function [good, bad, RMSE, MAPE, Corr, error, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -20,17 +20,19 @@ for i = 1:4:length(validationData)-(96+time)
         column = column + 1;
         [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights, outputWeights, numHiddLay); 
     end
+    error(row) = abs(output(row) - target(row));
     row = row + 1;
 end
 
 % Validation of last 24 hours
 for i = length(validationData)-(92+time) : 4 : length(validationData)
     column = 1;
-     for j = i : 4 : length(validationData)-(time+1)
-        [input, target(row, column)] = HourlyInputTarget(validationData, j+time, i, trainingTarget);
-        column = column + 1;
-        [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
+    for j = i : 4 : length(validationData)-(time+1)
+       [input, target(row, column)] = HourlyInputTarget(validationData, j+time, i, trainingTarget);
+       column = column + 1;
+       [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
     end
+    error(row) = abs(output(row) - target(row));
     row = row + 1;
 end
 
@@ -46,8 +48,7 @@ for i = 1:length(target)
     if abs(output(i,1) - target(i,1)) < 2
         good = good+1;
     else
-        bad = bad+1;
-        
+        bad = bad+1;     
     end
 end
 [RMSE, MAPE, Corr] = Error(output, target);
