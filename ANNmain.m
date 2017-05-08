@@ -7,20 +7,18 @@ goodComp = 0;
 dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations date and time
 % Scaling parameters
 
-daysBefore = 1;
-hoursbefore = 4;
+daysBefore = 1; % How many days before that are used for input
+hoursbefore = 4; % How many hours before that are used for input
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 starthidden = 2;
-endHidden = 10; % Number of hidden nodes to end with
-learningRate = 0.00001; % Learning rate
-NumbHiddLay = 2; % Number of hidden layers
-K_factor = 3;
+endHidden = 20; % Number of hidden nodes to end with
+learningRate = 0.001; % Learning rate
+NumbHiddLay = 1; % Number of hidden layers
+K_factor = 3; % Constant used for k-fold cross validaton
+start = 1; % Starting index for training and validation
 
-
-% Starting index for training and validation
-start = 1;
 if daysBefore ~= 0
     start = start + daysBefore*96;
 else
@@ -46,8 +44,8 @@ validationData = [Pwind, Psun, Ptemp, Rtemp];
 
 totalData = [trainingData; validationData];
 
-iterate = 1;
-partition = round(length(totalData)/K_factor);
+partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
+iterate = partition*2;
 %for iterate = 1:partition:length(totalData)
 
 for parameter = 1:4
@@ -69,6 +67,7 @@ for i = start:length(training)-(start-1)
     a = a + 1;
 end
 
+% Outlier detection
 for t = 1:3
     processedValidationData(:,t) = Pre_process(validation(:,t));
 end

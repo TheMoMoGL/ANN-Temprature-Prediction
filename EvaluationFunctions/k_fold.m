@@ -18,13 +18,13 @@ if iterate == 1
     train = Observations(iterate + partitions:end);
     
 elseif iterate == lastIterate
-    test = Observations(lastIterate:nrObservations);
-    train = Observations(1:lastIterate-1);
+    test = Observations(lastIterate+1:nrObservations);
+    train = Observations(1:lastIterate);
     
 else
-    test = Observations(iterate:iterate + partitions - 1);
-    train = Observations(1:iterate - 1);
-    train = vertcat(train, Observations(iterate + partitions:end));
+    test = Observations(iterate+1:iterate + partitions);
+    train = Observations(1:iterate);
+    train = vertcat(train, Observations(iterate + partitions + 1:end));
     
 end
 

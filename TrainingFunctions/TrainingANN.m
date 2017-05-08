@@ -14,10 +14,7 @@ function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(traini
 % Vary how many hours head the output forecast will predict.
 % !NOTE! They have to match !NOTE!
 time = 1;
-
 total = length(trainingData);
-
-
 time = time * 4;
 
 % Generate weights
