@@ -2,6 +2,7 @@ function [RMSE, MAPE, Corr] = Error( output, target )
 
 
     RMSE = sqrt( sum( ( target(:) - output(:) ).^2 ) ./ numel(output) );
+    %RMSE = sqrt(mean((target(:) - output(:)).^2));
     MAPE = abs(sum(( target - output ) ./ target) * (100 ./ numel(output)));
     Corr = corrcoef( target, output );
     MAPE = MAPE(1,1);
