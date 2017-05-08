@@ -9,15 +9,15 @@ dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations da
 
 daysBefore = 2;
 hoursbefore = 4;
-time = 24; % how many hours to forecast between 1-24.
+time = 1; % How many hours to forecast between 1-24
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
-starthidden = 2;
+starthidden = 1;
 endHidden = 20; % Number of hidden nodes to end with
-learningRate = 0.0000001; % Learning rate
+learningRate = 0.00001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 K_factor = 3; % Constant used for k-fold cross validaton
 start = 1; % Starting index for training and validation
-counter = 0;
+counter = 0; % Counter for report matrix
 
 
 if daysBefore ~= 0
@@ -29,29 +29,29 @@ end
 %%
 
 % Load training data and concatenate
-Pwind = importdata('Pwind_training.mat');
-Psun = importdata('Psun_training.mat');
-Ptemp = importdata('Ptem_training.mat');
-Rtemp = importdata('Rtemp_training.mat');
+Pwind = importdata('Pwind_6month_training.mat');
+Psun = importdata('Psun_6month_training.mat');
+Ptemp = importdata('Ptemp_6month_training.mat');
+Rtemp = importdata('Rtemp_6month_training.mat');
 trainingData = [Pwind, Psun, Ptemp, Rtemp];
 
 
 % Load validation data and concatenate
-Pwind = importdata('Pwind_validation.mat');
-Psun = importdata('Psun_validation.mat');
-Ptemp = importdata('Ptemp_validation.mat');
-Rtemp = importdata('Rtemp_validation.mat');
+Pwind = importdata('Pwind_6month_validation.mat');
+Psun = importdata('Psun_6month_validation.mat');
+Ptemp = importdata('Ptemp_6month_validation.mat');
+Rtemp = importdata('Rtemp_6month_validation.mat');
 validationData = [Pwind, Psun, Ptemp, Rtemp];
 
 totalData = [trainingData; validationData];
 
 partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
-%iterate = partition*2;
+iterate = partition*2;
 
 
-for iterate = 1:partition:length(totalData)
+%for iterate = 1:partition:length(totalData)
     
-    counter = counter + 1;
+    %counter = counter + 1;
     
     for parameter = 1:4
         [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
@@ -67,7 +67,7 @@ for iterate = 1:partition:length(totalData)
     a = 1;
     
     for i = start:length(training)-(start-1)
-        TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( training(:,4), daysBefore, hoursbefore, i )];
+        TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters(training(:,4), daysBefore, hoursbefore, i)];
         a = a + 1;
     end
     
@@ -78,7 +78,7 @@ for iterate = 1:partition:length(totalData)
     
     a = 1;
     for i = start:length(validation)-(start-1)
-        ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( validation(:,4), daysBefore, hoursbefore, i )];
+        ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters(validation(:,4), daysBefore, hoursbefore, i)];
         a = a + 1;
     end
     
@@ -93,11 +93,11 @@ for iterate = 1:partition:length(totalData)
         [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
         
         % Validation
-        [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), time);
+        [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
         
         if goodComp < good
             goodComp = good;
-            bestHiddNeurons = runHidden;   %Saves the best output and target matrix
+            bestHiddNeurons = runHidden;   % Saves the best output and target matrix
             bestOutputValid = outputValid;
             bestTargetValid = targetValid;
         end
@@ -109,6 +109,7 @@ for iterate = 1:partition:length(totalData)
     % end
     good2 = 0;
     bad2 = 0;
+    count = 1;
     for i = 1:4:length(validation)
         
         if abs(validation(i,3) - validation(i,4)) < 2
@@ -117,13 +118,15 @@ for iterate = 1:partition:length(totalData)
             bad2 = bad2 + 1;
             
         end
+        
+        progTemp(count) = validation(i,3);
+        count = count + 1;
     end
     
     sprintf('Good SMHI: %d \nBad SMHI: %d', good2, bad2)
     
-    progTemp = validation(:,3);
     samples = (good+bad);
     bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, dateAndTime, progTemp); %endReport compilation in progess
     
-    reports(counter,:) = bestrun;
-end % Ends k-fold for loop
+    %reports(counter,:) = bestrun;
+%end % Ends k-fold for loop
