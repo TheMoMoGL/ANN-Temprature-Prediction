@@ -8,18 +8,20 @@ dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations da
 % Scaling parameters
 
 daysBefore = 1;
-hoursbefore = 4;
+hoursbefore = 5;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 
 starthidden = 2;
-endHidden = 10; % Number of hidden nodes to end with
+endHidden = 4; % Number of hidden nodes to end with
 learningRate = 0.00001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 
 K_factor = 3;
 
+Start_Season=1;
+End_Season=1;
 
 % Starting index for training and validation
 start = 1;
@@ -32,21 +34,26 @@ end
 %%
 
 % Load training data and concatenate
-Pwind = importdata('Pwind_training.mat');
-Psun = importdata('Psun_training.mat');
-Ptemp = importdata('Ptem_training.mat');
-Rtemp = importdata('Rtemp_training.mat');
-trainingData = [Pwind, Psun, Ptemp, Rtemp];
+% Pwind = importdata('Pwind_training.mat');
+% Psun = importdata('Psun_training.mat');
+% Ptemp = importdata('Ptem_training.mat');
+% Rtemp = importdata('Rtemp_training.mat');
+% trainingData = [Pwind, Psun, Ptemp, Rtemp];
+% 
+% 
+% % Load validation data and concatenate
+% Pwind = importdata('Pwind_validation.mat');
+% Psun = importdata('Psun_validation.mat');
+% Ptemp = importdata('Ptemp_validation.mat');
+% Rtemp = importdata('Rtemp_validation.mat');
+% validationData = [Pwind, Psun, Ptemp, Rtemp];
 
 
-% Load validation data and concatenate
-Pwind = importdata('Pwind_validation.mat');
-Psun = importdata('Psun_validation.mat');
-Ptemp = importdata('Ptemp_validation.mat');
-Rtemp = importdata('Rtemp_validation.mat');
-validationData = [Pwind, Psun, Ptemp, Rtemp];
 
-totalData = [trainingData; validationData];
+% totalData = [trainingData; validationData];
+[Data14, Data15,Data16]=Data_deviding(Start_Season, End_Season);
+
+totalData=[Data14; Data15; Data16];
 
 iterate = 1;
 partition = round(length(totalData)/K_factor);
@@ -96,7 +103,7 @@ for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     % Validation
     [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4));
     
-    if goodComp < good
+    if goodComp <= good
         goodComp = good;
         bestHiddNeurons = runHidden;   %Saves the best output and target matrix
         bestOutputValid = outputValid;
