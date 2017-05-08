@@ -10,7 +10,7 @@ function [train, test] = k_fold(Observations, K_factor, iterate, partitions)
 
 nrObservations = length(Observations);
 % partitions = round(nrObservations/K_factor);
-lastIterate = partitions*(K_factor-1);
+lastIterate = partitions*(K_factor-1) + 1;
 
 
 if iterate == 1
@@ -18,13 +18,13 @@ if iterate == 1
     train = Observations(iterate + partitions:end);
     
 elseif iterate == lastIterate
-    test = Observations(lastIterate+1:nrObservations);
-    train = Observations(1:lastIterate);
+    test = Observations(lastIterate:nrObservations);
+    train = Observations(1:lastIterate - 1);
     
 else
-    test = Observations(iterate+1:iterate + partitions);
-    train = Observations(1:iterate);
-    train = vertcat(train, Observations(iterate + partitions + 1:end));
+    test = Observations(iterate:iterate + partitions - 1);
+    train = Observations(1:iterate - 1);
+    train = vertcat(train, Observations(iterate + partitions:end));
     
 end
 
