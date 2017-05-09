@@ -1,4 +1,4 @@
-function [] = graphs(outputVal, actualVal, dateAndTime, iteration, progTemp)
+function [] = graphs(outputVal, actualVal, iteration, progTemp)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plotting function
@@ -18,8 +18,8 @@ global progtemp
 
 progEnd = length(outputVal);
 
-progtemp = progTemp(1:4:end);
-progtemp = progtemp(1:progEnd);
+%progtemp = progTemp(1:4:end);
+progtemp = progTemp(1:progEnd)';
 error = outputVal - actualVal;
 [m,~] = size(outputVal);
 dt = 1:1:m;

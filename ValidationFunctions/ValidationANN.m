@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget)
+function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -10,11 +10,6 @@ function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN( validati
 %          bad -> Non-accurate temperature forecasts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Change variable 'time' in the functions TrainingANN & ValidationANN to
-% Vary how many hours head the output forecast will predict.
-% !NOTE! They have to match !NOTE!
-time = 24;
-
 time = time * 4;
 row = 1;
 
@@ -23,7 +18,7 @@ for i = 1:4:length(validationData)-(96+time)
     for j = i:4:i+92  %(96-time)
         [input, target(row, column)] = HourlyInputTarget( validationData,j+time, i,trainingTarget );
         column = column + 1;
-        [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights, outputWeights); 
+        [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights, outputWeights, numHiddLay); 
     end
     row = row + 1;
 end
@@ -34,7 +29,7 @@ for i = length(validationData)-(92+time) : 4 : length(validationData)
      for j = i : 4 : length(validationData)-(time+1)
         [input, target(row, column)] = HourlyInputTarget(validationData, j+time, i, trainingTarget);
         column = column + 1;
-        [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights);
+        [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
     end
     row = row + 1;
 end
@@ -56,8 +51,6 @@ for i = 1:length(target)
     end
 end
 [RMSE, MAPE, Corr] = Error(output, target);
-
-% graphs(output(:,1), target(:,1), dateAndTime, iteration);
 
 
 end
