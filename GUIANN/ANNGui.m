@@ -83,26 +83,7 @@ function RunProg_Callback(hObject, eventdata, handles)
 handles=guidata(hObject);
 set(handles.figure1, 'pointer', 'watch')
 pause(0.01);
-cla(handles.axes5)
-cla(handles.axes2)
-clearvars daysBefore;
-clearvars hoursbefore;
-clearvars starthidden;
-clearvars endHidden;
-clearvars learningRate;
-clearvars NumbHiddLay;
-clearvars K_factor;
-clearvars Start_month;
-clearvars End_month;
-clearvars bestOutputValid;
-clearvars bestTargetValid;
-clearvars bestHiddNeurons;
-clearvars time;
-clearvars dt;
-clearvars progtemp
-clearvars endReport;
-clearvars samples;
-clearvars progTemp;
+pause(0.01);
 global daysBefore;
 global hoursbefore;
 global starthidden;
