@@ -1,4 +1,4 @@
-function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(trainingData, numInput, numHidden, numHiddLay, n, trainingTarget, time)
+function [inputWeights, hiddenWeights, outputWeights, error] = TrainingANN(trainingData, numInput, numHidden, numHiddLay, n, trainingTarget, time)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: trainingData -> Training data for the ANN
@@ -10,43 +10,39 @@ function [inputWeights, hiddenWeights, outputWeights, good] = TrainingANN(traini
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 total = length(trainingData);
-
 time = time * 4;
 
 % Generate weights
 [inputWeights, hiddenWeights, outputWeights] = WeightsGenerator(numInput, numHidden, numHiddLay);
 
 % Training counter
-trainCount = 0;
+trainCount = 1;
 
 % Training
 good = 0;
+controlledLearning = 1;
 
-while(good/total) < 0.65
 
+while(good/total) < 0.6
     good = 0;
     for i = 1:4:length(trainingData) - time
-        
         % Create function that selects the right inputs among the training data
         [input, target(i)] = HourlyInputTarget(trainingData, i+time, i, trainingTarget);
         [newInput, hiddenOutput, output(i)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay); % Prediction
-        
-        % Back propagation
-        [inputWeights,outputWeights, hiddenWeights] = BackP(output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
-        trainCount = trainCount + 1;
+        if abs(output(i) - target(i)) > 2
+            % Back propagation
+            [inputWeights,outputWeights, hiddenWeights] = BackP(output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
+            controlledLearning = controlledLearning +1;
+        end
+        error(trainCount) = abs(output(i) - target(i));
+        trainCount = trainCount +1;
     end
-    
-    
+%     controlledLearning 
+%     trainCount
     for i = 1:length(target)
-        
-
         if abs(output(i) - target(i)) < 2
             good = good + 1;
-            
         end
-    end
-    
-    
+    end 
 end
-
 end
