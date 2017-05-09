@@ -102,27 +102,27 @@ global endReport;
 global samples;
 global progTemp;
 global percent;
-daysBefore=str2num(get(handles.DaysbeforeINP,'string'));
-hoursbefore=str2num(get(handles.HoursBeforeINP,'string'));
-starthidden=str2num(get(handles.StartNodeINP,'string'));
-endHidden=str2num(get(handles.EndNodeINP,'string'));
-learningRate=str2num(get(handles.LearningRateINP,'string'));
-NumbHiddLay=str2num(get(handles.HiddenLayersINP,'string'));
-time =str2num(get(handles.HourlyforecastINP,'string'));
-K_factor=str2num(get(handles.KfactorINP,'string'));
-Start_month=str2num(get(handles.StartSeasonINP,'string'));
-End_month=str2num(get(handles.endSeasonINP,'string'));
+daysBefore = str2double(get(handles.DaysbeforeINP,'string'));
+hoursbefore = str2double(get(handles.HoursBeforeINP,'string'));
+starthidden = str2double(get(handles.StartNodeINP,'string'));
+endHidden = str2double(get(handles.EndNodeINP,'string'));
+learningRate = str2double(get(handles.LearningRateINP,'string'));
+NumbHiddLay = str2double(get(handles.HiddenLayersINP,'string'));
+time = str2double(get(handles.HourlyforecastINP,'string'));
+K_factor = str2double(get(handles.KfactorINP,'string'));
+Start_month = str2double(get(handles.StartSeasonINP,'string'));
+End_month = str2double(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
 [M, I] = max(endReport(:,5));
 percent = (M/(endReport(I,6) + M))*100;
 percent1 = sprintf('Percent: %3f', percent);
 set(handles.PercentCorrect, 'String', percent1);
 
+
 progEnd = length(bestOutputValid);
 [m,~] = size(bestOutputValid);
 progtemp = progTemp(1:progEnd)';
 dt = 1:1:m;
-% figure('units','normalized','outerposition',[0 0 1 1])
 axes(handles.axes5);
 plot(dt, bestOutputValid(:,1))
 hold on
@@ -130,10 +130,7 @@ plot (dt, bestTargetValid(:,1))
 hold on
 plot (dt, progtemp, 'g')
 legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
-% axes(handles.axes2); %
-    
-% subplot(2,2,1)       % add first plot in 2 x 2 grid
-stem(handles.axes2,endReport(:,2),endReport(:,5))           % stem plot
+stem(handles.axes2,endReport(:,2),endReport(:,5)) % stem plot
 axis(handles.axes2,[1 endHidden 0 samples])    
 set(handles.figure1, 'pointer', 'arrow')
 % set(gcf,'Pointer','arrow');
