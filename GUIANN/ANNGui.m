@@ -82,6 +82,7 @@ function RunProg_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles=guidata(hObject);
 set(handles.figure1, 'pointer', 'watch')
+pause(0.01);
 global daysBefore;
 global hoursbefore;
 global starthidden;
@@ -130,6 +131,7 @@ legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
 stem(handles.axes2,endReport(:,2),endReport(:,5))           % stem plot
 axis(handles.axes2,[1 endHidden 0 samples])    
 set(handles.figure1, 'pointer', 'arrow')
+% set(gcf,'Pointer','arrow');
 guidata(hObject,handles)
 
 
