@@ -17,6 +17,7 @@ for i=2:n
         Hidden_Nodes(m,i) = 0.01;
     end
     Delta_Error_LastHidden_Nodes(i-1)=Hidden_Nodes(m,i)*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
+%     Delta_Error_LastHidden_Nodes(i-1)=Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
 end
 %%%% Error calculating for all hidden layer and weights updating
 if numberOfhidden > 1 %% if we have more than 1 hidden layer 
@@ -52,7 +53,8 @@ if numberOfhidden > 1 %% if we have more than 1 hidden layer
         else
             Hidden_Nodes(d,k) = 0.01;
         end
-           Delta_Error_LastHidden_Nodes(k-1)= Hidden_Nodes(d,k)*sum_delta;        
+           Delta_Error_LastHidden_Nodes(k-1)= Hidden_Nodes(d,k)*sum_delta; 
+%             Delta_Error_LastHidden_Nodes(k-1)=sum_delta;
         end
         
         r=r-length(Delta_Error_LastHidden_Nodes);
