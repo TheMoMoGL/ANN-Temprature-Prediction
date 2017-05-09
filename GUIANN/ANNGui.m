@@ -80,8 +80,8 @@ function RunProg_Callback(hObject, eventdata, handles)
 % hObject    handle to RunProg (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-set(handles.figure1, 'pointer', 'watch')
 handles=guidata(hObject);
+set(handles.figure1, 'pointer', 'watch')
 global daysBefore;
 global hoursbefore;
 global starthidden;
@@ -112,8 +112,12 @@ Start_month=str2num(get(handles.StartSeasonINP,'string'));
 End_month=str2num(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
 
+progEnd = length(bestOutputValid);
+[m,~] = size(bestOutputValid);
+progtemp = progTemp(1:progEnd)';
+dt = 1:1:m;
 % figure('units','normalized','outerposition',[0 0 1 1])
- axes(handles.axes5);
+axes(handles.axes5);
 plot(dt, bestOutputValid(:,1))
 hold on
 plot (dt, bestTargetValid(:,1))

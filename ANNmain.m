@@ -24,8 +24,7 @@ global progTemp;
 %rng('default')
 
 goodComp = 0;
-dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations date and time
-
+% Scaling parameters
 % daysBefore = 1;
 % hoursbefore = 4;
 % time = 24; % How many hours to forecast between 1-24
@@ -94,25 +93,23 @@ totalInput = [TrainingInput; ValidationInput];
 TrainingInput = totalNormal(1:lengthTrain, :);
 ValidationInput = totalNormal(lengthTrain + 1:end, :);
 
-
-
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     
     % Training returns the weights for validation ANN
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
     
     % Validation
-    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
+    [good, bad, RMSE, MAPE, Corr, ValidationError, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
     
     if goodComp < good
         goodComp = good;
         bestHiddNeurons = runHidden;   % Saves the best output and target matrix
         bestOutputValid = outputValid;
         bestTargetValid = targetValid;
+%         Terror = trainError;
+%         Verror = ValidationError;
     end
-    
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
-    
 end
 
 % end
@@ -125,7 +122,6 @@ for i = 1:4:length(validation)
         goodSMHI = goodSMHI + 1;
     else
         badSMHI = badSMHI + 1;
-        
     end
     
     progTemp(count) = validation(i,3);
