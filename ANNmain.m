@@ -20,11 +20,12 @@ global progtemp
 global endReport;
 global samples;
 global progTemp;
+global percent;
 %%
-goodComp = 0;
-dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations date and time
-% Scaling parameters
+%rng('default')
 
+goodComp = 0;
+% Scaling parameters
 % daysBefore = 1;
 % hoursbefore = 4;
 % time = 24; % How many hours to forecast between 1-24
@@ -48,35 +49,12 @@ else
     start = start + hoursbefore*4;
 end
 
-%%
-
-% Load training data and concatenate
-% Pwind = importdata('Pwind_training.mat');
-% Psun = importdata('Psun_training.mat');
-% Ptemp = importdata('Ptem_training.mat');
-% Rtemp = importdata('Rtemp_training.mat');
-% trainingData = [Pwind, Psun, Ptemp, Rtemp];
-%
-%
-% % Load validation data and concatenate
-% Pwind = importdata('Pwind_validation.mat');
-% Psun = importdata('Psun_validation.mat');
-% Ptemp = importdata('Ptemp_validation.mat');
-% Rtemp = importdata('Rtemp_validation.mat');
-% validationData = [Pwind, Psun, Ptemp, Rtemp];
-% totalData = [trainingData; validationData];
-
 [Data14, Data15, Data16] = Data_deviding(Start_month, End_month);
 
 totalData = [Data14; Data15; Data16];
 
 partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
 iterate = partition*2;
-
-
-
-
-
 %for iterate = 1:partition:length(totalData)
 
 for parameter = 1:4
@@ -152,7 +130,7 @@ for i = 1:4:length(validation)
     count = count + 1;
 end
 
-sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
+% sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
 
 samples = (good+bad);
 % bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess

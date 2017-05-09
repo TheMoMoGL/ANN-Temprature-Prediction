@@ -8,7 +8,6 @@ function [value] = ReLu_activation_function(value)
 % Outputs: value -> Transformed value
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-value(value > 0) = value;
-value(value < 0) = 0.01*value;
+value = max(0.1*value, value);
 
 end
