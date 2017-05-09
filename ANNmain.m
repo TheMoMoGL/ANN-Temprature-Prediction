@@ -8,18 +8,17 @@ dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations da
 % Scaling parameters
 daysBefore = 2;
 hoursbefore = 10;
-time = 24; % how many hours to forecast between 1-24.
-
+time = 24; % how many hours to forecast between 1-24
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 starthidden = 1;
 endHidden = 10; % Number of hidden nodes to end with
-learningRate = 0.001; % Learning rate
+learningRate = 0.000001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 
 K_factor = 3;
 
-Start_Season=3;
-End_Season=3;
+Start_Season = 2;
+End_Season = 2;
 
 % Starting index for training and validation
 start = 1;
@@ -95,7 +94,7 @@ end
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
 
     % Training returns the weights for validation ANN
-    [inputWeights, hiddenWeights, outputWeights, ~] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
+    [inputWeights, hiddenWeights, outputWeights, trainError] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
     
     % Validation
     [good, bad, RMSE, MAPE, Corr, ValidationError, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
@@ -117,7 +116,7 @@ plot(Verror)
 good2 = 0;
 bad2 = 0;
 for i = 1:4:length(validation)
-    if abs(validation(i,3) - validation(i,4)) < 2
+    if abs(validation(i,3) - validation(i,4)) < 3
         good2 = good2 + 1;
     else
         bad2 = bad2 + 1; 

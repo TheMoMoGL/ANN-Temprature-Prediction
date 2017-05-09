@@ -17,8 +17,8 @@ load('Datetime15.mat')
 load('Datetime14.mat')
 %%%%%%%%%%%%%%%%%% seasongs deviding %%%%%%%%%%%%%%%%%%
 % seasong 1 -> Jan-Mars
-% seasong 2 -> Spril-Jun
-% seasong 3 -> juli-Sep
+% seasong 2 -> April-Jun
+% seasong 3 -> Juli-Sep
 % seasong 4 -> Oct-Dec
 
 %%%%%%%%%%%%%%%% Get the right index for end  Start %%%%%%%%%%
