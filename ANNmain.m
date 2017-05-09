@@ -1,24 +1,39 @@
-close all
-clear
-clc
+% close all
+% clear
+% clc
 
+global daysBefore;
+global hoursbefore;
+global starthidden;
+global endHidden;
+global learningRate;
+global NumbHiddLay;
+global K_factor;
+global startSeasonVal;
+global endSeasonVal;
+global bestOutputValid;
+global bestTargetValid;
+global bestHiddNeurons;
+global dt;
+global progtemp
+global endReport;
 %%
 goodComp = 0;
 dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations date and time
 % Scaling parameters
 
-daysBefore = 1;
-hoursbefore = 5;
+% daysBefore = 1;
+% hoursbefore = 5;
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 
 
-starthidden = 2;
-endHidden = 10; % Number of hidden nodes to end with
+% starthidden = 1;
+% endHidden = 10; % Number of hidden nodes to end with
 
-learningRate = 0.00001; % Learning rate
-NumbHiddLay = 2; % Number of hidden layers
-K_factor = 3;
+% learningRate = 0.001; % Learning rate
+% NumbHiddLay = 2; % Number of hidden layers
+% K_factor = 3;
 
 
 % Starting index for training and validation
