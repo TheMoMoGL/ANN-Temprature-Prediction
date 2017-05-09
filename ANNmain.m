@@ -9,19 +9,19 @@ dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations da
 
 
 daysBefore = 2;
-hoursbefore = 10;
+hoursbefore = 5;
 time = 24; % how many hours to forecast between 1-24.
 
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
-starthidden = 1;
-endHidden = 10; % Number of hidden nodes to end with
-learningRate = 0.001; % Learning rate
+starthidden = 2;
+endHidden = 12; % Number of hidden nodes to end with
+learningRate = 0.00001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 
 K_factor = 3;
 
-Start_Season=3;
-End_Season=3;
+Start_month=1;
+End_month=3;
 
 % Starting index for training and validation
 start = 1;
@@ -51,7 +51,7 @@ end
 
 
 % totalData = [trainingData; validationData];
-[Data14, Data15,Data16]=Data_deviding(Start_Season, End_Season);
+[Data14, Data15,Data16]=Data_deviding(Start_month, End_month);
 
 totalData=[Data14; Data15; Data16];
 
@@ -93,8 +93,6 @@ end
 [ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
 
 %%
-
-
 
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
 
