@@ -21,6 +21,7 @@ trainCount = 0;
 % Training
 good = 0;
 
+
 while(good/total) < 0.65
 
     good = 0;

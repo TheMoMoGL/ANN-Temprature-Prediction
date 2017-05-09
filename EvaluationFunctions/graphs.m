@@ -1,4 +1,4 @@
-function [] = graphs(outputVal, actualVal, dateAndTime, iteration, progTemp)
+function [] = graphs(outputVal, actualVal, iteration, progTemp)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plotting function
@@ -9,10 +9,13 @@ function [] = graphs(outputVal, actualVal, dateAndTime, iteration, progTemp)
 %
 % Outputs: None
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+global dt;
+global progtemp
 % dateAndTimeHourly = dateAndTime(1 : 4 : end);
 % start = length(dateAndTimeHourly) - length(outputVal) + 1;
 % dateAndTimeHourly = dateAndTimeHourly(start:end);
+
+
 progEnd = length(outputVal);
 
 %progtemp = progTemp(1:4:end);
@@ -37,5 +40,7 @@ title(['Hidden neurons: ', num2str(iteration)])
 % plot(dt, error)
 % legend('Error between forecasted temperature and measured temperature')
 % title(['Hidden neurons: ', num2str(iteration)])
+
+
 
 end

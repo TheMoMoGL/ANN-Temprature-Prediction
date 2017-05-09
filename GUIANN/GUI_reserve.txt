@@ -1,0 +1,38 @@
+handles=guidata(hObject);
+global daysBefore;
+global hoursbefore;
+global starthidden;
+global endHidden;
+global learningRate;
+global NumbHiddLay;
+global K_factor;
+global startSeasonVal;
+global endSeasonVal;
+global bestOutputValid
+global bestTargetValid
+global dt;
+global progtemp
+global bestHiddNeurons;
+daysBefore=str2num(get(handles.DaysbeforeINP,'string'));
+hoursbefore=str2num(get(handles.HoursBeforeINP,'string'));
+starthidden=str2num(get(handles.StartNodeINP,'string'));
+endHidden=str2num(get(handles.EndNodeINP,'string'));
+learningRate=str2num(get(handles.LearningRateINP,'string'));
+NumbHiddLay=str2num(get(handles.HiddenLayersINP,'string'));
+K_factor=str2num(get(handles.KfactorINP,'string'));
+startSeasonVal=str2num(get(handles.StartSeasonINP,'string'));
+endSeasonVal=str2num(get(handles.endSeasonINP,'string'));
+run('ANNmain.m');
+
+% figure('units','normalized','outerposition',[0 0 1 1])
+axes(handles.Mainplot);
+plot(dt, bestOutputValid(:,1),'parent',handles.Mainplot)
+hold on
+plot (dt, bestTargetValid(:,1),'parent',handles.Mainplot)
+hold on
+plot (dt, progtemp, 'g','parent',handles.Mainplot)
+legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
+title(['Hidden neurons: ', num2str(bestHiddNeurons)])
+
+
+guidata(hObject,handles)
