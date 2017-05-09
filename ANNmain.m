@@ -3,25 +3,26 @@ clear
 clc
 
 %%
+%rng('default')
+
 goodComp = 0;
 dateAndTime = loadVariable('Date_Time_validation.mat'); % Loading validations date and time
+
 % Scaling parameters
-
-
 daysBefore = 1;
-hoursbefore = 4;
+hoursbefore = 5;
 time = 24; % How many hours to forecast between 1-24
-endHidden = 20; % Number of hidden nodes to end with
+endHidden = 10; % Number of hidden nodes to end with
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 starthidden = 1; % How many hidden nodes in each layer to start out with
-learningRate = 0.00001; % Learning rate
+learningRate = 0.0001; % Learning rate
 NumbHiddLay = 1; % Number of hidden layers
 K_factor = 3; % Constant used for k-fold cross validaton
 start = 1; % Starting index for training and validation
 counter = 0; % Counter for report matrix
 
-Start_month = 1;
-End_month = 2;
+Start_month = 3;
+End_month = 3;
 
 % Starting index for training and validation
 if daysBefore ~= 0
@@ -30,32 +31,12 @@ else
     start = start + hoursbefore*4;
 end
 
-%%
-
-% Load training data and concatenate
-% Pwind = importdata('Pwind_training.mat');
-% Psun = importdata('Psun_training.mat');
-% Ptemp = importdata('Ptem_training.mat');
-% Rtemp = importdata('Rtemp_training.mat');
-% trainingData = [Pwind, Psun, Ptemp, Rtemp];
-%
-%
-% % Load validation data and concatenate
-% Pwind = importdata('Pwind_validation.mat');
-% Psun = importdata('Psun_validation.mat');
-% Ptemp = importdata('Ptemp_validation.mat');
-% Rtemp = importdata('Rtemp_validation.mat');
-% validationData = [Pwind, Psun, Ptemp, Rtemp];
-% totalData = [trainingData; validationData];
-
 [Data14, Data15, Data16] = Data_deviding(Start_month, End_month);
 
 totalData = [Data14; Data15; Data16];
 
 partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
 iterate = partition*2;
-
-
 
 %for iterate = 1:partition:length(totalData)
 
