@@ -22,8 +22,8 @@ trainCount = 1;
 good = 0;
 controlledLearning = 1;
 
-
 while(good/total) < 0.6
+
     good = 0;
     for i = 1:4:length(trainingData) - time
         % Create function that selects the right inputs among the training data
