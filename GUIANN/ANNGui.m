@@ -80,8 +80,8 @@ function RunProg_Callback(hObject, eventdata, handles)
 % hObject    handle to RunProg (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-set(handles.figure1, 'pointer', 'watch')
 handles=guidata(hObject);
+set(handles.figure1, 'pointer', 'watch')
 global daysBefore;
 global hoursbefore;
 global starthidden;

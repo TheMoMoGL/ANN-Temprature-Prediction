@@ -12,7 +12,6 @@ nrObservations = length(Observations);
 % partitions = round(nrObservations/K_factor);
 lastIterate = partitions*(K_factor-1) + 1;
 
-
 if iterate == 1
     test = Observations(iterate:partitions);
     train = Observations(iterate + partitions:end);
