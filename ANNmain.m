@@ -118,15 +118,15 @@ for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
 end
 
 % end
-good2 = 0;
-bad2 = 0;
+goodSMHI = 0;
+badSMHI = 0;
 count = 1;
 for i = 1:4:length(validation)
     
     if abs(validation(i,3) - validation(i,4)) < 2
-        good2 = good2 + 1;
+        goodSMHI = goodSMHI + 1;
     else
-        bad2 = bad2 + 1;
+        badSMHI = badSMHI + 1;
         
     end
     
@@ -134,7 +134,7 @@ for i = 1:4:length(validation)
     count = count + 1;
 end
 
-sprintf('Good SMHI: %d \nBad SMHI: %d', good2, bad2)
+sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
 
 samples = (good+bad);
 bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, dateAndTime, progTemp); %endReport compilation in progess
