@@ -40,6 +40,7 @@ counter = 0; % Counter for report matrix
 % Start_month = 1;
 % End_month = 2;
 
+
 % Starting index for training and validation
 if daysBefore ~= 0
     start = start + daysBefore*96;
@@ -71,6 +72,8 @@ totalData = [Data14; Data15; Data16];
 
 partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
 iterate = partition*2;
+
+
 
 
 
@@ -112,6 +115,7 @@ totalInput = [TrainingInput; ValidationInput];
 [totalNormal, ~, ~] = MaxAndMin(totalInput);
 TrainingInput = totalNormal(1:lengthTrain, :);
 ValidationInput = totalNormal(lengthTrain + 1:end, :);
+
 
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     
