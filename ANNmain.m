@@ -20,6 +20,7 @@ global progtemp
 global endReport;
 global samples;
 global progTemp;
+global percent;
 %%
 %rng('default')
 
@@ -128,7 +129,7 @@ for i = 1:4:length(validation)
     count = count + 1;
 end
 
-sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
+% sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
 
 samples = (good+bad);
 % bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess

@@ -4,7 +4,7 @@
 function [normalT] = Normalisation(Parameter, maxVal, minVal)
 
 % Defines the scaling interval
-IntervalMin = 0;
+IntervalMin = -1;
 IntervalMax = 1;
 
 % Allocation of new vector

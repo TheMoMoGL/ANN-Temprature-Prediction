@@ -22,7 +22,7 @@ function varargout = ANNGui(varargin)
 
 % Edit the above text to modify the response to help ANNGui
 
-% Last Modified by GUIDE v2.5 09-May-2017 11:00:11
+% Last Modified by GUIDE v2.5 09-May-2017 13:53:57
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -101,6 +101,7 @@ global progtemp
 global endReport;
 global samples;
 global progTemp;
+global percent;
 daysBefore=str2num(get(handles.DaysbeforeINP,'string'));
 hoursbefore=str2num(get(handles.HoursBeforeINP,'string'));
 starthidden=str2num(get(handles.StartNodeINP,'string'));
@@ -112,6 +113,10 @@ K_factor=str2num(get(handles.KfactorINP,'string'));
 Start_month=str2num(get(handles.StartSeasonINP,'string'));
 End_month=str2num(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
+[M, I] = max(endReport(:,5));
+percent = (M/(endReport(I,6) + M))*100;
+percent1 = sprintf('Percent: %3f', percent);
+set(handles.PercentCorrect, 'String', percent1);
 
 progEnd = length(bestOutputValid);
 [m,~] = size(bestOutputValid);
@@ -414,6 +419,7 @@ clearvars progtemp
 clearvars endReport;
 clearvars samples;
 clearvars progTemp;
+clearvars percent;
 guidata(hObject,handles)
 
 
@@ -443,3 +449,26 @@ global samples;
 global progTemp;
 bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess
 guidata(hObject,handles)
+
+
+
+function percent_Callback(hObject, eventdata, handles)
+% hObject    handle to percent (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of percent as text
+%        str2double(get(hObject,'String')) returns contents of percent as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function percent_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to percent (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
