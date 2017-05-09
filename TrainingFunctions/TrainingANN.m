@@ -37,8 +37,8 @@ while(good/total) < 0.6
         error(trainCount) = abs(output(i) - target(i));
         trainCount = trainCount +1;
     end
-    controlledLearning 
-    trainCount
+%     controlledLearning 
+%     trainCount
     for i = 1:length(target)
         if abs(output(i) - target(i)) < 2
             good = good + 1;

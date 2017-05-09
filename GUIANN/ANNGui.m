@@ -112,8 +112,12 @@ Start_month=str2num(get(handles.StartSeasonINP,'string'));
 End_month=str2num(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
 
+progEnd = length(bestOutputValid);
+[m,~] = size(bestOutputValid);
+progtemp = progTemp(1:progEnd)';
+dt = 1:1:m;
 % figure('units','normalized','outerposition',[0 0 1 1])
- axes(handles.axes5);
+axes(handles.axes5);
 plot(dt, bestOutputValid(:,1))
 hold on
 plot (dt, bestTargetValid(:,1))
