@@ -13,13 +13,13 @@ endHidden = 20; % Number of hidden nodes to end with
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 starthidden = 1; % How many hidden nodes in each layer to start out with
 learningRate = 0.00001; % Learning rate
-NumbHiddLay = 1; % Number of hidden layers
+NumbHiddLay = 2; % Number of hidden layers
 K_factor = 3; % Constant used for k-fold cross validaton
 start = 1; % Starting index for training and validation
 counter = 0; % Counter for report matrix
 
-Start_month = 1;
-End_month = 2;
+Start_month = 3;
+End_month = 3;
 
 % Starting index for training and validation
 if daysBefore ~= 0
@@ -107,8 +107,8 @@ for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
         bestHiddNeurons = runHidden;   % Saves the best output and target matrix
         bestOutputValid = outputValid;
         bestTargetValid = targetValid;
-        Terror = trainError;
-        Verror = ValidationError;
+%         Terror = trainError;
+%         Verror = ValidationError;
     end
     endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE, Corr]; % Final report
 end
