@@ -20,8 +20,8 @@ K_factor = 3; % Constant used for k-fold cross validaton
 start = 1; % Starting index for training and validation
 counter = 0; % Counter for report matrix
 
-Start_Season = 3;
-End_Season = 3;
+Start_month = 1;
+End_month = 2;
 
 % Starting index for training and validation
 if daysBefore ~= 0
@@ -48,7 +48,7 @@ end
 % validationData = [Pwind, Psun, Ptemp, Rtemp];
 % totalData = [trainingData; validationData];
 
-[Data14, Data15, Data16] = Data_deviding(Start_Season, End_Season);
+[Data14, Data15, Data16] = Data_deviding(Start_month, End_month);
 
 totalData = [Data14; Data15; Data16];
 
