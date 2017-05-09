@@ -10,7 +10,6 @@ function [inputWeights, hiddenWeights, outputWeights, error] = TrainingANN(train
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 total = length(trainingData);
-
 time = time * 4;
 
 % Generate weights

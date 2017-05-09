@@ -15,8 +15,8 @@ function [] = graphs(outputVal, actualVal, dateAndTime, iteration, progTemp)
 % dateAndTimeHourly = dateAndTimeHourly(start:end);
 progEnd = length(outputVal);
 
-progtemp = progTemp(1:4:end);
-progtemp = progtemp(1:progEnd);
+%progtemp = progTemp(1:4:end);
+progtemp = progTemp(1:progEnd)';
 error = outputVal - actualVal;
 [m,~] = size(outputVal);
 dt = 1:1:m;

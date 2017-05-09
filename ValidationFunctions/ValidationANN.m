@@ -53,7 +53,5 @@ for i = 1:length(target)
 end
 [RMSE, MAPE, Corr] = Error(output, target);
 
-% graphs(output(:,1), target(:,1), dateAndTime, iteration);
-
 
 end
