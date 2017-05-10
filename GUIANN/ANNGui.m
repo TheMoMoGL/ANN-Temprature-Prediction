@@ -83,7 +83,6 @@ function RunProg_Callback(hObject, eventdata, handles)
 handles=guidata(hObject);
 set(handles.figure1, 'pointer', 'watch')
 pause(0.01);
-handles=guidata(hObject);
 cla(handles.axes5)
 cla(handles.axes2)
 clearvars daysBefore;
@@ -488,6 +487,9 @@ function percent_CreateFcn(hObject, eventdata, handles)
 
 % Hint: edit controls usually have a white background on Windows.
 %       See ISPC and COMPUTER.
+handles=guidata(hObject);
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+guidata(hObject,handles)
+

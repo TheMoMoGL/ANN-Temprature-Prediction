@@ -11,6 +11,6 @@ function [transformValue] = tanh_activation(value)
 %transformValue = tanh(value);
 
 transformValue = (exp(value) - exp(-value))/(exp(value) + exp(-value));
+transformValue = transformValue(:,1);
 
 end
-
