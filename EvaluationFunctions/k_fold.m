@@ -9,7 +9,6 @@ function [train, test] = k_fold(Observations, K_factor, iterate, partitions)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 nrObservations = length(Observations);
-% partitions = round(nrObservations/K_factor);
 lastIterate = partitions*(K_factor-1) + 1;
 
 if iterate == 1

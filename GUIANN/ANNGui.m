@@ -115,8 +115,9 @@ K_factor = str2double(get(handles.KfactorINP,'string'));
 Start_month = str2double(get(handles.StartSeasonINP,'string'));
 End_month = str2double(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
-[M, I] = max(endReport(:,5));
-percent = (M/(endReport(I,6) + M))*100;
+[maxGood, I] = max(endReport(:,5));
+maxBad = endReport(I,6);
+percent = (maxGood/(maxBad + maxGood))*100;
 percent1 = sprintf('Percent: %3f', percent);
 set(handles.PercentCorrect, 'String', percent1);
 
@@ -401,6 +402,7 @@ function clearbutton_Callback(hObject, eventdata, handles)
 handles=guidata(hObject);
 cla(handles.axes5)
 cla(handles.axes2)
+pause(0.01);
 clear global daysBefore;
 clear global hoursbefore;
 clear global starthidden;
