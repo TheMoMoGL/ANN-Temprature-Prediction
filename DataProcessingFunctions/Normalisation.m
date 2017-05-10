@@ -1,7 +1,13 @@
-%%% Normalisation of data %%%
-
-
 function [normalT] = Normalisation(Parameter, maxVal, minVal)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inputs: Parameter -> Data to be normalised
+%         maxVal -> Vector containing maximum values
+%         minVal -> Vector containing minimum values
+%         
+%
+% Outputs: normalT -> Normalised data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Defines the scaling interval
 IntervalMin = -1;

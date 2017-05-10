@@ -1,12 +1,12 @@
 function [normalisedData, maxValues, minValues] = MaxAndMin(data)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Inputs: validationData -> Validation data vector
-%         inputWeights -> weights between input and hidden layer
-%         hiddenWeights -> weights between hidden and output layer
+% Inputs: data -> Data to be normalised
+%         
 %
-% Outputs: good -> Accurate temperature forecasts
-%          bad -> Non-accurate temperature forecasts
+% Outputs: normalisedData -> Normalised data
+%          maxValues -> Vector containing maximum values
+%          minValues -> Vector containing minimum values
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 maxValues = max(data);
