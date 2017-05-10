@@ -83,7 +83,6 @@ function RunProg_Callback(hObject, eventdata, handles)
 handles=guidata(hObject);
 set(handles.figure1, 'pointer', 'watch')
 pause(0.01);
-handles=guidata(hObject);
 cla(handles.axes5)
 cla(handles.axes2)
 clearvars daysBefore;
