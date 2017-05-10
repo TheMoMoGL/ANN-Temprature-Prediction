@@ -492,4 +492,5 @@ handles=guidata(hObject);
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
 guidata(hObject,handles)
