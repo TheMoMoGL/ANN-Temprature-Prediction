@@ -83,26 +83,7 @@ function RunProg_Callback(hObject, eventdata, handles)
 handles=guidata(hObject);
 set(handles.figure1, 'pointer', 'watch')
 pause(0.01);
-cla(handles.axes5)
-cla(handles.axes2)
-clearvars daysBefore;
-clearvars hoursbefore;
-clearvars starthidden;
-clearvars endHidden;
-clearvars learningRate;
-clearvars NumbHiddLay;
-clearvars K_factor;
-clearvars Start_month;
-clearvars End_month;
-clearvars bestOutputValid;
-clearvars bestTargetValid;
-clearvars bestHiddNeurons;
-clearvars time;
-clearvars dt;
-clearvars progtemp
-clearvars endReport;
-clearvars samples;
-clearvars progTemp;
+clearbutton_Callback(hObject, eventdata, handles);
 pause(0.01);
 global daysBefore;
 global hoursbefore;
@@ -420,25 +401,24 @@ function clearbutton_Callback(hObject, eventdata, handles)
 handles=guidata(hObject);
 cla(handles.axes5)
 cla(handles.axes2)
-clearvars daysBefore;
-clearvars hoursbefore;
-clearvars starthidden;
-clearvars endHidden;
-clearvars learningRate;
-clearvars NumbHiddLay;
-clearvars K_factor;
-clearvars Start_month;
-clearvars End_month;
-clearvars bestOutputValid;
-clearvars bestTargetValid;
-clearvars bestHiddNeurons;
-clearvars time;
-clearvars dt;
-clearvars progtemp
-clearvars endReport;
-clearvars samples;
-clearvars progTemp;
-clearvars percent;
+clear global daysBefore;
+clear global hoursbefore;
+clear global starthidden;
+clear global endHidden;
+clear global learningRate;
+clear global NumbHiddLay;
+clear global K_factor;
+clear global Start_month;
+clear global End_month;
+clear global bestOutputValid;
+clear global bestTargetValid;
+clear global bestHiddNeurons;
+clear global time;
+clear global dt;
+clear global progtemp
+clear global endReport;
+clear global samples;
+clear global progTemp;
 guidata(hObject,handles)
 
 
@@ -467,7 +447,7 @@ global endReport;
 global samples;
 global progTemp;
 bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess
-guidata(hObject,handles)
+ guidata(hObject,handles)
 
 
 
