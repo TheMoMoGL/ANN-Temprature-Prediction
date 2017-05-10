@@ -118,7 +118,7 @@ end
 goodSMHI = 0;
 badSMHI = 0;
 count = 1;
-for i = 1:4:length(validation)
+for i = start:4:length(validation)
     
     if abs(validation(i,3) - validation(i,4)) < 2
         goodSMHI = goodSMHI + 1;
