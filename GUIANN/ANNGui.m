@@ -104,6 +104,7 @@ global endReport;
 global samples;
 global progTemp;
 global percent;
+global SMHIPercent;
 daysBefore = str2double(get(handles.DaysbeforeINP,'string'));
 hoursbefore = str2double(get(handles.HoursBeforeINP,'string'));
 starthidden = str2double(get(handles.StartNodeINP,'string'));
@@ -120,6 +121,8 @@ maxBad = endReport(I,6);
 percent = (maxGood/(maxBad + maxGood))*100;
 percent1 = sprintf('Percent: %3f', percent);
 set(handles.PercentCorrect, 'String', percent1);
+percent2 = sprintf('SMHI: %3f', SMHIPercent);
+set(handles.SMHIAcc, 'String', percent2);
 colnames = {'Inputs', 'Hidden inputs', 'Good', 'Bad', 'RMSE', 'MAPE', 'Correlation'};
 set(handles.Table,'data',[endReport(I,1), endReport(I,2), maxGood, maxBad, endReport(I,7), endReport(I,8), endReport(I,9)],'ColumnName',colnames);
 
@@ -421,6 +424,7 @@ handles=guidata(hObject);
 cla(handles.axes5)
 cla(handles.axes2)
 set(handles.PercentCorrect, 'string', 'Percent: ')
+set(handles.SMHIAcc, 'string', 'SMHI: ')
 set(handles.Table,'data',cell(size(get(handles.Table,'data'))))
 pause(0.01);
 clear global daysBefore;
@@ -442,6 +446,7 @@ clear global endReport;
 clear global samples;
 clear global progTemp;
 clear global percent;
+clear global SMHIPercent;
 guidata(hObject,handles)
 
 
