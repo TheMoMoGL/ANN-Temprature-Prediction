@@ -22,7 +22,7 @@ function varargout = ANNGui(varargin)
 
 % Edit the above text to modify the response to help ANNGui
 
-% Last Modified by GUIDE v2.5 11-May-2017 09:54:00
+% Last Modified by GUIDE v2.5 11-May-2017 13:15:06
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -80,6 +80,7 @@ function RunProg_Callback(hObject, eventdata, handles)
 % hObject    handle to RunProg (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+tic
 handles=guidata(hObject);
 set(handles.figure1, 'pointer', 'watch')
 pause(0.01);
@@ -106,7 +107,7 @@ global progTemp;
 global percent;
 
 global SMHIPercent;
-
+global running_time;
 global startPlot;
 global endPlot;
 global day;
@@ -122,17 +123,18 @@ K_factor = str2double(get(handles.KfactorINP,'string'));
 Start_month = str2double(get(handles.StartSeasonINP,'string'));
 End_month = str2double(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
+running_time = toc;
 [maxGood, I] = max(endReport(:,5));
 maxBad = endReport(I,6);
 percent = (maxGood/(maxBad + maxGood))*100;
 percent1 = sprintf('Percent: %3f', percent);
 set(handles.PercentCorrect, 'String', percent1);
+End_time = sprintf('Execution Time: %3f', running_time);
+set(handles.time, 'String', End_time);
 percent2 = sprintf('SMHI: %3f', SMHIPercent);
 set(handles.SMHIAcc, 'String', percent2);
 colnames = {'Inputs', 'Hidden inputs', 'Good', 'Bad', 'RMSE', 'MAPE', 'Correlation'};
 set(handles.Table,'data',[endReport(I,1), endReport(I,2), maxGood, maxBad, endReport(I,7), endReport(I,8), endReport(I,9)],'ColumnName',colnames);
-
-
 progEnd = length(bestOutputValid);
 [m,~] = size(bestOutputValid);
 progtemp = progTemp(1:progEnd)';
@@ -169,6 +171,7 @@ set(gca,'XTick',1:1:24);
 day1 = sprintf('Day: %d', day);
 set(handles.figure1, 'pointer', 'arrow')
 set(handles.DayToPlot, 'string', day1)
+
 guidata(hObject, handles)
 
 
@@ -440,6 +443,8 @@ set(handles.SMHIAcc, 'string', 'SMHI: ')
 
 set(handles.DayToPlot, 'string', 'Day: ')
 
+set(handles.time, 'string', 'Execution Time: ')
+
 set(handles.Table,'data',cell(size(get(handles.Table,'data'))))
 pause(0.01);
 clear global daysBefore;
@@ -463,7 +468,7 @@ clear global progTemp;
 clear global percent;
 
 clear global SMHIPercent;
-
+clear golbal running_time;
 clear global startPlot;
 clear global endPlot;
 clear global day;
@@ -592,3 +597,26 @@ set(handles.figure1, 'pointer', 'arrow')
 day1 = sprintf('Day: %d', day);
 set(handles.DayToPlot, 'string', day1)
 guidata(hObject,handles)
+
+
+% --------------------------------------------------------------------
+function uipushtool3_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to uipushtool3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    F=getframe(handles.axes5); %select axes in GUI
+    figure(); %new figure
+    image(F.cdata); %show selected axes in new figure
+    saveas(gcf, 'Graph', 'jpg'); %save figure
+    close(gcf);
+    F=getframe(handles.axes2); %select axes in GUI
+    figure(); %new figure
+    image(F.cdata); %show selected axes in new figure
+    saveas(gcf, 'Testinformation', 'jpg'); %save figure
+    close(gcf);
+    F=getframe(handles.axes6); %select axes in GUI
+    figure(); %new figure
+    image(F.cdata); %show selected axes in new figure
+    saveas(gcf, 'GraphDaily', 'jpg'); %save figure
+    close(gcf); %and close it
+
