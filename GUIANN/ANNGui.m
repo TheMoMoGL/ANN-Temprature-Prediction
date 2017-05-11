@@ -124,37 +124,37 @@ colnames = {'Inputs', 'Hidden inputs', 'Good', 'Bad', 'RMSE', 'MAPE', 'Correlati
 set(handles.Table,'data',[endReport(I,1), endReport(I,2), maxGood, maxBad, endReport(I,7), endReport(I,8), endReport(I,9)],'ColumnName',colnames);
 
 
-% progEnd = length(bestOutputValid);
-% [m,~] = size(bestOutputValid);
-% progtemp = progTemp(1:progEnd)';
-% dt = 1:1:m;
-% axes(handles.axes5);
-% plot(dt, bestOutputValid(:,1))
-% hold on
-% plot (dt, bestTargetValid(:,1))
-% hold on
-% plot (dt, progtemp, 'g')
-% legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
+progEnd = length(bestOutputValid);
+[m,~] = size(bestOutputValid);
+progtemp = progTemp(1:progEnd)';
+dt = 1:1:m;
+axes(handles.axes5);
+plot(dt, bestOutputValid(:,1))
+hold on
+plot (dt, bestTargetValid(:,1))
+hold on
+plot (dt, progtemp, 'g')
+legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
 stem(handles.axes2,endReport(:,2),endReport(:,5)) % stem plot
 axis(handles.axes2,[1 endHidden 0 samples])    
-% set(handles.figure1, 'pointer', 'arrow')
-% % set(gcf,'Pointer','arrow');
-% guidata(hObject,handles)
-
-
-outputDayPlot = bestOutputValid(1:24, 1);
-targetDayPlot = bestTargetValid(1:24,1);
-compareDayPlot = progTemp(1:24);
-dp = 1:1:24;
-axes(handles.axes5);
-plot(dp, outputDayPlot)
-hold on
-plot(dp, targetDayPlot)
-hold on
-plot(dp, compareDayPlot)
-legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
 set(handles.figure1, 'pointer', 'arrow')
-guidata(hObject, handles)
+% set(gcf,'Pointer','arrow');
+guidata(hObject,handles)
+
+% 
+% outputDayPlot = bestOutputValid(1:24, 1);
+% targetDayPlot = bestTargetValid(1:24,1);
+% compareDayPlot = progTemp(1:24);
+% dp = 1:1:24;
+% axes(handles.axes5);
+% plot(dp, outputDayPlot)
+% hold on
+% plot(dp, targetDayPlot)
+% hold on
+% plot(dp, compareDayPlot)
+% legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
+% set(handles.figure1, 'pointer', 'arrow')
+% guidata(hObject, handles)
 
 
 
