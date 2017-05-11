@@ -22,7 +22,7 @@ function varargout = ANNGui(varargin)
 
 % Edit the above text to modify the response to help ANNGui
 
-% Last Modified by GUIDE v2.5 11-May-2017 07:54:34
+% Last Modified by GUIDE v2.5 11-May-2017 09:54:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -104,7 +104,13 @@ global endReport;
 global samples;
 global progTemp;
 global percent;
+
 global SMHIPercent;
+
+global startPlot;
+global endPlot;
+global day;
+
 daysBefore = str2double(get(handles.DaysbeforeINP,'string'));
 hoursbefore = str2double(get(handles.HoursBeforeINP,'string'));
 starthidden = str2double(get(handles.StartNodeINP,'string'));
@@ -144,22 +150,26 @@ set(handles.figure1, 'pointer', 'arrow')
 % set(gcf,'Pointer','arrow');
 guidata(hObject,handles)
 
-% 
-% outputDayPlot = bestOutputValid(1:24, 1);
-% targetDayPlot = bestTargetValid(1:24,1);
-% compareDayPlot = progTemp(1:24);
-% dp = 1:1:24;
-% axes(handles.axes5);
-% plot(dp, outputDayPlot)
-% hold on
-% plot(dp, targetDayPlot)
-% hold on
-% plot(dp, compareDayPlot)
-% legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
-% set(handles.figure1, 'pointer', 'arrow')
-% guidata(hObject, handles)
 
+startPlot = 1;
+endPlot = 24;
+day = 1;
+outputDayPlot = bestOutputValid(startPlot:endPlot, 1);
+targetDayPlot = bestTargetValid(startPlot:endPlot,1);
+compareDayPlot = progTemp(startPlot:endPlot);
+dp = startPlot:1:endPlot;
+axes(handles.axes6);
 
+plot(dp, outputDayPlot)
+hold on
+plot(dp, targetDayPlot)
+hold on
+plot(dp, compareDayPlot, 'g')
+set(gca,'XTick',1:1:24);
+day1 = sprintf('Day: %d', day);
+set(handles.figure1, 'pointer', 'arrow')
+set(handles.DayToPlot, 'string', day1)
+guidata(hObject, handles)
 
 
 function LearningRateINP_Callback(hObject, eventdata, handles)
@@ -423,8 +433,13 @@ function clearbutton_Callback(hObject, eventdata, handles)
 handles=guidata(hObject);
 cla(handles.axes5)
 cla(handles.axes2)
+cla(handles.axes6)
 set(handles.PercentCorrect, 'string', 'Percent: ')
+
 set(handles.SMHIAcc, 'string', 'SMHI: ')
+
+set(handles.DayToPlot, 'string', 'Day: ')
+
 set(handles.Table,'data',cell(size(get(handles.Table,'data'))))
 pause(0.01);
 clear global daysBefore;
@@ -446,7 +461,13 @@ clear global endReport;
 clear global samples;
 clear global progTemp;
 clear global percent;
+
 clear global SMHIPercent;
+
+clear global startPlot;
+clear global endPlot;
+clear global day;
+
 guidata(hObject,handles)
 
 
@@ -537,3 +558,37 @@ function Table_CellSelectionCallback(hObject, eventdata, handles)
 % eventdata  structure with the following fields (see MATLAB.UI.CONTROL.TABLE)
 %	Indices: row and column indices of the cell(s) currently selecteds
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in NextDay.
+function NextDay_Callback(hObject, eventdata, handles)
+% hObject    handle to NextDay (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles=guidata(hObject);
+global startPlot;
+global endPlot;
+global bestOutputValid;
+global bestTargetValid;
+global progTemp;
+global day;
+
+startPlot = startPlot + 24;
+endPlot = endPlot + 24;
+day = day + 1;
+cla(handles.axes6)
+outputDayPlot = bestOutputValid(startPlot:endPlot, 1);
+targetDayPlot = bestTargetValid(startPlot:endPlot,1);
+compareDayPlot = progTemp(startPlot:endPlot);
+dp = 1:1:24;
+axes(handles.axes6);
+set(gca,'XTick',1:1:24);
+plot(dp, outputDayPlot)
+hold on
+plot(dp, targetDayPlot)
+hold on
+plot(dp, compareDayPlot, 'g')
+set(handles.figure1, 'pointer', 'arrow')
+day1 = sprintf('Day: %d', day);
+set(handles.DayToPlot, 'string', day1)
+guidata(hObject,handles)
