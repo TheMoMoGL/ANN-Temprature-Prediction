@@ -22,7 +22,7 @@ function varargout = ANNGui(varargin)
 
 % Edit the above text to modify the response to help ANNGui
 
-% Last Modified by GUIDE v2.5 09-May-2017 13:53:57
+% Last Modified by GUIDE v2.5 11-May-2017 07:54:34
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -115,10 +115,13 @@ K_factor = str2double(get(handles.KfactorINP,'string'));
 Start_month = str2double(get(handles.StartSeasonINP,'string'));
 End_month = str2double(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
-[M, I] = max(endReport(:,5));
-percent = (M/(endReport(I,6) + M))*100;
+[maxGood, I] = max(endReport(:,5));
+maxBad = endReport(I,6);
+percent = (maxGood/(maxBad + maxGood))*100;
 percent1 = sprintf('Percent: %3f', percent);
 set(handles.PercentCorrect, 'String', percent1);
+colnames = {'Inputs', 'Hidden inputs', 'Good', 'Bad', 'RMSE', 'MAPE', 'Correlation'};
+set(handles.Table,'data',[endReport(I,1), endReport(I,2), maxGood, maxBad, endReport(I,7), endReport(I,8), endReport(I,9)],'ColumnName',colnames);
 
 
 progEnd = length(bestOutputValid);
@@ -137,6 +140,22 @@ axis(handles.axes2,[1 endHidden 0 samples])
 set(handles.figure1, 'pointer', 'arrow')
 % set(gcf,'Pointer','arrow');
 guidata(hObject,handles)
+
+% 
+% outputDayPlot = bestOutputValid(1:24, 1);
+% targetDayPlot = bestTargetValid(1:24,1);
+% compareDayPlot = progTemp(1:24);
+% dp = 1:1:24;
+% axes(handles.axes5);
+% plot(dp, outputDayPlot)
+% hold on
+% plot(dp, targetDayPlot)
+% hold on
+% plot(dp, compareDayPlot)
+% legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
+% set(handles.figure1, 'pointer', 'arrow')
+% guidata(hObject, handles)
+
 
 
 
@@ -364,6 +383,7 @@ function HoursBeforeINP_CreateFcn(hObject, eventdata, handles)
 
 % Hint: edit controls usually have a white background on Windows.
 %       See ISPC and COMPUTER.
+
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
@@ -400,6 +420,9 @@ function clearbutton_Callback(hObject, eventdata, handles)
 handles=guidata(hObject);
 cla(handles.axes5)
 cla(handles.axes2)
+set(handles.PercentCorrect, 'string', 'Percent: ')
+set(handles.Table,'data',cell(size(get(handles.Table,'data'))))
+pause(0.01);
 clear global daysBefore;
 clear global hoursbefore;
 clear global starthidden;
@@ -414,10 +437,11 @@ clear global bestTargetValid;
 clear global bestHiddNeurons;
 clear global time;
 clear global dt;
-clear global progtemp
+clear global progtemp;
 clear global endReport;
 clear global samples;
 clear global progTemp;
+clear global percent;
 guidata(hObject,handles)
 
 
@@ -471,5 +495,40 @@ handles=guidata(hObject);
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
 guidata(hObject,handles)
 
+% --- Executes during object creation, after setting all properties.
+function Table_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to percent (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+handles=guidata(hObject);
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+guidata(hObject,handles)
+
+
+% --- Executes when entered data in editable cell(s) in Table.
+function Table_CellEditCallback(hObject, eventdata, handles)
+% hObject    handle to Table (see GCBO)
+% eventdata  structure with the following fields (see MATLAB.UI.CONTROL.TABLE)
+%	Indices: row and column indices of the cell(s) edited
+%	PreviousData: previous data for the cell(s) edited
+%	EditData: string(s) entered by the user
+%	NewData: EditData or its converted form set on the Data property. Empty if Data was not changed
+%	Error: error string when failed to convert EditData to appropriate value for Data
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes when selected cell(s) is changed in Table.
+function Table_CellSelectionCallback(hObject, eventdata, handles)
+% hObject    handle to Table (see GCBO)
+% eventdata  structure with the following fields (see MATLAB.UI.CONTROL.TABLE)
+%	Indices: row and column indices of the cell(s) currently selecteds
+% handles    structure with handles and user data (see GUIDATA)

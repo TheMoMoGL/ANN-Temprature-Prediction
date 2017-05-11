@@ -3,7 +3,7 @@
 % clc
 
 %%
-%rng('default')
+rng('default')
 
 goodComp = 0;
 % Scaling parameters
@@ -32,15 +32,19 @@ end
 
 [Data14, Data15, Data16] = Data_deviding(Start_month, End_month);
 
-totalData = [Data14; Data15; Data16];
+training = vertcat(Data14, Data15);
+validation = Data16;
 
-partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
-iterate = partition*2;
-%for iterate = 1:partition:length(totalData)
+% totalData = [Data14; Data15; Data16];
+% partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
+% iterate = 1;
+% iterate = partition;
+% iterate = partition*2;
+% iterate = 1:partition:length(totalData);
 
-for parameter = 1:4
-    [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
-end
+% for parameter = 1:4
+%     [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
+% end
 
 % Outlier detection
 for t = 1:2:3
@@ -99,7 +103,7 @@ end
 goodSMHI = 0;
 badSMHI = 0;
 count = 1;
-for i = 1:4:length(validation)
+for i = start:4:length(validation)
     
     if abs(validation(i,3) - validation(i,4)) < 2
         goodSMHI = goodSMHI + 1;
