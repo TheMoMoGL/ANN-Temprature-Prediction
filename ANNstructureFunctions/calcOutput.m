@@ -22,7 +22,7 @@ end
 % Calculates and creates the vector with values for the hidden layer
 for i = 1:inputSize(1) % 
     %hiddenOutput(1,i+1) = ReLu_activation_function(Net(inputWeights(i,:), newInput));
-    hiddenOutput(1,i+1) = tanh_activation(Net(inputWeights(i,:), newInput));
+    hiddenOutput(1,i+1) = linear_activation(Net(inputWeights(i,:), newInput));
 end
 
 if numHiddLay > 1
@@ -30,7 +30,7 @@ if numHiddLay > 1
     for i = 2:numHiddLay % Iterates number of layers
         for j = 2:hiddenSize(2)
             %hiddenOutput(i,j) = ReLu_activation_function(Net(hiddenWeights(hiddenWeightRow,:), hiddenOutput(i-1,:)));
-            hiddenOutput(i,j) = tanh_activation(Net(hiddenWeights(hiddenWeightRow,:), hiddenOutput(i-1,:)));
+            hiddenOutput(i,j) = linear_activation(Net(hiddenWeights(hiddenWeightRow,:), hiddenOutput(i-1,:)));
             hiddenWeightRow = hiddenWeightRow + 1;
         end
     end
