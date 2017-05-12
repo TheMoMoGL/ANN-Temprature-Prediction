@@ -17,11 +17,7 @@ IntervalMax = 1;
 [rowS, colS] = size(Parameter);
 normalT = zeros(rowS, colS);
 
-% Normalisation of matrix
-% c = 1:1:colS;
-% r = 1:1:rowS;
-% normalT(r,c) = IntervalMin + (IntervalMax-IntervalMin)*(Parameter(r,c)-minVal(c))/(maxVal(c)-minVal(c));
-
+% Normalisation of data using minimum and maximum values
 for r = 1:rowS
     for c = 1:colS
         normalT(r,c) = IntervalMin + (IntervalMax-IntervalMin)*(Parameter(r,c)-minVal(c))/(maxVal(c)-minVal(c));

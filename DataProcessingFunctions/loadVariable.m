@@ -11,10 +11,10 @@ function [variable] = loadVariable(fileName)
 file = load(fileName);
 variableNames = fieldnames(file);
 
-if numel(variableNames) == 1
+if numel(variableNames) == 1 % If file exists, load file into variable
     variable = file.(variableNames{1});
 else
-    error('Selected file could not be loaded')
+    error('Selected file could not be loaded') % If not, print error to user
 end
 
 end
