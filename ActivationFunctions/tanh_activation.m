@@ -8,9 +8,7 @@ function [transformValue] = tanh_activation(value)
 % Outputs: transformValue -> Transformed value
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%transformValue = tanh(value);
-
 transformValue = (exp(value) - exp(-value))/(exp(value) + exp(-value));
-transformValue = transformValue(:,1);
+transformValue = transformValue(:,1); % Takes out first column
 
 end

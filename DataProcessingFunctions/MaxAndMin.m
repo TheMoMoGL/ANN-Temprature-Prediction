@@ -9,9 +9,9 @@ function [normalisedData, maxValues, minValues] = MaxAndMin(data)
 %          minValues -> Vector containing minimum values
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-maxValues = max(data);
-minValues = min(data);
+maxValues = max(data); % Maximum values
+minValues = min(data); % Minimum values
 
-normalisedData = Normalisation(data, maxValues, minValues);
+normalisedData = Normalisation(data, maxValues, minValues); % Call to normalisation function
 
 end
