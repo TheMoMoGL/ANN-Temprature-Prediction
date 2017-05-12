@@ -142,7 +142,8 @@ progEnd = length(bestOutputValid);
 [m,~] = size(bestOutputValid);
 progtemp = progTemp(1:progEnd)';
 dt = 1:1:m;
-axes(handles.axes5);
+
+axes(handles.axes5); %Gets handle to plot on the main graph. Plots real temprature, predicted by ANN and predicted by SMHI.
 plot(dt, bestOutputValid(:,1))
 hold on
 plot (dt, bestTargetValid(:,1))
