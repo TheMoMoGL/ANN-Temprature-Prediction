@@ -4,6 +4,8 @@
 
 %%
 rng('default')
+global start;
+global validation;
 
 goodComp = 0;
 % Scaling parameters
@@ -105,7 +107,7 @@ badSMHI = 0;
 count = 1;
 for i = start:4:length(validation)
     
-    if abs(validation(i,3) - validation(i,4)) < 2
+    if abs(validation(i,3) - validation(i,4)) < 1
         goodSMHI = goodSMHI + 1;
     else
         badSMHI = badSMHI + 1;

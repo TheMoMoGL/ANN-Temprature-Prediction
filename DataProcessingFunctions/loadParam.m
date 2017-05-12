@@ -1,8 +1,15 @@
-%%% Function to load parameters from .mat file %%%
-%%% Places each year separately into matrices %%%
-
-
 function [param2013, param2014, param2015, param2016] = loadParam()
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Function to load parameters from .mat files
+%
+% Inputs: -
+%
+% Outputs: param2013 -> Weather data from 2013
+%          param2014 -> Weather data from 2014
+%          param2015 -> Weather data from 2015
+%          param2016 -> Weather data from 2016
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 load Sunprog2013
 load TempProg2013
