@@ -114,7 +114,7 @@ for i = start:4:length(validation)
     progTemp(count) = validation(i,3);
     count = count + 1;
 end
-
+SMHIPercent=(goodSMHI/(goodSMHI+badSMHI)*100);
  sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
 
 samples = (good+bad);
