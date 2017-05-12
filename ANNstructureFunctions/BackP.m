@@ -84,7 +84,6 @@ if numberOfhidden > 1 %% if we have more than 1 hidden layer
         end
         
         r = r-length(Delta_Error_LastHidden_Nodes);
-        Hidden_weights1 = Hidden_weights;
         if d ~= 1 %% if not the first hidden layer  then update the weight between the hidden layers
             cnt = length(Delta_Error_LastHidden_Nodes)-1;
             for j = 1:length(Delta_Error_LastHidden_Nodes)
