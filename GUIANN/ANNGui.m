@@ -608,19 +608,27 @@ function uipushtool3_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to uipushtool3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    F=getframe(handles.axes5); %select axes in GUI
-    figure(); %new figure
-    image(F.cdata); %show selected axes in new figure
-    saveas(gcf, 'Graph', 'jpg'); %save figure
-    close(gcf);
-    F=getframe(handles.axes2); %select axes in GUI
-    figure(); %new figure
-    image(F.cdata); %show selected axes in new figure
-    saveas(gcf, 'Testinformation', 'jpg'); %save figure
-    close(gcf);
-    F=getframe(handles.axes6); %select axes in GUI
-    figure(); %new figure
-    image(F.cdata); %show selected axes in new figure
-    saveas(gcf, 'GraphDaily', 'jpg'); %save figure
-    close(gcf); %and close it
+%     handles=guidata(hObject);
+%     F=getframe(handles.axes5,[-30 -30 500 100]); %select axes in GUI
+%     figure(); %new figure
+%     imshow(F.cdata); %show selected axes in new figure
+%     saveas(gcf, 'Graph', 'jpg'); %save figure
+%     close(gcf);
+%     F=getframe(handles.axes2); %select axes in GUI
+%     figure(); %new figure
+%     image(F.cdata); %show selected axes in new figure
+%     saveas(gcf, 'Testinformation', 'jpg'); %save figure
+%     close(gcf);
+%     F=getframe(handles.axes6); %select axes in GUI
+%     figure(); %new figure
+%     image(F.cdata); %show selected axes in new figure
+%     saveas(gcf, 'GraphDaily', 'jpg'); %save figure
+%     close(gcf); %and close it
+% copyfile(fullfile(docroot,'techdoc','creating_guis','examples','simple_gui2*.*'));
+% % handles=guidata(hObject);
+% % fig =handles;
+% % fig.InvertHardcopy = 'off';
+% % fig.PaperPositionMode = 'on';
+% % print('Screenshot','-dpng','-r0')
 
+screencapture(gcf,[],'myFigure.jpg');
