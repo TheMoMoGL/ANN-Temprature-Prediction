@@ -83,7 +83,7 @@ function RunProg_Callback(hObject, eventdata, handles)
 tic
 handles=guidata(hObject);
 set(handles.figure1, 'pointer', 'watch')
-pause(0.01);
+pause(0.01); %Makes the program run a bit slower else the GUI is not able to show the wait cursor.
 clearbutton_Callback(hObject, eventdata, handles);
 pause(0.01);
 global daysBefore;
@@ -111,6 +111,8 @@ global startPlot;
 global endPlot;
 global day;
 
+
+%Retrieving input data from the GUI
 daysBefore = str2double(get(handles.DaysbeforeINP,'string'));
 hoursbefore = str2double(get(handles.HoursBeforeINP,'string'));
 starthidden = str2double(get(handles.StartNodeINP,'string'));
@@ -121,7 +123,9 @@ time = str2double(get(handles.HourlyforecastINP,'string'));
 K_factor = str2double(get(handles.KfactorINP,'string'));
 Start_month = str2double(get(handles.StartSeasonINP,'string'));
 End_month = str2double(get(handles.endSeasonINP,'string'));
-run('ANNmain.m');
+
+run('ANNmain.m'); % runs 'ANNmain.m' which is the ANN.
+
 running_time = toc;
 [maxGood, I] = max(endReport(:,5)); % Locates run with highest amount of correct predictions
 maxBad = endReport(I,6); % Corresponding amount of bad predictions
@@ -431,7 +435,7 @@ function clearbutton_Callback(hObject, eventdata, handles)
 % hObject    handle to clearbutton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles=guidata(hObject);
+handles=guidata(hObject); %  clearbutton_Callback clears allt the variables and figures and prepares the GUI for next run.
 cla(handles.axes5)
 cla(handles.axes2)
 cla(handles.axes6)
@@ -479,7 +483,8 @@ function Details_Callback(hObject, eventdata, handles)
 % hObject    handle to Details (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles=guidata(hObject);
+handles=guidata(hObject); %Retrive GUI data
+%initilization of global variables
 global daysBefore;
 global hoursbefore;
 global starthidden;
@@ -498,8 +503,8 @@ global progtemp
 global endReport;
 global samples;
 global progTemp;
-bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess
- guidata(hObject,handles)
+bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %Print error graphs.
+ guidata(hObject,handles) %Store GUI data
 
 
 

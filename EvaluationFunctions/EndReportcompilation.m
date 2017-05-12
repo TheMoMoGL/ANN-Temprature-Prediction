@@ -4,9 +4,8 @@ function [bestrun] = EndReportcompilation(endReport, samples, endHidden, outputV
 %         samples -> Number of predicionts
 %         endHidden -> The number of hidden neruon which gave the best result
 %         outputValid -> Set with output from the ANN, set of output from the best run. (Based on how many good predictions)  
-%         targetValid -> The corresponding target temprature (real
-%         remprature)for the output from the ANN.
-% 
+%         targetValid -> The corresponding target temprature (real temprature)for the output from the ANN.
+%         progTemp -> 
 % 
 % 
 %
