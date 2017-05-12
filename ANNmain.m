@@ -4,6 +4,8 @@
 
 %%
 rng('default')
+global start;
+global validation;
 
 goodComp = 0;
 % Scaling parameters

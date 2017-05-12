@@ -118,9 +118,9 @@ K_factor = str2double(get(handles.KfactorINP,'string'));
 Start_month = str2double(get(handles.StartSeasonINP,'string'));
 End_month = str2double(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
-[maxGood, I] = max(endReport(:,5));
-maxBad = endReport(I,6);
-percent = (maxGood/(maxBad + maxGood))*100;
+[maxGood, I] = max(endReport(:,5)); % Locates run with highest amount of correct predictions
+maxBad = endReport(I,6); % Corresponding amount of bad predictions
+percent = (maxGood/(maxBad + maxGood))*100; % Accuracy percentage
 percent1 = sprintf('Percent: %3f', percent);
 set(handles.PercentCorrect, 'String', percent1);
 colnames = {'Inputs', 'Hidden inputs', 'Good', 'Bad', 'RMSE', 'MAPE', 'Correlation'};
@@ -144,7 +144,7 @@ set(handles.figure1, 'pointer', 'arrow')
 % set(gcf,'Pointer','arrow');
 guidata(hObject,handles)
 
-
+% Plotting of 24 hour ahead temperature prediction
 startPlot = 1;
 endPlot = 24;
 day = 1;
@@ -153,7 +153,6 @@ targetDayPlot = bestTargetValid(startPlot:endPlot,1);
 compareDayPlot = progTemp(startPlot:endPlot);
 dp = startPlot:1:endPlot;
 axes(handles.axes6);
-
 plot(dp, outputDayPlot)
 hold on
 plot(dp, targetDayPlot)
@@ -559,6 +558,7 @@ global bestTargetValid;
 global progTemp;
 global day;
 
+% On button press 'Next', plots the next day weather prediction
 startPlot = startPlot + 24;
 endPlot = endPlot + 24;
 day = day + 1;
