@@ -25,7 +25,7 @@ for i = 1:4:length(validationData)-(96+time)
     column = 1;
     for j = i:4:i+92
         % Separate a input vector and its target from the validationData
-        [input, target(row, column)] = HourlyInputTarget( validationData,j+time, i,trainingTarget );
+        [input, target(row, column)] = HourlyInputTarget(validationData, j+time, i, trainingTarget );
         column = column + 1;
         % Calculates our predicted temperature
         [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
