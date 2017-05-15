@@ -1,9 +1,13 @@
 function [Bestrun] = EndReportAnalysis(endreport, samples, endHidden)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: endreport -> Report containg all the information [numInput, runHidden, NumbHidLay, learningRate, good, bad, RMSE, MAPE, Corr]
-%            
+%         samples -> Number of predicionts
+%         endHidden -> The number of hidden neruon which gave the best result
+%               
+
 %
-% Outputs: 
+% Outputs: Bestrun the index for the run that gave the best result, index
+% is for endreport.
 %          
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -26,13 +30,13 @@ subplot(2,2,4)       % add fourth plot in 2 x 2 grid
 stem(endreport(:,2),endreport(:,9))           % stem plot
 title('Correlation')
 
-[~,I] = max(endreport(:,5));
+[~,I] = max(endreport(:,5));  %gives index for the best run based on how many good predictions.
 Bestrun=endreport(I,:);
 
 
 confirmationMessage = sprintf('Optimal ANN with highest correlation \nInput nodes:%d \nHidden nodes:%d \nHidden layers:%d \nLearning rate:%.6f \nGood predictions:%d \nBad predictions:%d \nRMSE:%.6f \nMAPE: %.6f \nCorr:%.6f' ...
 ,endreport(I,1),endreport(I,2),endreport(I,3),endreport(I,4),endreport(I,5),endreport(I,6),endreport(I,7),endreport(I,8),endreport(I,9));
-disp(confirmationMessage)
+disp(confirmationMessage)  %Displays informations regarding the best run.
 
 end
 

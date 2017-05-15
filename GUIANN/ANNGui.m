@@ -83,7 +83,7 @@ function RunProg_Callback(hObject, eventdata, handles)
 tic
 handles=guidata(hObject);
 set(handles.figure1, 'pointer', 'watch')
-pause(0.01);
+pause(0.01); %Makes the program run a bit slower else the GUI is not able to show the wait cursor.
 clearbutton_Callback(hObject, eventdata, handles);
 pause(0.01);
 global daysBefore;
@@ -111,6 +111,8 @@ global startPlot;
 global endPlot;
 global day;
 
+
+%Retrieving input data from the GUI
 daysBefore = str2double(get(handles.DaysbeforeINP,'string'));
 hoursbefore = str2double(get(handles.HoursBeforeINP,'string'));
 starthidden = str2double(get(handles.StartNodeINP,'string'));
@@ -120,7 +122,9 @@ NumbHiddLay = str2double(get(handles.HiddenLayersINP,'string'));
 time = str2double(get(handles.HourlyforecastINP,'string'));
 Start_month = str2double(get(handles.StartSeasonINP,'string'));
 End_month = str2double(get(handles.endSeasonINP,'string'));
-run('ANNmain.m');
+
+run('ANNmain.m'); % runs 'ANNmain.m' which is the ANN.
+
 running_time = toc;
 [maxGood, I] = max(endReport(:,5)); % Locates run with highest amount of correct predictions
 maxBad = endReport(I,6); % Corresponding amount of bad predictions
@@ -137,7 +141,8 @@ progEnd = length(bestOutputValid);
 [m,~] = size(bestOutputValid);
 progtemp = progTemp(1:progEnd)';
 dt = 1:1:m;
-axes(handles.axes5);
+
+axes(handles.axes5); %Gets handle to plot on the main graph. Plots real temprature, predicted by ANN and predicted by SMHI.
 plot(dt, bestOutputValid(:,1))
 hold on
 plot (dt, bestTargetValid(:,1))
@@ -430,7 +435,7 @@ function clearbutton_Callback(hObject, eventdata, handles)
 % hObject    handle to clearbutton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles=guidata(hObject);
+handles=guidata(hObject); %  clearbutton_Callback clears allt the variables and figures and prepares the GUI for next run.
 cla(handles.axes5)
 cla(handles.axes2)
 cla(handles.axes6)
@@ -478,7 +483,8 @@ function Details_Callback(hObject, eventdata, handles)
 % hObject    handle to Details (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles=guidata(hObject);
+handles=guidata(hObject); %Retrive GUI data
+%initilization of global variables
 global daysBefore;
 global hoursbefore;
 global starthidden;
@@ -497,8 +503,8 @@ global progtemp
 global endReport;
 global samples;
 global progTemp;
-bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess
- guidata(hObject,handles)
+bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %Print error graphs.
+ guidata(hObject,handles) %Store GUI data
 
 
 
@@ -602,19 +608,27 @@ function uipushtool3_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to uipushtool3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    F=getframe(handles.axes5); %select axes in GUI
-    figure(); %new figure
-    image(F.cdata); %show selected axes in new figure
-    saveas(gcf, 'Graph', 'jpg'); %save figure
-    close(gcf);
-    F=getframe(handles.axes2); %select axes in GUI
-    figure(); %new figure
-    image(F.cdata); %show selected axes in new figure
-    saveas(gcf, 'Testinformation', 'jpg'); %save figure
-    close(gcf);
-    F=getframe(handles.axes6); %select axes in GUI
-    figure(); %new figure
-    image(F.cdata); %show selected axes in new figure
-    saveas(gcf, 'GraphDaily', 'jpg'); %save figure
-    close(gcf); %and close it
+%     handles=guidata(hObject);
+%     F=getframe(handles.axes5,[-30 -30 500 100]); %select axes in GUI
+%     figure(); %new figure
+%     imshow(F.cdata); %show selected axes in new figure
+%     saveas(gcf, 'Graph', 'jpg'); %save figure
+%     close(gcf);
+%     F=getframe(handles.axes2); %select axes in GUI
+%     figure(); %new figure
+%     image(F.cdata); %show selected axes in new figure
+%     saveas(gcf, 'Testinformation', 'jpg'); %save figure
+%     close(gcf);
+%     F=getframe(handles.axes6); %select axes in GUI
+%     figure(); %new figure
+%     image(F.cdata); %show selected axes in new figure
+%     saveas(gcf, 'GraphDaily', 'jpg'); %save figure
+%     close(gcf); %and close it
+% copyfile(fullfile(docroot,'techdoc','creating_guis','examples','simple_gui2*.*'));
+% % handles=guidata(hObject);
+% % fig =handles;
+% % fig.InvertHardcopy = 'off';
+% % fig.PaperPositionMode = 'on';
+% % print('Screenshot','-dpng','-r0')
 
+screencapture(gcf,[],'myFigure.jpg');

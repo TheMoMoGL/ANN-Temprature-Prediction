@@ -1,5 +1,16 @@
 function [Data14,Data15,Data16 ] = Data_deviding( start_month,end_month )
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inputs: start_month -> the data deviding start with this month 
+%         end_month -> the data deviding ends with this month 
+
+% Outputs: Data14 -> data chosen from 2014
+%          data15 -> data chosen from 2015
+%          data16 -> data chosen from 2016
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Loads all attributes data from all data sets 
 load('Wind16.mat')
 load('Wind15.mat')
 load('Wind14.mat')
@@ -16,7 +27,7 @@ load('Datetime16.mat')
 load('Datetime15.mat')
 load('Datetime14.mat')
 
-%%%%%%%%%%%%%%%% Get the right index for end  Start %%%%%%%%%%
+%%%%%%%%%%%%%%%% get the right index from data set %%%%%%%%%%
     if start_month==1
             start_month=1;
         elseif start_month==2
@@ -53,7 +64,7 @@ load('Datetime14.mat')
             start_month=32065;
     end
     
-%%%%%%%%%%%%%%%% Get the right index for the end  %%%%%%%%%%
+%%%%%%%%%%%%%%%% Get the right index from data set  %%%%%%%%%%
     if end_month==1 
         end_month=2976;
     elseif end_month==2
@@ -81,8 +92,7 @@ load('Datetime14.mat')
       else
         end_month=35040;
     end 
-%%%%%%%%%%%%%%% Get the right data for each data set 
-% validationData = [Pwind, Psun, Ptemp, Rtemp];
+%%%%%%%%%%%%%%% Put the desired data into corresponding data set
 Data14(:,:,:,:)=[Wind14(start_month:end_month,:) Sun14(start_month:end_month,:) Ptemp14(start_month:end_month,:)   Rtemp14(start_month:end_month,:)];
 Data15(:,:,:,:)=[Wind15(start_month:end_month,:) Sun15(start_month:end_month,:) Ptemp15(start_month:end_month,:)   Rtemp15(start_month:end_month,:)];
 Data16(:,:,:,:)=[Wind16(start_month:end_month,:) Sun16(start_month:end_month,:) Ptemp16(start_month:end_month,:)   Rtemp16(start_month:end_month,:)];
