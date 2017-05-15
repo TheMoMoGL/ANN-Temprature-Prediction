@@ -21,7 +21,8 @@ for i = 1 : length(A)
         % Forecast the temperature
         [~, ~, outputVector(outputIndex)] = calcOutput(normInput1 , A{1,i}.Input, A{1,i}.Hidden, A{1,i}.Output, A{1,i}.Layers);
         % Validate based on RMSE
-        [~, RMSE, ~] = Error(outputVector(outputIndex) , input(3) );
+        RMSE = sqrt( sum( ( input(3) - outputVector(outputIndex) ).^2 ) ./ numel(outputVector(outputIndex)) ); 
+        %[~, RMSE, ~] = Error(outputVector(outputIndex) , input(3) );
         % Checks if the RMSE is better the any previous forecast,
         % if so the index to that value in the outputVector is saved
         if RMSE < rmse

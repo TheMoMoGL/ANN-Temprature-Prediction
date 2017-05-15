@@ -55,7 +55,6 @@ end
 processedTrainingData(:,2) = training(:,2);
 
 a = 1;
-
 for i = start:length(training)-(start-1)
     TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( training(:,4), daysBefore, hoursbefore, i )];
     a = a + 1;
@@ -83,7 +82,6 @@ ValidationInput = totalNormal(lengthTrain + 1:end, :);
 
 
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
-    
     % Training returns the weights for validation ANN
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
     
@@ -107,7 +105,7 @@ badSMHI = 0;
 count = 1;
 for i = start:4:length(validation)
     
-    if abs(validation(i,3) - validation(i,4)) < 1
+    if abs(validation(i,3) - validation(i,4)) < 2
         goodSMHI = goodSMHI + 1;
     else
         badSMHI = badSMHI + 1;

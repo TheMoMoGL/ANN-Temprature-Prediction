@@ -22,6 +22,7 @@ for ANNcount = 1 : length(A)
         end
         row = row + 1;
     end
+    good
 end
 
 good = 0;
@@ -33,7 +34,7 @@ for i = 1:length(target)
         bad = bad+1;
     end
 end
-[RMSE, MAPE, Corr] = Error(output, target);
+[RMSE, MAPE, Corr] = Error(output', target');
 
 
 

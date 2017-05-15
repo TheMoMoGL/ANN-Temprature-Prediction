@@ -25,7 +25,6 @@ trainCount = 1;
 
 % Training
 good = 0;
-controlledLearning = 1;
 % This loop runs untilthe percentage of correct predictions are greater
 % than the percent value in the while statement
 while(good/total) < 0.6 
@@ -38,14 +37,13 @@ while(good/total) < 0.6
         if abs(output(i) - target(i)) > 1 % if error is less than this value BP is not preformed
             % Back propagation
             [inputWeights,outputWeights, hiddenWeights] = BackP(output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
-            controlledLearning = controlledLearning +1;
         end
         error(trainCount) = abs(output(i) - target(i));
         trainCount = trainCount +1;
     end
     % Calculates the number of correct predictions
     for i = 1:length(target)
-        if abs(output(i) - target(i)) < 1
+        if abs(output(i) - target(i)) < 2
             good = good + 1;
         end
     end 

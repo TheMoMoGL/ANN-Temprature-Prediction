@@ -89,10 +89,11 @@ end
 
 
 % Validation
-[good, bad, RMSE, MAPE, ~, ValidationError, outputValid, targetValid] = ANNvalidation(A, time);
+[good, bad, RMSE, MAPE, Corr, ValidationError, outputValid, targetValid] = ANNvalidation(A, time);
 good / (good+bad)
 RMSE
 MAPE
+Corr
 if goodComp < good
     goodComp = good;
     bestHiddNeurons = runHidden;   % Saves the best output and target matrix
