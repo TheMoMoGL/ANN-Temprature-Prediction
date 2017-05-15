@@ -118,7 +118,6 @@ endHidden = str2double(get(handles.EndNodeINP,'string'));
 learningRate = str2double(get(handles.LearningRateINP,'string'));
 NumbHiddLay = str2double(get(handles.HiddenLayersINP,'string'));
 time = str2double(get(handles.HourlyforecastINP,'string'));
-K_factor = str2double(get(handles.KfactorINP,'string'));
 Start_month = str2double(get(handles.StartSeasonINP,'string'));
 End_month = str2double(get(handles.endSeasonINP,'string'));
 run('ANNmain.m');
