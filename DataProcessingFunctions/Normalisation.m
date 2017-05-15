@@ -24,4 +24,22 @@ for r = 1:rowS
     end
 end
 
+% Normalisation using median-MAD method
+% medianValues = median(Parameter);
+% MADValue = median(abs(Parameter - median(Parameter)));
+% for r = 1:rowS
+%     for c = 1:colS
+%         normalT(r,c) = (Parameter(r,c) - medianValues(c))/MADValue(c);
+%     end
+% end
+
+% Normalisation using tanh-estimator
+% meanValues = mean(Parameter);
+% stdValues = std(Parameter);
+% for r = 1:rowS
+%     for c = 1:colS
+%         normalT(r,c) = 0.5*(tanh((0.01*(Parameter(r,c) - meanValues(c)))/stdValues(c)));
+%     end
+% end
+
 end
