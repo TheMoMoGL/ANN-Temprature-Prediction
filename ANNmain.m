@@ -72,14 +72,15 @@ for i = start:length(validation)-(start-1)
     a = a + 1;
 end
 
-% [TrainingInput, maxValuesTrain, minValuesTrain] = MaxAndMin(TrainingInput);
+[TrainingInput, maxValuesTrain, minValuesTrain] = MaxAndMin(TrainingInput);
+ValidationInput = Normalisation(ValidationInput, maxValuesTrain, minValuesTrain);
 % [ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
 
-lengthTrain = length(TrainingInput);
-totalInput = [TrainingInput; ValidationInput];
-[totalNormal, ~, ~] = MaxAndMin(totalInput);
-TrainingInput = totalNormal(1:lengthTrain, :);
-ValidationInput = totalNormal(lengthTrain + 1:end, :);
+% lengthTrain = length(TrainingInput);
+% totalInput = [TrainingInput; ValidationInput];
+% [totalNormal, ~, ~] = MaxAndMin(totalInput);
+% TrainingInput = totalNormal(1:lengthTrain, :);
+% ValidationInput = totalNormal(lengthTrain + 1:end, :);
 
 
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers

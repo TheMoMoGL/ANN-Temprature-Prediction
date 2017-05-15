@@ -17,7 +17,9 @@
  
 [m,n] = size(Hidden_Nodes);                                                                         
 %%%%Calculating output error 
-Delta_Error_Output = (Target-Output_of_the_System);
+Delta_Error_Output = (Target-Output_of_the_System); % Linear
+%Delta_Error_Output = (4*exp(2*Output_of_the_System))/((exp(2*Output_of_the_System) + 1)^2)*(Target-Output_of_the_System); % Tanh
+% Delta_Error_Output = Output_of_the_System*(1 - Output_of_the_System)*(Target-Output_of_the_System); % Sigmoid
 %%%%%%%%%%%%%%%Weights updating for Weights between hidden and output
 for i = 1:length(Weights_Hidden_Output)
 [Updated_Weights_Hidden_Output(i)] = Weight_Updator(Learning_Rate,Delta_Error_Output,Hidden_Nodes(m,i),Weights_Hidden_Output(i));
@@ -37,6 +39,8 @@ for i = 2:n
 %       Delta_Error_LastHidden_Nodes(i-1) = (4*exp(2*Hidden_Nodes(m,i)))/((exp(2*Hidden_Nodes(m,i)) + 1)^2)*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
 %%% delta error for linear
 Delta_Error_LastHidden_Nodes(i-1) = Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
+%%% Delta error for sigmoid
+% Delta_Error_LastHidden_Nodes(i-1) = Hidden_Nodes(m,i)*(1 - Hidden_Nodes(m,i))*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
 
 end
 %%%% Delta Error calculating for all hidden layer and weights updating
@@ -77,10 +81,11 @@ if numberOfhidden > 1 %% if we have more than 1 hidden layer
 
            %Delta_Error_LastHidden_Nodes(k-1)= Hidden_Nodes(d,k)*sum_delta;  
 %%% delta error for Tanh
-          % Delta_Error_LastHidden_Nodes(k-1) = (4*exp(2*Hidden_Nodes(d,k)))/((exp(2*Hidden_Nodes(d,k)) + 1)^2)*sum_delta;
- %%% delta error for Linear  
+%           Delta_Error_LastHidden_Nodes(k-1) = (4*exp(2*Hidden_Nodes(d,k)))/((exp(2*Hidden_Nodes(d,k)) + 1)^2)*sum_delta;
+%%% delta error for Linear  
           Delta_Error_LastHidden_Nodes(k-1) = sum_delta;
-
+%%% Delta error for sigmoid
+%           Delta_Error_LastHidden_Nodes(k-1) = Hidden_Nodes(d,k)*(1 - Hidden_Nodes(d,k))*sum_delta;
         end
         
         r = r-length(Delta_Error_LastHidden_Nodes);
