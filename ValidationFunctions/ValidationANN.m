@@ -24,14 +24,15 @@ global End_month;
 time = time * 4;
 row = 1;
 % Validate for all days except the last 24 hours
-for i = 1:4:length(validationData)-(96+time)
+% Minus 2 days since the last day is special and the last temp must be 96 rows ahead.
+for i = 1:4:length(validationData)-(96+96) 
     column = 1;
     for j = i:4:i+92
         % Separate a input vector and its target from the validationData
-        [input, target(row, column)] = HourlyInputTarget( validationData,j+time, i,trainingTarget );
-        column = column + 1;
+        [input, target(row, column)] = HourlyInputTarget(validationData, j+4, i, trainingTarget );
         % Calculates our predicted temperature
-        [~, ~, output(row,column-1)] = calcOutput( input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
+        [~, ~, output(row,column)] = calcOutput( input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
+        column = column + 1;
     end
     % Calculate the error between our forecast and the actual temperature
     error(row) = abs(output(row) - target(row));
@@ -39,10 +40,11 @@ for i = 1:4:length(validationData)-(96+time)
 end
 
 % Same as above but for the remaining 24 hours
-for i = length(validationData)-(92+time) : 4 : length(validationData)
+% Minus 1 day and 23 hours since the last day is special and the last temp must be 96 rows ahead.
+for i = length(validationData)-(92+96) : 4 : length(validationData)
     column = 1;
-    for j = i : 4 : length(validationData)-(time+1)
-        [input, target(row, column)] = HourlyInputTarget(validationData, j+time, i, trainingTarget);
+    for j = i : 4 : length(validationData)-(96+1)
+        [input, target(row, column)] = HourlyInputTarget(validationData, j+4, i, trainingTarget);
         column = column + 1;
         [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
     end
@@ -62,9 +64,8 @@ end
 % Calculates how many good/bad predictions that were made +/- some limit
 good = 0;
 bad = 0;
-for i = 1:length(target)
-    
-    if abs(output(i,1) - target(i,1)) < 2 % Limit for a good prediction
+for i = 1:length(target)-(time/4)+1 % its zeros in the end 
+    if abs(output(i,(time/4)) - target(i,(time/4))) < 2 % Limit for a good prediction
         good = good+1;
     else
         bad = bad+1;

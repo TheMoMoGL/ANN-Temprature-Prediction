@@ -1,6 +1,5 @@
-% close all
- clear
- clc
+clear
+clc
 %%
 goodComp = 0;
 % Scaling parameters
@@ -11,13 +10,12 @@ time = 24; % How many hours to forecast between 1-24
 endHidden = 10; % Number of hidden nodes to end with
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 starthidden = 1; % How many hidden nodes in each layer to start out with
-learningRate = 0.0001; % Learning rate
+learningRate = 0.001; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 K_factor = 3; % Constant used for k-fold cross validaton
 start = 1; % Starting index for training and validation
 counter = 0; % Counter for report matrix
-
-period = 1; % has to be able to be divided with 12
+period = 1; % How big period the year shall be divided into
 
 % Starting index for training and validation
 if daysBefore ~= 0
@@ -35,7 +33,7 @@ for p = 1 :period: 12
     
     partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
     iterate = partition*2;
-
+    
     for parameter = 1:4
         [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
     end
@@ -70,7 +68,7 @@ for p = 1 :period: 12
     goodTrained = 0;
     for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
         [inputWeights, hiddenWeights, outputWeights, layers, good] = ANNtraining(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
-        % Saves the necessary data from the best trained ANN in an struct array 
+        % Saves the necessary data from the best trained ANN in an struct array
         if good > goodTrained
             goodTrained = good;
             field1 = 'Input';  value1 = inputWeights;
@@ -81,7 +79,7 @@ for p = 1 :period: 12
             field6 = 'Layers';  value6 = layers;
             field7 = 'Data'; value7 = ValidationInput;
             A{monthlyPeriod} = struct(field1, value1, field2, value2, field3, value3,...
-                                     field4, value4, field5, value5, field6, value6, field7, value7);
+                field4, value4, field5, value5, field6, value6, field7, value7);
         end
     end
     monthlyPeriod = monthlyPeriod +1;
@@ -90,16 +88,19 @@ for p = 1 :period: 12
 end
 
 
-    % Validation
-    [good, bad, RMSE, MAPE, ~, ValidationError, outputValid, targetValid] = ANNvalidation(A, time);
-    
-    if goodComp < good
-        goodComp = good;
-        bestHiddNeurons = runHidden;   % Saves the best output and target matrix
-        bestOutputValid = outputValid;
-        bestTargetValid = targetValid;
-    end
-    endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE]; % Final report
+% Validation
+[good, bad, RMSE, MAPE, Corr, ValidationError, outputValid, targetValid] = ANNvalidation(A, time);
+good / (good+bad)
+RMSE
+MAPE
+Corr
+if goodComp < good
+    goodComp = good;
+    bestHiddNeurons = runHidden;   % Saves the best output and target matrix
+    bestOutputValid = outputValid;
+    bestTargetValid = targetValid;
+end
+endReport(runHidden,:) = [numInput, runHidden, NumbHiddLay, learningRate, good, bad, RMSE, MAPE]; % Final report
 
 goodSMHI = 0;
 badSMHI = 0;
@@ -120,5 +121,4 @@ end
 sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
 
 samples = (good+bad);
- %bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess
-
+% bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess
