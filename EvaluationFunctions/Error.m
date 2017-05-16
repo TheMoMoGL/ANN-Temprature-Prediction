@@ -13,5 +13,6 @@ RMSE = sqrt( sum( ( target(:) - output(:) ).^2 ) ./ numel(output) ); % Normalize
 MAPE = abs(sum(( target - output ) ./ target) * (100 ./ numel(output)));
 Corr = corrcoef( target, output );
 MAPE = MAPE(1,1);
+%Corr = 1;
 Corr = Corr(1,2);
 end

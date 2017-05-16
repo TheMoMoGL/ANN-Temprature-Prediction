@@ -64,7 +64,6 @@ end
 ValidationInput = Normalisation(ValidationInput, maxValuesTrain, minValuesTrain);
 
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
-    
     % Training returns the weights for validation ANN
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
     
@@ -88,7 +87,7 @@ badSMHI = 0;
 count = 1;
 for i = start:4:length(validation)
     
-    if abs(validation(i,3) - validation(i,4)) < 1
+    if abs(validation(i,3) - validation(i,4)) < 2
         goodSMHI = goodSMHI + 1;
     else
         badSMHI = badSMHI + 1;
