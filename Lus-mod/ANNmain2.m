@@ -90,7 +90,7 @@ end
 
 % Validation
 [good, bad, RMSE, MAPE, Corr, ValidationError, outputValid, targetValid] = ANNvalidation(A, time);
-good / (good+bad)
+Percentage = good / (good+bad)
 RMSE
 MAPE
 Corr

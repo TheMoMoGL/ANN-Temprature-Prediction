@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr, error, output, target] = ValidationANN(validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
+function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN(validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -25,7 +25,7 @@ time = time * 4;
 row = 1;
 % Validate for all days except the last 24 hours
 % Minus 2 days since the last day is special and the last temp must be 96 rows ahead.
-for i = 1:4:length(validationData)-(96+96) 
+for i = 1:4:length(validationData)-(96+96)
     column = 1;
     for j = i:4:i+92
         % Separate a input vector and its target from the validationData
@@ -35,7 +35,7 @@ for i = 1:4:length(validationData)-(96+96)
         column = column + 1;
     end
     % Calculate the error between our forecast and the actual temperature
-    error(row) = abs(output(row) - target(row));
+    pip(row) = abs(output(row,(time/4)) - target(row,(time/4)));
     row = row + 1;
 end
 
@@ -48,7 +48,7 @@ for i = length(validationData)-(92+96) : 4 : length(validationData)
         column = column + 1;
         [~, ~, output(row,column-1)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
     end
-    error(row) = abs(output(row) - target(row));
+    %pip(row) = abs(output(row,(time/4)) - target(row,(time/4)));
     row = row + 1;
 end
 
@@ -64,8 +64,8 @@ end
 % Calculates how many good/bad predictions that were made +/- some limit
 good = 0;
 bad = 0;
-for i = 1:length(target)-(time/4)+1 % its zeros in the end 
-    if abs(output(i,(time/4)) - target(i,(time/4))) < 2 % Limit for a good prediction
+for i = 1:length(target)-(time/4)+1 % its zeros in the end
+    if  abs(output(i,(time/4)) - target(i,(time/4))) < 0.85 % Limit for a good prediction
         good = good+1;
     else
         bad = bad+1;
