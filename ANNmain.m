@@ -88,7 +88,9 @@ for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     
     % Validation
     [good, bad, RMSE, MAPE, Corr, ValidationError, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
-    
+    if bad==0
+        Pop=1;
+    end
     if goodComp < good
         goodComp = good;
         bestHiddNeurons = runHidden;   % Saves the best output and target matrix
