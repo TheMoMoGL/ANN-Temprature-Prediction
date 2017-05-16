@@ -2,7 +2,6 @@
 % clear
 % clc
 
-%%
 rng('default')
 global start;
 global validation;
@@ -37,17 +36,6 @@ end
 training = vertcat(Data14, Data15);
 validation = Data16;
 
-% totalData = [Data14; Data15; Data16];
-% partition = round(length(totalData)/K_factor); % Divides data after k-fold constant
-% iterate = 1;
-% iterate = partition;
-% iterate = partition*2;
-% iterate = 1:partition:length(totalData);
-
-% for parameter = 1:4
-%     [training(:,parameter), validation(:,parameter)] = k_fold(totalData(:,parameter), K_factor, iterate, partition);
-% end
-
 % Outlier detection
 for t = 1:2:3
     processedTrainingData(:,t) = Pre_process(training(:,t));
@@ -56,10 +44,11 @@ processedTrainingData(:,2) = training(:,2);
 
 a = 1;
 for i = start:length(training)-(start-1)
-    TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters( training(:,4), daysBefore, hoursbefore, i )];
+    TrainingInput(a,:) = [processedTrainingData(i,1:3), InputParameters(training(:,4), daysBefore, hoursbefore, i)];
     a = a + 1;
 end
 
+% Outlier detection
 for t = 1:2:3
     processedValidationData(:,t) = Pre_process(validation(:,t));
 end
@@ -67,28 +56,22 @@ processedValidationData(:,2) = validation(:,2);
 
 a = 1;
 for i = start:length(validation)-(start-1)
-    ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters( validation(:,4), daysBefore, hoursbefore, i )];
+    ValidationInput(a,:) = [processedValidationData(i,1:3), InputParameters(validation(:,4), daysBefore, hoursbefore, i)];
     a = a + 1;
 end
 
 [TrainingInput, maxValuesTrain, minValuesTrain] = MaxAndMin(TrainingInput);
 ValidationInput = Normalisation(ValidationInput, maxValuesTrain, minValuesTrain);
-% [ValidationInput, maxValuesVali, minValuesVali] = MaxAndMin(ValidationInput);
-
-% lengthTrain = length(TrainingInput);
-% totalInput = [TrainingInput; ValidationInput];
-% [totalNormal, ~, ~] = MaxAndMin(totalInput);
-% TrainingInput = totalNormal(1:lengthTrain, :);
-% ValidationInput = totalNormal(lengthTrain + 1:end, :);
-
 
 for runHidden = starthidden:endHidden % Loop that iterates thorugh the layers
     % Training returns the weights for validation ANN
     [inputWeights, hiddenWeights, outputWeights] = TrainingANN(TrainingInput, numInput, runHidden, NumbHiddLay, learningRate, training(:,4), time);
     
     % Validation
-    [good, bad, RMSE, MAPE, Corr, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
-    
+    [good, bad, RMSE, MAPE, Corr, ValidationError, outputValid, targetValid] = ValidationANN(ValidationInput, inputWeights, hiddenWeights, outputWeights, validation(:,4), NumbHiddLay, time);
+    if bad==0
+        Pop=1;
+    end
     if goodComp < good
         goodComp = good;
         bestHiddNeurons = runHidden;   % Saves the best output and target matrix
@@ -115,9 +98,7 @@ for i = start:4:length(validation)
     progTemp(count) = validation(i,3);
     count = count + 1;
 end
-SMHIPercent=(goodSMHI/(goodSMHI+badSMHI)*100);
- sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
+SMHIPercent = (goodSMHI/(goodSMHI + badSMHI)*100);
+sprintf('Good SMHI: %d \nBad SMHI: %d', goodSMHI, badSMHI)
 
 samples = (good+bad);
-% bestrun = EndReportcompilation(endReport, samples, endHidden, bestOutputValid, bestTargetValid, bestHiddNeurons, progTemp); %endReport compilation in progess
-
