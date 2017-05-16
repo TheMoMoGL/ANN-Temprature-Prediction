@@ -22,10 +22,10 @@ end
 
 % Calculates and creates the vector with values for the first hidden layer
 for i = 1:inputSize(1)
-%     hiddenOutput(1,i+1) = linear_activation(Net(inputWeights(i,:), newInput));
+    hiddenOutput(1,i+1) = linear_activation(Net(inputWeights(i,:), newInput));
 %     hiddenOutput(1,i+1) = tanh_activation(Net(inputWeights(i,:), newInput));
 %     hiddenOutput(1,i+1) = sigmoid(Net(inputWeights(i,:), newInput));
-    hiddenOutput(1,i+1) = ReLu_activation_function(Net(inputWeights(i,:), newInput));
+%     hiddenOutput(1,i+1) = ReLu_activation_function(Net(inputWeights(i,:), newInput));
 end
 % Calculates and creates the vector with values for the hidden layers only
 % if more than one
