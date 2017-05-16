@@ -27,22 +27,22 @@ trainCount = 1;
 good = 0;
 % This loop runs untilthe percentage of correct predictions are greater
 % than the percent value in the while statement
-while(good/total) < 0.6 
-
+while(good/(total/4)) < 0.6
     good = 0;
-    for i = 1:4:length(trainingData) - time
+    trainCount = 1;
+    for i = 1:4:length(trainingData) - 96
         % Create function that selects the right inputs among the training data
-        [input, target(i)] = HourlyInputTarget(trainingData, i+time, i, trainingTarget);
-        [newInput, hiddenOutput, output(i)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay); % Prediction
-        if abs(output(i) - target(i)) > 1 % if error is less than this value BP is not preformed
+        [input, target(trainCount)] = HourlyInputTarget(trainingData, i+96, i, trainingTarget);
+        [newInput, hiddenOutput, output(trainCount)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay); % Prediction
+        if abs(output(trainCount) - target(trainCount)) > 1 % if error is less than this value BP is not preformed
             % Back propagation
-            [inputWeights,outputWeights, hiddenWeights] = BackP(output(i), target(i), outputWeights, inputWeights, hiddenOutput, newInput,n,hiddenWeights,numHiddLay);
+            [inputWeights,outputWeights, hiddenWeights] = BackP(output(trainCount), target(trainCount), outputWeights, inputWeights, hiddenOutput, newInput, n, hiddenWeights, numHiddLay);
         end
-        error(trainCount) = abs(output(i) - target(i));
+        %error(trainCount) = abs(output(trainCount) - target(trainCount));
         trainCount = trainCount +1;
     end
     % Calculates the number of correct predictions
-    for i = 1:length(target)
+    for i = 1:trainCount-1
         if abs(output(i) - target(i)) < 2
             good = good + 1;
         end

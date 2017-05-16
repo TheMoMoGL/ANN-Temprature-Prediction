@@ -92,7 +92,7 @@ global starthidden;
 global endHidden;
 global learningRate;
 global NumbHiddLay;
-global K_factor;
+%global K_factor;
 global Start_month;
 global End_month;
 global bestOutputValid;
@@ -139,13 +139,13 @@ colnames = {'Inputs', 'Hidden inputs', 'Good', 'Bad', 'RMSE', 'MAPE', 'Correlati
 set(handles.Table,'data',[endReport(I,1), endReport(I,2), maxGood, maxBad, endReport(I,7), endReport(I,8), endReport(I,9)],'ColumnName',colnames);
 progEnd = length(bestOutputValid);
 [m,~] = size(bestOutputValid);
-progtemp = progTemp(1:progEnd)';
-dt = 1:1:m;
+progtemp = progTemp(1:(progEnd-(time-1)))';
+dt = 1:1:(m-time+1);
 
 axes(handles.axes5); %Gets handle to plot on the main graph. Plots real temprature, predicted by ANN and predicted by SMHI.
-plot(dt, bestOutputValid(:,1))
+plot(dt, bestOutputValid((1:end-time+1),time))
 hold on
-plot (dt, bestTargetValid(:,1))
+plot (dt, bestTargetValid((1:end-time+1),time))
 hold on
 plot (dt, progtemp, 'g')
 legend('Temperature prognosis', 'Measured temperature', 'SMHI prognosis')
