@@ -93,7 +93,7 @@ global starthidden;
 global endHidden;
 global learningRate;
 global NumbHiddLay;
-global K_factor;
+% global K_factor;
 global Start_month;
 global End_month;
 global bestOutputValid;
