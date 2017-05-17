@@ -86,6 +86,7 @@ set(handles.figure1, 'pointer', 'watch')
 pause(0.01); %Makes the program run a bit slower else the GUI is not able to show the wait cursor.
 clearbutton_Callback(hObject, eventdata, handles);
 pause(0.01);
+%Initiating global variables
 global daysBefore;
 global hoursbefore;
 global starthidden;
