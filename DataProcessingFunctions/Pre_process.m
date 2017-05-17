@@ -14,7 +14,7 @@ stepVector = 1:numel(Param);
 % Consistency constant
 %constant = 1.4826;
 
-% Median average deviation
+% Median absolute deviation
 MADValue = median(abs(Param - median(Param)));
 
 % Find elements outside of two standard deviations

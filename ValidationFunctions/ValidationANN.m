@@ -72,6 +72,6 @@ for i = 1:length(target)-(time/4)+1 % its zeros in the end
     end
 end
 
-[RMSE, MAPE, Corr] = Error(output, target);
+[RMSE, MAPE, Corr] = Error(output(i,(time/4)), target(i,(time/4)));
 
 end
