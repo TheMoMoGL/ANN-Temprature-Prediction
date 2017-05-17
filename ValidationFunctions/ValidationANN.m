@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr, output, target] = ValidationANN(validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
+function [good, bad, RMSE, MAPE, Corr, pip, output, target] = ValidationANN(validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
