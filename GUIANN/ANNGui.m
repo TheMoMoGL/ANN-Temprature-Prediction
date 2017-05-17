@@ -122,6 +122,8 @@ NumbHiddLay = str2double(get(handles.HiddenLayersINP,'string'));
 time = str2double(get(handles.HourlyforecastINP,'string'));
 Start_month = str2double(get(handles.StartSeasonINP,'string'));
 End_month = str2double(get(handles.endSeasonINP,'string'));
+if (isnan(Start_month)==0 && isnan(End_month)==0 && isnan(daysBefore)==0 && isnan(hoursbefore)==0 && isnan(starthidden)==0 && isnan(endHidden)==0 && isnan(learningRate)==0 && isnan(NumbHiddLay)==0 && isnan(time)==0)
+
 
 run('ANNmain.m'); % runs 'ANNmain.m' which is the ANN.
 
@@ -175,6 +177,15 @@ set(handles.figure1, 'pointer', 'arrow')
 set(handles.DayToPlot, 'string', day1)
 
 guidata(hObject, handles)
+else 
+    msgbox('You have to enter value for all variables');
+    clearbutton_Callback(hObject, eventdata, handles);
+    guidata(hObject, handles)
+end 
+
+
+
+
 
 
 function LearningRateINP_Callback(hObject, eventdata, handles)
