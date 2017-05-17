@@ -27,7 +27,7 @@ trainCount = 1;
 good = 0;
 % This loop runs untilthe percentage of correct predictions are greater
 % than the percent value in the while statement
-while(good/(total/4)) < 0.6
+while(good/(total/4)) < 0.6 
     good = 0;
     trainCount = 1;
     for i = 1:4:length(trainingData) - 96
