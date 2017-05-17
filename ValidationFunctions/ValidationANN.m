@@ -1,4 +1,4 @@
-function [good, bad, RMSE, MAPE, Corr, pip, output, target] = ValidationANN(validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
+function [good, bad, RMSE, MAPE, Corr, err, output, target] = ValidationANN(validationData, inputWeights, hiddenWeights, outputWeights, trainingTarget, numHiddLay, time)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs: validationData -> Validation data vector
@@ -35,7 +35,7 @@ for i = 1:4:length(validationData)-(96+96)
         column = column + 1;
     end
     % Calculate the error between our forecast and the actual temperature
-    pip(row) = abs(output(row,(time/4)) - target(row,(time/4)));
+    err(row) = abs(output(row,(time/4)) - target(row,(time/4)));
     row = row + 1;
 end
 
@@ -65,7 +65,7 @@ end
 good = 0;
 bad = 0;
 for i = 1:length(target)-(time/4)+1 % its zeros in the end
-    if  abs(output(i,(time/4)) - target(i,(time/4))) < 0.85 % Limit for a good prediction
+    if  abs(output(i,(time/4)) - target(i,(time/4))) < 2 % Limit for a good prediction
         good = good+1;
     else
         bad = bad+1;
