@@ -28,20 +28,19 @@ end
 %%%%%%%%%%%%%%% Calculation of the Delta Error for last Hidden layer
 
 for i = 2:n
-    %%% delta erro for RElU
-
-        if (Hidden_Nodes(m,i) > 0)
-            Hidden_Nodes(m,i)=1;
-        else
-            Hidden_Nodes(m,i) = 0.01;
-        end
-        Delta_Error_LastHidden_Nodes(i-1)=Hidden_Nodes(m,i)*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
+    %% delta erro for RElU
+            if (Hidden_Nodes(m,i) > 0)
+                Hidden_Nodes(m,i) = 1;
+            else
+                Hidden_Nodes(m,i) = 0.1;
+            end
+            Delta_Error_LastHidden_Nodes(i-1)=Hidden_Nodes(m,i)*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
     %%% delta erro for Tanh
-    Delta_Error_LastHidden_Nodes(i-1) = (4*exp(2*Hidden_Nodes(m,i)))/((exp(2*Hidden_Nodes(m,i)) + 1)^2)*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
+    % Delta_Error_LastHidden_Nodes(i-1) = (4*exp(2*Hidden_Nodes(m,i)))/((exp(2*Hidden_Nodes(m,i)) + 1)^2)*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
     %%% delta error for linear
-%     Delta_Error_LastHidden_Nodes(i-1) = Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
+    %     Delta_Error_LastHidden_Nodes(i-1) = Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
     %%% Delta error for sigmoid
-    % Delta_Error_LastHidden_Nodes(i-1) = Hidden_Nodes(m,i)*(1 - Hidden_Nodes(m,i))*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
+    %     Delta_Error_LastHidden_Nodes(i-1) = Hidden_Nodes(m,i)*(1 - Hidden_Nodes(m,i))*Updated_Weights_Hidden_Output(i)*Delta_Error_Output;
     
 end
 %%%% Delta Error calculating for all hidden layer and weights updating
@@ -79,14 +78,12 @@ if numberOfhidden > 1 %% if we have more than 1 hidden layer
                     end
             
                        Delta_Error_LastHidden_Nodes(k-1)= Hidden_Nodes(d,k)*sum_delta;
-
             %%% delta error for Tanh
-%                      Delta_Error_LastHidden_Nodes(k-1) = (4*exp(2*Hidden_Nodes(d,k)))/((exp(2*Hidden_Nodes(d,k)) + 1)^2)*sum_delta;
+            %    Delta_Error_LastHidden_Nodes(k-1) = (4*exp(2*Hidden_Nodes(d,k)))/((exp(2*Hidden_Nodes(d,k)) + 1)^2)*sum_delta;
             %%% delta error for Linear
-
-           % Delta_Error_LastHidden_Nodes(k-1) = sum_delta;
+            %    Delta_Error_LastHidden_Nodes(k-1) = sum_delta;
             %%% Delta error for sigmoid
-            %          Delta_Error_LastHidden_Nodes(k-1) = Hidden_Nodes(d,k)*(1 - Hidden_Nodes(d,k))*sum_delta;
+            %   Delta_Error_LastHidden_Nodes(k-1) = Hidden_Nodes(d,k)*(1 - Hidden_Nodes(d,k))*sum_delta;
             
         end
         

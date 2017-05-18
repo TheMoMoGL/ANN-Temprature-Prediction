@@ -11,7 +11,8 @@ function [RMSE, MAPE, Corr] = Error( output, target )
 n = numel(target);
 
 RMSE = sqrt(mean((target(:) - output(:)).^2)); % Actual root mean square error function
-MAPE = abs(sum(target - output)./ target) * (1/n);
+MAPE = abs(sum((output - target)./ output)) * (100/n); % times 100 to get result in percent
 Corr = corrcoef(target, output);
+Corr = Corr(1,2); % 2x2 matrix with ones in the diagonal corr. coef. value in (1,2) & (2,1)
 
 end
