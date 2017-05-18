@@ -25,6 +25,7 @@ Param(id) = NaN;
 
 % Linear interpolation of NaN entries
 [newParam, ~] = fillmissing(Param,'linear','SamplePoints',stepVector);
+%[newParam, ~] = fillmissing(Param,'linear','EndValues','nearest');
 
 end
 
