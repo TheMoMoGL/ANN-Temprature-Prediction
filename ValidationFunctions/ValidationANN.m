@@ -21,7 +21,6 @@ global validation;
 global start;
 global Start_month;
 global End_month;
-time = time * 4;
 row = 1;
 % Validate for all days except the last 24 hours
 % Minus 2 days since the last day is special and the last temp must be 96 rows ahead.
@@ -35,7 +34,7 @@ for i = 1:4:length(validationData)-(96+96)
         column = column + 1;
     end
     % Calculate the error between our forecast and the actual temperature
-    err(row) = abs(output(row,(time/4)) - target(row,(time/4)));
+    err(row) = abs(output(row,time) - target(row,time));
     row = row + 1;
 end
 
@@ -64,14 +63,14 @@ end
 % Calculates how many good/bad predictions that were made +/- some limit
 good = 0;
 bad = 0;
-for i = 1:length(target)-(time/4)+1 % its zeros in the end
-    if  abs(output(i,(time/4)) - target(i,(time/4))) < 2 % Limit for a good prediction
+for i = 1:length(target)-(time+1) % its zeros in the end
+    if  abs(output(i,time) - target(i,time)) < 2 % Limit for a good prediction
         good = good+1;
     else
         bad = bad+1;
     end
 end
 
-[RMSE, MAPE, Corr] = Error(output(i,(time/4)), target(i,(time/4)));
+[RMSE, MAPE, Corr] = Error(output(1:(end-time),time), target(1:(end-time),time));
 
 end

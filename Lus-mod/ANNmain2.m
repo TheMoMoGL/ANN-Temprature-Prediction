@@ -5,12 +5,12 @@ goodComp = 0;
 % Scaling parameters
 
 daysBefore = 1;
-hoursbefore = 10;
+hoursbefore = 4;
 time = 24; % How many hours to forecast between 1-24
-endHidden = 10; % Number of hidden nodes to end with
+endHidden = 15; % Number of hidden nodes to end with
 numInput = 4 + (daysBefore + hoursbefore); % Number of input nodes
 starthidden = 1; % How many hidden nodes in each layer to start out with
-learningRate = 0.001; % Learning rate
+learningRate = 0.1; % Learning rate
 NumbHiddLay = 2; % Number of hidden layers
 K_factor = 3; % Constant used for k-fold cross validaton
 start = 1; % Starting index for training and validation
