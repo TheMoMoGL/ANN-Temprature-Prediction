@@ -11,7 +11,7 @@ function [RMSE, MAPE, Corr] = Error( output, target )
 n = numel(target);
 
 RMSE = sqrt(mean((target(:) - output(:)).^2)); % Actual root mean square error function
-MAPE = abs(sum(target - output)./ target) * (1/n);
+MAPE =abs(sum(target - output)./ target) * (1/n);
 Corr = corrcoef(target, output);
 
 end
