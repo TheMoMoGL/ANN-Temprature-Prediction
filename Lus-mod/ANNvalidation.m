@@ -34,8 +34,5 @@ for i = 1:length(target)
         bad = bad+1;
     end
 end
-[RMSE, MAPE, Corr] = Error(output', target');
-
-
-
+[RMSE, MAPE, Corr] = Error(output, target);
 end

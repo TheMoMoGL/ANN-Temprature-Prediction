@@ -162,6 +162,7 @@ guidata(hObject,handles)
 startPlot = 1;
 endPlot = 24;
 day = 1;
+global start;
 outputDayPlot = bestOutputValid(startPlot:endPlot, 1);
 targetDayPlot = bestTargetValid(startPlot:endPlot,1);
 compareDayPlot = progTemp(startPlot:endPlot);
