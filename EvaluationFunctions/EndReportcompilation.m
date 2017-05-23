@@ -16,6 +16,6 @@ function [bestrun] = EndReportcompilation(endReport, samples, endHidden, outputV
 
 
  bestrun = EndReportAnalysis(endReport, samples, endHidden);
- graphs(outputValid(:,1), targetValid(:,1), bestHiddNeurons, progTemp);
+ graphs(outputValid, targetValid, bestHiddNeurons, progTemp);
  
 end
