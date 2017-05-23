@@ -180,14 +180,10 @@ set(handles.DayToPlot, 'string', day1)
 
 guidata(hObject, handles)
 else 
-    msgbox('You have to enter value for all variables');
+    msgbox('You have to enter values for all variables');
     clearbutton_Callback(hObject, eventdata, handles);
     guidata(hObject, handles)
 end 
-
-
-
-
 
 
 function LearningRateINP_Callback(hObject, eventdata, handles)
