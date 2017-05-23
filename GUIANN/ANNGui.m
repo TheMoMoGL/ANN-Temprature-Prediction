@@ -185,10 +185,6 @@ else
 end 
 
 
-
-
-
-
 function LearningRateINP_Callback(hObject, eventdata, handles)
 % hObject    handle to LearningRateINP (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB

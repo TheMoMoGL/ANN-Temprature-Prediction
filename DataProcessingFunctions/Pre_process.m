@@ -23,7 +23,7 @@ id = 2 < (abs(Param - median(Param)) / MADValue);
 % Replace outliers with NaN
 Param(id) = NaN;
 
-% Linear interpolation of NaN entries
+% Interpolation of NaN entries
 % [newParam, ~] = fillmissing(Param,'linear','SamplePoints',stepVector);
 % [newParam, ~] = fillmissing(Param,'linear','EndValues','nearest');
 [newParam, ~] = fillmissing(Param,'spline','SamplePoints',stepVector);
