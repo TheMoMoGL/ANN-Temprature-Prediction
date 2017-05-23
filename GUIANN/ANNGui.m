@@ -138,8 +138,8 @@ End_time = sprintf('Execution Time: %3f', running_time);
 set(handles.time, 'String', End_time);
 percent2 = sprintf('SMHI: %3f', SMHIPercent);
 set(handles.SMHIAcc, 'String', percent2);
-colnames = {'Inputs', 'Hidden inputs', 'Good', 'Bad', 'RMSE', 'MAPE', 'Correlation'};
-set(handles.Table,'data',[endReport(I,1), endReport(I,2), maxGood, maxBad, endReport(I,7), endReport(I,8), endReport(I,9)],'ColumnName',colnames);
+colnames = {'Inputs', 'Hidden inputs', 'Good', 'Bad', 'RMSE', 'Correlation'};
+set(handles.Table,'data',[endReport(I,1), endReport(I,2), maxGood, maxBad, endReport(I,7), endReport(I,9)],'ColumnName',colnames);
 progEnd = length(bestOutputValid);
 [m,~] = size(bestOutputValid);
 progtemp = progTemp(1:(progEnd-(time-1)))';
@@ -162,6 +162,7 @@ guidata(hObject,handles)
 startPlot = 1;
 endPlot = 24;
 day = 1;
+global start;
 outputDayPlot = bestOutputValid(startPlot:endPlot, 1);
 targetDayPlot = bestTargetValid(startPlot:endPlot,1);
 compareDayPlot = progTemp(startPlot:endPlot);
@@ -179,14 +180,10 @@ set(handles.DayToPlot, 'string', day1)
 
 guidata(hObject, handles)
 else 
-    msgbox('You have to enter value for all variables');
+    msgbox('You have to enter values for all variables');
     clearbutton_Callback(hObject, eventdata, handles);
     guidata(hObject, handles)
 end 
-
-
-
-
 
 
 function LearningRateINP_Callback(hObject, eventdata, handles)
