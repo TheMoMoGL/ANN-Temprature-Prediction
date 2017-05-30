@@ -156,24 +156,25 @@ stem(handles.axes2,endReport(:,2),endReport(:,5)) % stem plot
 axis(handles.axes2,[1 endHidden 0 samples])    
 set(handles.figure1, 'pointer', 'arrow')
 % set(gcf,'Pointer','arrow');
-guidata(hObject,handles)
+% guidata(hObject,handles)
 
 % Plotting of 24 hour ahead temperature prediction
 startPlot = 1;
 endPlot = 24;
 day = 1;
-global start;
+
 outputDayPlot = bestOutputValid(startPlot:endPlot, 1);
 targetDayPlot = bestTargetValid(startPlot:endPlot,1);
 compareDayPlot = progTemp(startPlot:endPlot);
 dp = startPlot:1:endPlot;
+cla(handles.axes6)
 axes(handles.axes6);
+set(gca,'XTick',1:1:24);
 plot(dp, outputDayPlot)
 hold on
 plot(dp, targetDayPlot)
 hold on
 plot(dp, compareDayPlot, 'g')
-set(gca,'XTick',1:1:24);
 day1 = sprintf('Day: %d', day);
 set(handles.figure1, 'pointer', 'arrow')
 set(handles.DayToPlot, 'string', day1)
@@ -483,6 +484,8 @@ clear golbal running_time;
 clear global startPlot;
 clear global endPlot;
 clear global day;
+clear global start;
+
 
 guidata(hObject,handles)
 

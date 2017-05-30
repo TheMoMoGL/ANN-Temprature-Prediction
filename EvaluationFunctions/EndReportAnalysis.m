@@ -22,11 +22,11 @@ subplot(2,2,2)       % add second plot in 2 x 2 grid
 stem(endreport(:,2),endreport(:,7))       % stem plot
 title('Root-mean-square deviation')
 
-subplot(2,2,3)       % add third plot in 2 x 2 grid
-stem(endreport(:,2),endreport(:,8))           % stem plot
-title('Mean absolute percentage error')
+% subplot(2,2,3)       % add third plot in 2 x 2 grid
+% stem(endreport(:,2),endreport(:,8))           % stem plot
+% title('Mean absolute percentage error')
 
-subplot(2,2,4)       % add fourth plot in 2 x 2 grid
+subplot(2,2,[3,4])       % add fourth plot in 2 x 2 grid
 stem(endreport(:,2),endreport(:,9))           % stem plot
 title('Correlation')
 
