@@ -38,6 +38,7 @@ while((good/(total/4)) < 0.60)
             % Back propagation
             [inputWeights,outputWeights, hiddenWeights] = BackP(output(trainCount), target(trainCount), outputWeights, inputWeights, hiddenOutput, newInput, n, hiddenWeights, numHiddLay);
         end
+       [newInput, hiddenOutput, PERF(trainCount)] = calcOutput(input, inputWeights, hiddenWeights, outputWeights, numHiddLay);
         %error(trainCount) = abs(output(trainCount) - target(trainCount));
         trainCount = trainCount +1;
     end
@@ -48,4 +49,7 @@ while((good/(total/4)) < 0.60)
         end
     end 
 end
+
+plot(length(trainingData),PERF(:),'--')
+
 end
