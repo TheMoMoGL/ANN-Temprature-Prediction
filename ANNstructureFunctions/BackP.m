@@ -28,6 +28,7 @@ end
 %%%%%%%%%%%%%%% Calculation of the Delta Error for last Hidden layer
 
 for i = 2:n
+
     %%% delta erro for ReLu
     %         if (Hidden_Nodes(m,i) > 0)
     %             Hidden_Nodes(m,i) = 1;
@@ -74,19 +75,20 @@ if numberOfhidden > 1 %% if we have more than 1 hidden layer
                 
             end
             
-            %%% delta error for RELU
-            %         if (Hidden_Nodes(d,k) > 0)
-            %             Hidden_Nodes(d,k) = 1;
-            %         else
-            %             Hidden_Nodes(d,k) = 0.1;
-            %         end
-            %
-            %            Delta_Error_LastHidden_Nodes(k-1)= Hidden_Nodes(d,k)*sum_delta;
+%             %%% delta error for RELU
+%                     if (Hidden_Nodes(d,k) > 0)
+%                         Hidden_Nodes(d,k)=1;
+%                     else
+%                         Hidden_Nodes(d,k) = 0.01;
+%                     end
+%             
+%                        Delta_Error_LastHidden_Nodes(k-1)= Hidden_Nodes(d,k)*sum_delta;
             %%% delta error for Tanh
 
 %           Delta_Error_LastHidden_Nodes(k-1) = (4*exp(2*Hidden_Nodes(d,k)))/((exp(2*Hidden_Nodes(d,k)) + 1)^2)*sum_delta;
 
             %%% delta error for Linear
+
             Delta_Error_LastHidden_Nodes(k-1) = sum_delta;
             %%% Delta error for sigmoid
 %             Delta_Error_LastHidden_Nodes(k-1) = Hidden_Nodes(d,k)*(1 - Hidden_Nodes(d,k))*sum_delta;
